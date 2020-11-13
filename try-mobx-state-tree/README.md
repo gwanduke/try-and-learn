@@ -10,6 +10,7 @@
   - [Source](./mst-todo)
 - [Basic Concepts](./docs/basic-concepts.md)
 - [Advanced Concepts](./docs/advanced-concepts.md)
+- [Egghead.io - Manage Application State with Mobx-state-tree](./docs/manage-application-state-with-mobx-state-tree.md)
 
 ## The curious case of mobx state tree
 
