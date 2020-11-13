@@ -1,0 +1,30 @@
+.app {
+  width: 800px;
+  text-align: center;
+  border: 1px solid #000;
+  margin: 0 auto;
+}
+
+#startbutton {
+  padding: 10px;
+  border: 1px solid #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #84a0d6;
+}
+
+.results {
+  display: flex;
+  justify-content: center;
+}
+
+.result {
+  color: #fff;
+  background-color: #000;
+  padding: 10px;
+}
+
+.result + .result {
+  margin-left: 10px;
+}
