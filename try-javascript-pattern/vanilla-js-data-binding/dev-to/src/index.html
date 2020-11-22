@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vanilla JS Data Binding With Classes From Scratch</title>
+  </head>
+  <body>
+    <main>
+      <h1>Vanilla JS Data Binding</h1>
+      <div>
+        <input data-bind="value: name" placeholder="Enter name" />
+        <input data-bind="value: surname" placeholder="Enter surname" />
+      </div>
+      <br />
+      <br />
+      <div>
+        <h2>Entered Person</h2>
+        <span data-bind="text: name"></span>
+        <span data-bind="text: surname"></span>
+      </div>
+    </main>
+  </body>
+</html>

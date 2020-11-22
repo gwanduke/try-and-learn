@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Two Way Binding with Vanilla JS</title>
+  </head>
+  <body>
+    <div>
+      <h1>Two Way Binding with Vanilla JS</h1>
+      <div>
+        <label>Name:</label>
+        <input type="text" data-model="name" />
+        <span data-binding="name" style="margin-left: 1rem"></span>
+      </div>
+      <div>
+        <label>LastName:</label>
+        <input type="text" data-model="lastName" />
+        <span data-binding="lastName" style="margin-left: 1rem"></span>
+      </div>
+      <div>
+        <label>Age:</label>
+        <input type="text" data-model="age" />
+        <span data-binding="age" style="margin-left: 1rem"></span>
+      </div>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>
