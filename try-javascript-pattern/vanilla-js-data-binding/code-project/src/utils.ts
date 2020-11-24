@@ -36,9 +36,13 @@ export function initEvents(...args: string[]) {
   const events: {
     [key: string]: any;
   } = {};
+
+  // 주어진 이벤트 이름(key)마다 dispatcher 할당
+  // (add, notify 가능)
   for (const key of args) {
     events[key] = dispatcher();
   }
+
   return {
     on(eventName: string, handler: any) {
       return events[eventName].add(handler);

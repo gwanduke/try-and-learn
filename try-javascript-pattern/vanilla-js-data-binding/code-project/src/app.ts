@@ -4,60 +4,51 @@ import { Model, Selector } from "./types";
 import { utils } from "./utils";
 
 class App {
-  el: HTMLElement;
   form: FormView;
   models: Model[];
 
-  modelState: any;
+  $targetElement: HTMLElement;
+  $modelState: HTMLElement;
   removeHandlers: any[];
 
   constructor(selector: Selector) {
-    this.el = utils.el(selector);
+    this.$targetElement = utils.el(selector);
   }
 
   initialize() {
-    utils.html(this.el, mainTemplate());
-    this.initialize$App(this.el);
-    this.form.initialize();
-    utils.on(this.el, ".models input", "click", (evnt: any) =>
+    utils.html(this.$targetElement, mainTemplate());
+
+    this.form = new FormView(utils.el(".form", <any>this.$targetElement));
+    this.$modelState = utils.el(".model-state", <any>this.$targetElement);
+
+    utils.on(this.$targetElement, ".models input", "click", (evnt: any) =>
       this.switchModel(evnt)
     );
   }
 
-  initialize$App(el: HTMLElement) {
-    this.form = new FormView(utils.el(".form", <any>el));
-    this.modelState = utils.el(".model-state", <any>el);
-  }
-
-  logModelState(model: Model) {
-    utils.html(this.modelState, JSON.stringify(model));
-  }
-
-  bind(formModel: Model) {
-    this.form.setModel(formModel);
+  changeModel(model: Model) {
+    this.form.setModel(model);
     this.removeHandlers = [
-      formModel.on("change:name", () => this.logModelState(formModel)),
-      formModel.on("change:output", () => this.logModelState(formModel)),
-      formModel.on("change:time", () => this.logModelState(formModel)),
+      model.on("change:name", () => this.logModelState(model)),
+      model.on("change:output", () => this.logModelState(model)),
+      model.on("change:time", () => this.logModelState(model)),
     ];
   }
 
+  logModelState(model: Model) {
+    utils.html(this.$modelState, JSON.stringify(model));
+  }
+
+  // 등록된 모델을 변경함
   switchModel(evnt: any) {
     const index = +evnt.target.value;
-    this.bind(this.models[index]);
+    this.changeModel(this.models[index]);
   }
 
+  // 모델 inject
   setModels(models: Model[]) {
     this.models = models;
-    this.bind(models[0]);
-  }
-
-  remove() {
-    this.form.setModel(null);
-    this.removeHandlers.forEach((removeHandler) =>
-      utils.getResult(this, () => removeHandler)
-    );
-    this.form.remove();
+    this.changeModel(models[0]);
   }
 }
 

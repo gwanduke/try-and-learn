@@ -1,9 +1,9 @@
 import { formTemplate } from "./templates";
-import { Model, Selector } from "./types";
+import { Model } from "./types";
 import { utils } from "./utils";
 
 class FormView {
-  el: HTMLElement;
+  targetElement: HTMLElement;
   name: HTMLElement & { value?: any };
   output: any;
   currentTime: any;
@@ -13,8 +13,8 @@ class FormView {
   syncOutputRemove: any;
   syncCurrentTimeRemove: any;
 
-  constructor(selector: Selector) {
-    this.el = utils.el(selector);
+  constructor(element: HTMLElement) {
+    this.targetElement = element;
   }
 
   getName() {
@@ -56,8 +56,8 @@ class FormView {
   }
 
   initialize() {
-    utils.html(this.el, formTemplate());
-    this.initialize$FormView(this.el);
+    utils.html(this.targetElement, formTemplate());
+    this.initialize$FormView(this.targetElement);
   }
 
   initialize$FormView(el: any) {
@@ -68,11 +68,17 @@ class FormView {
 
   bind(model: Model) {
     // update data from DOM to model
-    this.onInputNameRemove = utils.on(this.el, ".name", "input", () =>
-      model.prop("name", this.getName())
+    this.onInputNameRemove = utils.on(
+      this.targetElement,
+      ".name",
+      "input",
+      () => model.prop("name", this.getName())
     );
-    this.onInputOutputRemove = utils.on(this.el, ".output", "input", () =>
-      model.prop("output", this.getOutput())
+    this.onInputOutputRemove = utils.on(
+      this.targetElement,
+      ".output",
+      "input",
+      () => model.prop("output", this.getOutput())
     );
     // update data from model to DOM
     this.syncNameRemove = model.on("change:name", () =>
@@ -93,8 +99,6 @@ class FormView {
     utils.getResult(this, () => this.syncOutputRemove);
     utils.getResult(this, () => this.syncCurrentTimeRemove);
   }
-
-  remove() {}
 }
 
 export default FormView;
