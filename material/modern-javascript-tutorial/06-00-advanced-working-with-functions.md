@@ -43,7 +43,7 @@
 function makeCounter() {
   let count = 0;
 
-  return function() {
+  return function () {
     return count++;
   };
 }
@@ -201,12 +201,12 @@ function sayHi() {}
 console.log(sayHi.name);
 
 // 2
-let sayHi = function() {};
+let sayHi = function () {};
 let sayHi = () => {};
 console.log(sayHi.name);
 
 // 3. 이름이 없는 함수는 contextual name 이라는 것을 통해 이름을 가져오게됨 (컨텍스트에서 이름을 가져옴)
-function f(sayHi = function() {}) {
+function f(sayHi = function () {}) {
   console.log(sayHi.name);
 }
 f();
@@ -219,8 +219,8 @@ f();
 // 4
 let user = {
   sayHi() {},
-  sayBye: function() {},
-  saySomething: () => {}
+  sayBye: function () {},
+  saySomething: () => {},
 };
 
 console.log(user.sayHi.name);
@@ -230,7 +230,7 @@ console.log(user.saySomething.name);
 
 ```js
 // 다음과 같은 경우에는 엔진이 이름을 추론할 수 없고, 이런 경우에는 빈문자열을 할당한다.
-let arr = [function() {}];
+let arr = [function () {}];
 alert(arr[0].name); // <빈 문자열>
 ```
 
@@ -283,9 +283,9 @@ alert(counter()); // 10
 
   // 전역객체에 함수를 추가하는 함수
   export function mixin(obj) {
-    each(functions(obj), function(name) {
+    each(functions(obj), function (name) {
       var func = (_[name] = obj[name]);
-      _.prototype[name] = function() {
+      _.prototype[name] = function () {
         var args = [this._wrapped];
         push.apply(args, arguments);
         return chainResult(this, func.apply(_, args));
@@ -324,7 +324,7 @@ func(); // Error, func is not defined (함수 표현식 밖에서는 func을 사
 왜 사용할까?
 
 ```js
-let sayHi = function(who) {
+let sayHi = function (who) {
   if (who) {
     alert(`Hello, ${who}`);
   } else {
@@ -370,7 +370,7 @@ getFunc()(); // ReferenceError: value is not defined
 ### SetTimeout
 
 ```js
-const printName = name => {
+const printName = (name) => {
   console.log(name);
 };
 

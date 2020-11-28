@@ -41,7 +41,7 @@ for (let key in proxy) alert(key); // test, 이터레이션이 동작한다
 즉, 트랩이 없다면 모든 동작은 target으로 전달되어진다. 바꿔 말하면 trap이 없는
 `proxy`는 `target`을 감싸는 투명한 래퍼이다. proxy는 own properties가 없다.
 
-![투명한 래퍼로서의 프록시](./proxy-the-transparent-wrapper.png)
+![투명한 래퍼로서의 프록시](./images/14-01-proxy-the-transparent-wrapper.png)
 
 자바스크립트 명세에는 "내부 메서드"가 있는데 로우 레벨의 동작을 설명할 때 쓰이는
 `[[GET]]`이나 `[[SET]]`같은 것들이다. 이는 명세에서나 이렇게 쓰이고 실제로는
