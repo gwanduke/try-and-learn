@@ -14,7 +14,7 @@
 - [Basic Concepts](./docs/basic-concepts.md)
 - [Advanced Concepts](./docs/advanced-concepts.md)
 - [Egghead.io - Manage Application State with Mobx-state-tree](./docs/manage-application-state-with-mobx-state-tree.md)
-- [프로젝트를 진행하며 알게된 것](./in-the-wild.md)
+- [프로젝트를 진행하며 알게된 것](./docs/in-the-wild.md)
 
 ## References
 
