@@ -1,6 +1,4 @@
-# 14.1 Proxy and `Reflect`를 사용함으로서 안전하게 그리고 큰 생각없이 작업을 전달하고 이제 잊어버릴 수 있다.
-
-## Proxy limitations
+# 14.1 Proxy and Reflect
 
 ## ✅ 복습 및 정리
 
