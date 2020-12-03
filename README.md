@@ -25,6 +25,7 @@
 - **JavaScript Test**
   - [📝 고찰 - 어떻게 테스트를 작성해야할까?](./try/javascript-test/consideration-how-to-write-test.md)
 - **MobX**
+  - [MobX.js.org](./try/mobx/mobx-js-org.md)
   - [Reinventing MobX](./try/mobx/reinventing-mobx) (MobX 만들기)
 - **[Mobx State Tree (MST)](./try/mobx-state-tree)**
 - **ReactJS**
