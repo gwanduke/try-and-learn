@@ -1,6 +1,11 @@
 # Build Responsive Real World Websites with HTML5 and CSS3
 
 - [Build Responsive Real World Websites with HTML5 and CSS3](#build-responsive-real-world-websites-with-html5-and-css3)
+  - [✅ 복습 및 후기](#-복습-및-후기)
+    - [CSS](#css)
+    - [JS](#js)
+    - [팁 & 스킬](#팁--스킬)
+    - [성능 최적화 / 배포](#성능-최적화--배포)
   - [1. What is HTML](#1-what-is-html)
   - [2. Dive into HTML](#2-dive-into-html)
   - [3. Formatting with CSS](#3-formatting-with-css)
@@ -10,6 +15,70 @@
   - [5. The killer website project](#5-the-killer-website-project)
     - [반응형 웹 디자인을 위한, Fluid grid](#반응형-웹-디자인을-위한-fluid-grid)
     - [Header 만들기](#header-만들기)
+  - [Web Browsers](#web-browsers)
+    - [CSS Browser Prefixes](#css-browser-prefixes)
+
+## ✅ 복습 및 후기
+
+> 구매: 2018년 3월 10일
+>
+> 완료: 2020년 12월 4일(금) ~ 2020년 12월 6일(일)
+
+2018년 3월 10일 구매한 이 강의를 이제야 보고 마무리했다. 대부분은 아는 내용이라 특별히 어려운 점은 없었다. 다만 랜딩페이지를 다시한번 순차적으로 만들어보면서 작업을 진행하는 방법이나 색상/여백/글자크기 의미에 대한 생각을 다시금 해보게 해주는 작업이었다. UX라는 것의 본질에 대해서도 다시한번 생각해보는 계기가 되었다.
+
+강의는 jQuery를 사용했지만 JavaScript 이해가 있는 지금에는 별다른 트릭이나 학습 없이 많은 것들을 javascript로도 간단하게 작성할 수 있었다. 다만 jquery에서 `.slideToggle()` 같이 애니메이션 처리가 되는 것들은 css를 포함해 추가적인 처리가 필요했다.
+
+코딩을 진행하면서 다시 상기된 점들은 다음과 같다.
+
+### CSS
+
+속성
+
+- `text-rendering` 이라는 속성이 있다. 이는 렌더링 엔진에 텍스트를 렌더링할 때 어떻게 최적화 할 것인가에 대한 정보를 제공한다. 강의에서는 이 값으로 `optimizeLegibility`를 선택했다. 자세한 내용은 [MDN:text-rendering](https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering)을 참고하자
+- float에 대한 clearfix를 처리할 때 zoom 속성을 넣는 경우가 있는데, 이는 IE를 위한 것이다. [이 블로그](https://webclub.tistory.com/183)를 참고하자
+- font-size를 % 단위로서 상위 요소(또는 body,html)의 값에 상대적으로 지정할 수 있었다.
+- 자주 헷갈리는데, `first-child`는 자식 요소가 아니라 `:`로 명시된 요소 중 첫번째 요소
+- `last-of-type`은 `:`로 지정된 동일 타입의 마지막 형제를 선택한다.
+- float이 지정되면 엘리먼트는 `block`으로 간주된다. (none으로 지정하지 않는다면)
+- `input[type="text"]` 식으로 속성을 지정해 선택가능하다.
+
+기타
+
+- float는 레이아웃을 위해 나온 속성이 아니기 때문에 hack한 면이 있는데 flexbox나 gird같은 것들이 최근에 지원된다.
+- flexbox의 main axis는 글쓰기 방향과 일치한다. (writing-mode: vertical-rl 적용해서 확인해보면 됨)
+- flex사용시 첫 아이템이 남는 영역을 flex-grow 1으로 차지하는 것도 가능하지만, margin-right: auto로 채우는 것이 엘리먼트 inspect시 여백 구간이 표시되어서 편리하다.
+
+### JS
+
+- `window.getComputedStyle`를 사용하면 계산된 CSS 프로퍼티를 가져올 수 있다. style과 적용된 class 내의 스타일은 각각 처리되므로 el.style로 클래스로 적용된 결과를 가져올 수 없다. 이를 이용하면 브라우저가 계산한 결과 값을 가져올 수 있다.
+  - (프로젝트에서는 모바일에서 메뉴 아이콘을 토글링하는데 사용했다.)
+  - [script.js 참고](./omnifood/resources/js/script.js)
+
+### 팁 & 스킬
+
+- 이미지를 기본적으로 약간 어둡게 만드는데 있어서 이미지 부모에 #000 배경을 주고, 이미지에 opacity를 줌으로서 약간 어둡게 보이도록 처리를 하는 점이 인상 깊었다.
+- 이미지와 텍스트가 같은 라인에 있을 때, 이미지를 수직정렬하니 텍스트도 수직정렬 처리되었다.
+
+### 성능 최적화 / 배포
+
+- favicon
+- 성능 최적화 (속도 개선)
+  - 큰 이미지 최적화(용량 줄이기)
+    - 😎 어떻게? Chrome devTool을 이용하면 실제 이미지 사이즈와 현재 엘리먼트 사이즈를 확인할 수 있다. 하지만 레티나 디스플레이를 고려해서 표시되는 px 보다 2배는 크게 만들어야 선명하게 보일 것이다. (실제 화면에 표시되는 것 보다 이미지가 클 필요가 있다.)
+    - 😎 이미지 파일들을 한번에 열고 맥 기본 이미지 뷰어에서 cmd + a 를 눌린 후 사이즈를 한번에 변경할 수 있다.
+    - 😎 optimizilla 같은 서비스를 이용하면 이미지 퀄리티를 조정할 수 있다. 특히 어두운 레이어 뒤에 깔리는 이미지는 선명하지 않아도 되므로 상황에 따라 이미지 퀄리티를 하락시키는 것도 좋은 방법이다.
+  - js/css 작게 만들기
+- SEO
+  - meta charset="UTF-8" (SEO에 직접적으로 영향을 미치진 않지만 모든 페이지에서 필요)
+  - description meta 태그: 160자 이하로 작성
+  - 비표준인 HTML 태그를 사용하지 말자 (https://validator.w3.org)
+    - img에 alt를 넣지 않거나
+    - 닫는 태그를 깜빡하는 것도 포함됨
+  - 웹사이트에 훌륭한 컨텐츠를 포함하는 것이 중요 (CONTENT IS KING!)
+  - 키워드
+    - 너무 많은 키워드를 사용하면 스팸으로 간주될 수도 있으니, 꼭 필요한 키워드만 사용
+    - 제목, 내용, 헤딩, 링크 등에 있는 키워드를 활용하라
+  - Backlinks
 
 ## 1. What is HTML
 
@@ -255,3 +324,17 @@ Spacing and layout
 - 4가지 CSS 링크 상태: link, visited, hover, active
 - 작은 애니메이션을 위한 CSS3 transitions
 - 간단한 네비게이션을 어떻게 만들까
+
+## Web Browsers
+
+### CSS Browser Prefixes
+
+- android: -webkit-
+- Chrome: -webkit-
+- Firefox: -moz-
+- IE: -ms-
+- iOS: -webkit-
+- Opera: -o-
+- Safari: -webkit-
+
+autoprefixer 같은 라이브러리를 이용하면 위 prefix를 자동으로 붙일 수 있다.

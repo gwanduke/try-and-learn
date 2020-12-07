@@ -39,16 +39,25 @@
 
 ## 시리즈 - 책, 강의, 연재, 세미나, 컨퍼런스
 
-> 💵 내돈내산, 🌏 공개된 자료, 📕 종이책
+> - 💵 내돈내산, 🌏 공개된 자료, 📕 종이책
+> - ✅ 후기 작성 or 복습 완료
 >
 > (순서는 단순히 폴더 정렬 순)
 
-- 💵 [The RED: React와 Redux로 구현하는 아키텍처와 리스크관리](./material/fastcampus/the-red-react-redux-risk-management.md)
 - 📕 [자바스크립트 패턴과 테스트](./material/javascript-pattern-and-test)
 - 🌏 [모던 자바스크립트 튜토리얼](./material/modern-javascript-tutorial)
 - 🌏 [Notes on TypeScript](./material/notes-on-typescript)
 - 📕 [리팩토링 자바스크립트](./material/refactoring-javascript)
 - 💵 [Testing JavaScript](./material/testing-javascript)
+
+Fast Campus
+
+- 💵 [The RED: React와 Redux로 구현하는 아키텍처와 리스크관리](./material/fastcampus/the-red-react-redux-risk-management.md)
+
+Udemy
+
+- 💵 ✅ [Build Responsive Real World Websites with HTML5 and CSS3](./material/udemy/build-responsive-real-world-websites)
+- 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)
 - 💵 [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
 
 ## 독서 - 읽고 생각하기

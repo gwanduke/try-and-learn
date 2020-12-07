@@ -12,7 +12,8 @@ Colors
   box-sizing: border-box;
 }
 
-html {
+html,
+body {
   background-color: #fff;
   color: #555;
   font-family: "Lato", "Arial", sans-serif;
@@ -21,6 +22,8 @@ html {
 
   /* NOTE: 폰트가 완벽하게 그려지도록 할 것임 */
   text-rendering: optimizeLegibility;
+
+  overflow-x: hidden;
 }
 
 /* 
@@ -98,7 +101,7 @@ h2:after {
 }
 
 /* ----- PARAGRAPHS ----- */
-.logo-copy {
+.long-copy {
   line-height: 145%;
   width: 70%;
 
@@ -220,6 +223,15 @@ header {
   margin-top: 20px;
 }
 
+.logo-black {
+  display: none;
+  height: 50px;
+  width: auto;
+  float: left;
+  margin: 5px 0;
+}
+
+/* Main Nav */
 .main-nav {
   float: right;
   list-style: none;
@@ -247,11 +259,51 @@ header {
   border-bottom: 2px solid #e67e22;
 }
 
+/* Mobile Nav */
+.mobile-nav-icon {
+  float: right;
+  margin-top: 30px;
+  cursor: pointer;
+  display: none;
+}
+.mobile-nav-icon .mobile-nav-icon-image {
+  font-size: 200%;
+  color: white;
+}
+
+/* Sticky Nav */
+
+.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 2px 2px #efefef;
+  z-index: 9999;
+}
+
+.sticky .main-nav {
+  margin-top: 18px;
+}
+.sticky .main-nav li a:link,
+.sticky .main-nav li a:visited {
+  padding: 16px 0;
+  color: #555;
+}
+
+.sticky .logo {
+  display: none;
+}
+.sticky .logo-black {
+  display: block;
+}
+
 /* ------------------------------ */
 /* FEATURES */
 /* ------------------------------ */
 
-.section-features .logo-copy {
+.section-features .long-copy {
   margin-bottom: 40px;
 }
 
@@ -589,4 +641,24 @@ footer p {
   color: #888;
   text-align: center;
   margin-top: 20px;
+}
+
+/* ------------------------------ */
+/* ANIMATIONS */
+/* ------------------------------ */
+
+#wp-1,
+#wp-2,
+#wp-3 {
+  opacity: 0;
+}
+
+#wp-4 {
+  animation-duration: 700ms;
+}
+
+#wp-1.animate__animated,
+#wp-2.animate__animated,
+#wp-3.animate__animated {
+  opacity: 1;
 }

@@ -1,20 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- meta tags -->
     <meta charset="UTF-8" />
+    <meta
+      name="description"
+      content="Omnifood is a premium food delivery service with the mission to bring..."
+    />
+
+    <!-- NOTE: Responsive Design을 위해서는 viewport를 정의해주어야한다. -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- favicon -->
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="./resources/favicon/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="./resources/favicon/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="./resources/favicon/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="./resources/favicon/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="./resources/favicon/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="./resources/favicon/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="./resources/favicon/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="./resources/favicon/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./resources/favicon/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="./resources/favicon/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./resources/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="./resources/favicon/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./resources/favicon/favicon-16x16.png"
+    />
+    <link rel="manifest" href="./resources/favicon/manifest.json" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- styles/fonts -->
     <link rel="stylesheet" href="./vendors/css/grid.css" />
     <link rel="stylesheet" href="./vendors/css/normalize.css" />
     <link rel="stylesheet" href="./resources/css/style.css" />
+    <link rel="stylesheet" href="./resources/css/queries.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;1,300&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!-- title -->
     <title>Omnifood</title>
   </head>
   <body>
-    <!-- header 태그는 시맨틱 태그로서 검색 엔진이 이를 의미 있게 해석할 수 있다. -->
+    <!-- NOTE: header 태그는 시맨틱 태그로서 검색 엔진이 이를 의미 있게 해석할 수 있다. -->
     <header>
       <nav>
         <div class="row">
@@ -23,31 +111,43 @@
             alt="Omnifood logo"
             class="logo"
           />
-          <ul class="main-nav">
+          <img
+            src="./resources/img/logo.png"
+            alt="Omnifood logo"
+            class="logo-black"
+          />
+          <ul class="main-nav" id="main-nav">
             <li><a href="#">Food delivery</a></li>
             <li><a href="#">How it works</a></li>
             <li><a href="#">Our cities</a></li>
             <li><a href="#">Sign up</a></li>
           </ul>
+          <a class="mobile-nav-icon" id="nav-icon">
+            <ion-icon
+              name="menu-outline"
+              class="mobile-nav-icon-image"
+              id="nav-icon-image"
+            ></ion-icon>
+          </a>
         </div>
       </nav>
       <div class="hero-text-box">
         <h1>Goodbye junk food.<br />Hello super healthy meals.</h1>
-        <a class="btn btn-full" href="#">I’m hungry</a>
-        <a class="btn btn-ghost" href="#">Show me more</a>
+        <a class="btn btn-full" href="#" id="scroll-to-plans">I’m hungry</a>
+        <a class="btn btn-ghost" href="#" id="scroll-to-start">Show me more</a>
       </div>
     </header>
 
-    <section class="section-features">
+    <section class="section-features" id="section-features">
       <div class="row">
         <h2>Get food fast &mdash; not fast food</h2>
-        <p class="logo-copy">
+        <p class="long-copy">
           Hello, we’re Omnifood, your new premium food delivery service. We know
           you’re always busy. No time for cooking. So let us take care of that,
           we’re really good at it, we promise!
         </p>
       </div>
-      <div class="row">
+      <div class="row" id="wp-1">
         <div class="col span-1-of-4 box">
           <ion-icon name="infinite-outline" class="icon-big"></ion-icon>
           <h3>Up to 365 days/year</h3>
@@ -167,6 +267,7 @@
             src="./resources/img/app-iPhone.png"
             alt="Omnifood app on iPhone"
             class="app-screen"
+            id="wp-2"
           />
         </div>
         <div class="col span-1-of-2 steps-box">
@@ -207,7 +308,7 @@
         <h2>We're currently in these cities</h2>
       </div>
 
-      <div class="row">
+      <div class="row" id="wp-3">
         <div class="col span-1-of-4 box">
           <img src="./resources/img/lisbon-3.jpg" alt="Lisbon" />
           <h3>Lisbon</h3>
@@ -330,13 +431,13 @@
       </div>
     </section>
 
-    <section class="section-plans">
+    <section class="section-plans" id="section-plans">
       <div class="row">
         <h2>Start eating healthy today</h2>
       </div>
       <div class="row">
         <div class="col span-1-of-3">
-          <div class="plan-box">
+          <div class="plan-box" id="wp-4">
             <div>
               <h3>Premium</h3>
               <p class="plan-price">399$ <span>/ month</span></p>
@@ -589,5 +690,7 @@
     </footer>
 
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <script src="./vendors/js/noframework.waypoints.min.js"></script>
+    <script src="./resources/js/script.js"></script>
   </body>
 </html>
