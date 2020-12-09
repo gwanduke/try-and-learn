@@ -57,6 +57,7 @@ Fast Campus
 Udemy
 
 - 💵 ✅ [Build Responsive Real World Websites with HTML5 and CSS3](./material/udemy/build-responsive-real-world-websites)
+- 💵 [React - The Complete Guide (incl Hooks, React Router, Redux)](./material/udemy/react-the-complete-guide)
 - 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)
 - 💵 [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
 
