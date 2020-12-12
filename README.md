@@ -10,7 +10,7 @@
   - [📖 목차](#-목차)
   - [Try - 기록, 코드, 개념 정리](#try---기록-코드-개념-정리)
   - [시리즈 - 책, 강의, 연재, 세미나, 컨퍼런스](#시리즈---책-강의-연재-세미나-컨퍼런스)
-  - [독서 - 읽고 생각하기](#독서---읽고-생각하기)
+  - [독서/교양](#독서교양)
 
 ## Try - 기록, 코드, 개념 정리
 
@@ -25,11 +25,12 @@
 - **JavaScript Test**
   - [📝 고찰 - 어떻게 테스트를 작성해야할까?](./try/javascript-test/consideration-how-to-write-test.md)
 - **MobX**
-  - [MobX.js.org](./try/mobx/mobx-js-org.md)
+  - [MobX.js.org](./try/mobx/mobx-js-org)
   - [Reinventing MobX](./try/mobx/reinventing-mobx) (MobX 만들기)
 - **[Mobx State Tree (MST)](./try/mobx-state-tree)**
 - **ReactJS**
   - [Build your own React](./try/reactjs/build-your-own-react) (React 만들기)
+  - [📝 React V-DOM에 대한 고찰](./try/reactjs/react-v-dom-study)
 - **Web**
   - [📝 브라우저는 어떻게 렌더링 되는가?](https://gwanduke.tistory.com/entry/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%A0%8C%EB%8D%94%EB%A7%81-%EB%90%98%EB%8A%94%EA%B0%80)
 - **WebRTC**
@@ -49,6 +50,7 @@
 - 🌏 [Notes on TypeScript](./material/notes-on-typescript)
 - 📕 [리팩토링 자바스크립트](./material/refactoring-javascript)
 - 💵 [Testing JavaScript](./material/testing-javascript)
+- 📕 [리액트를 다루는 기술 (개정판)](./material/the-art-of-dealing-with-react)
 
 Fast Campus
 
@@ -62,6 +64,6 @@ Udemy
 - 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)
 - 💵 [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
 
-## 독서 - 읽고 생각하기
+## 독서/교양
 
-- [2020년 11월](./reading/2020-11.md)
+- HABIT
