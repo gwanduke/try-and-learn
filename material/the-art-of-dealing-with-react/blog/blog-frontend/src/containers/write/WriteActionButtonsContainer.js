@@ -2,20 +2,27 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import WriteActionButtons from '../../components/write/WriteActionButtons';
-import { writePost } from '../../modules/write';
+import { updatePost, writePost } from '../../modules/write';
 
 const WriteActionButtonsContainer = ({ history }) => {
   const dispatch = useDispatch();
 
-  const { title, body, tags, post, postError } = useSelector(({ write }) => ({
-    title: write.title,
-    body: write.body,
-    tags: write.tags,
-    post: write.post,
-    postError: write.postError,
-  }));
+  const { title, body, tags, post, postError, originalPostId } = useSelector(
+    ({ write }) => ({
+      title: write.title,
+      body: write.body,
+      tags: write.tags,
+      post: write.post,
+      postError: write.postError,
+      originalPostId: write.originalPostId,
+    }),
+  );
 
   const onPublish = () => {
+    if (originalPostId) {
+      dispatch(updatePost({ title, body, tags, id: originalPostId }));
+      return;
+    }
     dispatch(writePost({ title, body, tags }));
   };
 
@@ -33,7 +40,13 @@ const WriteActionButtonsContainer = ({ history }) => {
     }
   }, [history, post, postError]);
 
-  return <WriteActionButtons onPublish={onPublish} onCancel={onCancel} />;
+  return (
+    <WriteActionButtons
+      onPublish={onPublish}
+      onCancel={onCancel}
+      isEdit={!!originalPostId}
+    />
+  );
 };
 
 export default withRouter(WriteActionButtonsContainer);
