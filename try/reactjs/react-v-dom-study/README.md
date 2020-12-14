@@ -81,7 +81,8 @@ export default function App() {
 
 ## 그럼 컴포넌트는 어떻게 설계되어야할까?
 
-- reconciliation 자체를 피하는 것이 가장 좋은데, shouldComponentUpdate, React.PurComponent 또는 React.memo를 통해 수행할 수 있다.
+- 하위 트리가 통으로 리렌더링 되지 않도록 어플리케이션을 설계해야하며, 상태변화가 적게 일어나도록 하는 것이 좋다. 트리를 고려해 역할에 따라 컴포넌트를 잘게 나누는 것도 도움이 되겠다.
+- 무엇보다 reconciliation 자체를 피하는 것이 가장 좋은데, shouldComponentUpdate, React.PurComponent 또는 React.memo를 통해 수행할 수 있다.
 
 ## 참고자료
 
