@@ -1,5 +1,12 @@
 import React from 'react';
+import HeaderContainer from '../containers/common/HeaderContainer';
+import PostViewerContainer from '../containers/post/PostViewerContainer';
 
 export const PostPage = () => {
-  return <div>PostPage</div>;
+  return (
+    <>
+      <HeaderContainer />
+      <PostViewerContainer />
+    </>
+  );
 };
