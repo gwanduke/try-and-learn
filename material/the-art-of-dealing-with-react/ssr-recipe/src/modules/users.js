@@ -1,5 +1,5 @@
 import axios from "axios";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 
 const GET_USERS_PENDING = "users/GET_USERS_PENDING";
 const GET_USERS_SUCCESS = "users/GET_USERS_SUCCESS";
@@ -51,7 +51,7 @@ function* getUserSaga(action) {
 }
 
 export function* usersSaga() {
-  yield takeEvery(GET_USER, getUserSaga);
+  yield takeLatest(GET_USER, getUserSaga);
 }
 
 const initialState = {

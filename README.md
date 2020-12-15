@@ -44,7 +44,7 @@
 ## 시리즈 - 책, 강의, 연재, 세미나, 컨퍼런스
 
 > - 💵 내돈내산, 🌏 공개된 자료, 📕 종이책
-> - ✅ 후기 작성 or 복습 완료
+> - ✅ 후기 작성 or 복습 완료, 📝 거의 완료
 >
 > (순서는 단순히 폴더 정렬 순)
 
@@ -53,7 +53,7 @@
 - 🌏 [Notes on TypeScript](./material/notes-on-typescript)
 - 📕 [리팩토링 자바스크립트](./material/refactoring-javascript)
 - 💵 [Testing JavaScript](./material/testing-javascript)
-- 📕 [리액트를 다루는 기술 (개정판)](./material/the-art-of-dealing-with-react)
+- 📕 📝 [리액트를 다루는 기술 (개정판)](./material/the-art-of-dealing-with-react)
 
 Fast Campus
 
