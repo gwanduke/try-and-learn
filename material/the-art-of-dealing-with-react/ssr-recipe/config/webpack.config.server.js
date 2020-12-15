@@ -1,12 +1,18 @@
-const nodeExternals = require("webpack-node-externals");
+// const nodeExternals = require("webpack-node-externals");
 const paths = require("./paths");
 // CSS Module의 고유 className을 만들 때 필요한 정보
 const getCSSModuleLocalIdent = require("react-dev-utils/getCSSModuleLocalIdent");
+
+// 환경 변수 주입 위함
+const webpack = require("webpack");
+const getClientEnvironment = require("./env");
 
 const cssRegex = /\.css$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
+
+const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 
 module.exports = {
   mode: "production",
@@ -54,11 +60,38 @@ module.exports = {
             },
           },
           {
+            test: /\.(js|mjs)$/,
+            exclude: /@babel(?:\/|\\{1,2})runtime/,
+            loader: require.resolve("babel-loader"),
+            options: {
+              babelrc: false,
+              configFile: false,
+              compact: false,
+              presets: [
+                [
+                  require.resolve("babel-preset-react-app/dependencies"),
+                  { helpers: true },
+                ],
+              ],
+              cacheDirectory: true,
+              // See #6846 for context on why cacheCompression is disabled
+              cacheCompression: false,
+
+              // Babel sourcemaps are needed for debugging into node_modules
+              // code.  Without the options below, debuggers like VSCode
+              // show incorrect code and set breakpoints on the wrong lines.
+              sourceMaps: false,
+              inputSourceMap: false,
+            },
+          },
+          {
             test: cssRegex,
             exclude: cssModuleRegex,
             loader: require.resolve("css-loader"),
             options: {
-              onlyLocals: true,
+              modules: {
+                exportOnlyLocals: true,
+              },
             },
           },
           {
@@ -124,8 +157,9 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    modules: ["node_modules"],
-  },
-  externals: [nodeExternals()],
+  // resolve: {
+  //   modules: ["node_modules"],
+  // },
+  // externals: [nodeExternals()],
+  plugins: [new webpack.DefinePlugin(env.stringified)],
 };

@@ -1,3 +1,4 @@
+import React from "react";
 import "./Blue.css";
 
 const Blue = () => {
