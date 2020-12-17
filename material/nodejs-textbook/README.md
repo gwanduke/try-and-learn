@@ -301,4 +301,59 @@ DELETE FROM nodejs.users WHERE id = 2;
 
 ```plain
 $ sequelize db:create
+<!--  -->
 ```
+
+- 리소스간 관계가 중요한 경우 RDBMS가 유리
+- dontenv 패키지 + .env 로 비밀키 관리
+
+### Sequelize
+
+- 각 모델을 정의하고 관계는 다른 파일에서 따로 정의 가능하다.
+- 그러면 sync시 관계테이블도 자동 생성된다.
+
+### Passport
+
+- 로그인 과정
+  1. 로그인 요청
+  2. passport.authenticate 메서드 호출
+  3. 로그인 전략 수행
+  4. 로그인 성공 시 사용자 정보 객체와 함께 req.login 호출
+  5. req.login 메서드가 passport.serializeUser 호출
+  6. req.session에 사용자 아이디만 저장
+  7. 로그인 완료
+- 로그인 이후
+  1. 모든 요청에 passport.session() 미들웨어를 통해 passport.deserializeUser 호출
+  2. req.session에 저장된 아이디로 DB에서 사용자 조회
+  3. 조회된 사용자 res.user에 저장
+  4. 이 후 라우터에서 req.user로 객체 사용 가능
+- Strategy라는 개념의 미들웨어로 로그인 처리
+
+### Multer
+
+- Muter는 미들웨어 역할을 한다.
+- multipart인 데이터를 처리할 때 편리하다.
+
+## 10장. 웹 API 서버 만들기
+
+- [ ] 토큰 재발급과 refresh 토큰
+
+- JWT
+  - `헤더.페이로드.시그니쳐` 형태
+  - 비밀키를 이용해 만들며 후에 이 비밀키로 위변조 감지
+  - 변조 여부를 알 수 있으므로, 내부 데이터를 신뢰하고 사용
+  - 토큰에는 유효기간이 있으며, 만료시 갱신이 필요함
+
+## 11장. 웹 소켓으로 실시간 데이터 전송하기
+
+- 웹소켓
+  - HTML5 스펙의 실시간 양방향 데이터 전송 기술
+  - WS 프로토콜 사용
+- SSE (Server Sent Evnet)
+  - EventSource 객체 사용
+  - 서버 -> 클라이언트로 전송만 가능한 단방향 기술 (주식 차트 등에 유용)
+- socket.io
+  - 편리한 기능을 제공
+  - 첫 연결시 HTTP 폴링방식으로 연결하고 웹소켓 사용가능한 경우, 웹소켓 업그레이드
+
+## 12장. 실시간 경매 시스템 만들기
