@@ -3,17 +3,27 @@ const morgan = require("morgan");
 const path = require("path");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
 const cookieParser = require("cookie-parser");
+const nunjucks = require("nunjucks");
 require("dotenv").config();
 
 const pageRouter = require("./routes/page");
+const authRouter = require("./routes/auth");
+
 const { sequelize } = require("./models");
+const passportConfig = require("./passport");
 
 const app = express();
 sequelize.sync(); // Model과 실제 DB를 Sync
+passportConfig(passport);
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "html");
+nunjucks.configure("views", {
+  express: app,
+  watch: true,
+});
 app.set("port", process.env.PORT || 8001);
 
 app.use(morgan("dev"));
@@ -33,8 +43,11 @@ app.use(
   })
 );
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", pageRouter);
+app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");

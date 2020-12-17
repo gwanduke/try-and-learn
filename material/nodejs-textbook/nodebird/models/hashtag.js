@@ -1,5 +1,3 @@
-const { sequelize } = require("../../learn-sequelize/models");
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     "hashtag",
