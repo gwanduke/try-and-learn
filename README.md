@@ -53,7 +53,7 @@
 - 🌏 [Notes on TypeScript](./material/notes-on-typescript)
 - 📕 [리팩토링 자바스크립트](./material/refactoring-javascript)
 - 💵 [Testing JavaScript](./material/testing-javascript)
-- 📕 [Node.js 교과서](./material/nodejs-textbook)
+- 📕 📝 [Node.js 교과서](./material/nodejs-textbook)
 - 📕 📝 [리액트를 다루는 기술 (개정판)](./material/the-art-of-dealing-with-react)
 
 Fast Campus
