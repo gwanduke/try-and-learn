@@ -48,13 +48,19 @@
 >
 > (순서는 단순히 폴더 정렬 순)
 
-- 📕 [자바스크립트 패턴과 테스트](./material/javascript-pattern-and-test)
-- 🌏 [모던 자바스크립트 튜토리얼](./material/modern-javascript-tutorial)
-- 🌏 [Notes on TypeScript](./material/notes-on-typescript)
-- 📕 [리팩토링 자바스크립트](./material/refactoring-javascript)
-- 💵 [Testing JavaScript](./material/testing-javascript)
-- 📕 [Node.js 교과서](./material/nodejs-textbook)
-- 📕 📝 [리액트를 다루는 기술 (개정판)](./material/the-art-of-dealing-with-react)
+인터넷
+
+- 🌏 [모던 자바스크립트 튜토리얼](./material/internet/modern-javascript-tutorial)
+- 🌏 [Notes on TypeScript](./material/internet/notes-on-typescript)
+- 💵 [Testing JavaScript](./material/internet/testing-javascript)
+
+종이책
+
+- 📕 [자바스크립트 패턴과 테스트](./material/books/javascript-pattern-and-test)
+- 📕 [JavaScript Patterns](./material/books/javascript-patterns)
+- 📕 [리팩토링 자바스크립트](./material/books/refactoring-javascript)
+- 📕 📝 [Node.js 교과서](./material/books/nodejs-textbook)
+- 📕 📝 [리액트를 다루는 기술 (개정판)](./material/books/the-art-of-dealing-with-react)
 
 Fast Campus
 
