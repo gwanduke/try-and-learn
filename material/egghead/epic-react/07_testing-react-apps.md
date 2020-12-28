@@ -1,15 +1,13 @@
 # 7. Testing React Apps
 
-## 들어가며
-
-- [but-really-what-is-a-javascript-test](https://kentcdodds.com/blog/but-really-what-is-a-javascript-test)
-- [but-really-what-is-a-javascript-mock](https://kentcdodds.com/blog/but-really-what-is-a-javascript-mock)
-
 ## 01. Testing React Apps Welcome
+
+- [ ] [but-really-what-is-a-javascript-test](https://kentcdodds.com/blog/but-really-what-is-a-javascript-test)
+- [ ] [but-really-what-is-a-javascript-mock](https://kentcdodds.com/blog/but-really-what-is-a-javascript-mock)
 
 ## 02. Simple Test With ReactDOM
 
-- [ ] [https://kentcdodds.com/blog/avoid-the-test-user/](https://kentcdodds.com/blog/avoid-the-test-user/)
+- [ ] [Avoid The Test User](https://kentcdodds.com/blog/avoid-the-test-user/)
 
 ```jsx
 Notice the lack of `cleanup` functionality. That's thanks to
