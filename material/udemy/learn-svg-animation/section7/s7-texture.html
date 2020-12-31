@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Section 7 - Texture</title>
+    <style>
+      text {
+        font-size: 60px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <svg>
+      <defs>
+        <mask id="texture1">
+          <image
+            height="400"
+            width="800"
+            xlink:href="https://cdn.shopify.com/s/files/1/1417/3230/products/IMG_4205-Driftwood-Texture_1024x1024.jpg?v=1575931833"
+          ></image>
+        </mask>
+      </defs>
+      <text x="100" y="100" mask="url(#texture1">Texture</text>
+    </svg>
+  </body>
+</html>

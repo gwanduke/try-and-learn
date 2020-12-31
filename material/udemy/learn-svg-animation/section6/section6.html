@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Section 6</title>
+    <style>
+      svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+      }
+
+      /* twitter */
+      .twitter-outline {
+        transition: all 300ms;
+        transform-origin: 50% 50%;
+        transform-box: fill-box;
+      }
+      .twitter-icon {
+        transition: all 300ms;
+        transform-origin: 50% 50%;
+        transform-box: fill-box;
+      }
+      .twitter-icon-group:hover .twitter-outline {
+        transform: scale(0);
+      }
+      .twitter-icon-group:hover .twitter-icon {
+        transform: scale(2);
+        stroke: #4099ff;
+        opacity: 0;
+      }
+
+      /* youtube */
+      .youtube-icon,
+      .youtube-outline,
+      .youtube-inner-circle {
+        transition: all 300ms;
+        transform-box: fill-box;
+      }
+      .youtube-icon-group:hover .youtube-outline {
+        transform: scale(1.2);
+        transform-origin: 50% 50%;
+      }
+      .youtube-icon-group:hover .youtube-inner-circle {
+        fill: #f26768;
+        transform-origin: 50% 50%;
+      }
+      .youtube-icon-group:hover .youtube-icon {
+        stroke: #fff;
+        fill: transparent;
+        transform-origin: 50% 50%;
+      }
+
+      /* facebook */
+
+      .facebook-outline {
+        transition: all 300ms;
+        transform-box: fill-box;
+        transform-origin: 50% 50%;
+      }
+      .facebook-detail {
+        transition: all 300ms;
+        transform-box: fill-box;
+        opacity: 0;
+        transform-origin: 50% 50%;
+      }
+      .facebook-icon-group:hover .facebook-outline {
+        transform: scale(1.8);
+        opacity: 0;
+      }
+      .facebook-icon-group:hover .facebook-detail {
+        transform: scale(0.8) rotate(90deg);
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <svg xmlns="http://www.w3.org/2000/svg" width="500" height="200">
+      <!-- youtube -->
+      <g class="youtube-icon-group">
+        <circle
+          class="youtube-outline"
+          fill="transparent"
+          stroke="#F26768"
+          stroke-miterlimit="10"
+          cx="250"
+          cy="100.5"
+          r="35.2"
+        />
+        <circle
+          class="youtube-inner-circle"
+          fill="transparent"
+          stroke="#F26768"
+          stroke-miterlimit="10"
+          cx="250"
+          cy="100.5"
+          r="35.2"
+        />
+        <path
+          class="youtube-icon"
+          fill="#F26768"
+          d="M264.7 94.6s-.3-2-1.2-3c-1-1.2-2.4-1.2-3-1.3-4.2-.3-10.5-.3-10.5-.3s-6.3 0-10.5.3c-.6 0-2 0-3 1.3-1 1-1.2 3-1.2 3s-.3 2.4-.3 4.8v2.2c0 2.4.3 4.8.3 4.8s.3 2 1.2 3c1 1.2 2.6 1.2 3.3 1.3 2.4.2 10.2.3 10.2.3s6.3 0 10.5-.3c.6 0 2 0 3-1.3 1-1 1.2-3 1.2-3s.3-2.4.3-4.8v-2.2c0-2.4-.3-4.8-.3-4.8zm-17.8 9.8V96l8 4.2-8 4.2z"
+        />
+      </g>
+
+      <!-- twitter -->
+      <g class="twitter-icon-group">
+        <circle
+          class="twitter-outline"
+          fill="none"
+          stroke="#4099ff"
+          stroke-miterlimit="10"
+          cx="110.6"
+          cy="100.5"
+          r="35.2"
+        />
+        <path
+          fill="#4099ff"
+          d="M125.4 91.8c-1 .5-2.3 1-3.5 1 1-.8 2-2 2-3.4-1 .7-2.6 1.2-4 1.5-1-2-2.6-2-4.4-2-3.3 0-6 2-6 6v1c-5-.6-9.4-3-12.4-6.7-.6 1-1 2-1 3 0 2 1.2 4 2.8 5-1 0-2-.2-2.6-.7 0 3 2 5.4 5 6l-1.8.2h-1c.6 2.2 3 4 5.5 4-2 1.6-4.6 2.6-7.5 2.6h-1c2.4 1.5 5.5 2.5 9 2.5 11 0 17.2-9.3 17.2-17.3 1.2-1 2.2-2 3-3.2z"
+        />
+        <path
+          class="twitter-icon"
+          fill="transparent"
+          stroke="transparent"
+          d="M125.4 91.8c-1 .5-2.3 1-3.5 1 1-.8 2-2 2-3.4-1 .7-2.6 1.2-4 1.5-1-2-2.6-2-4.4-2-3.3 0-6 2-6 6v1c-5-.6-9.4-3-12.4-6.7-.6 1-1 2-1 3 0 2 1.2 4 2.8 5-1 0-2-.2-2.6-.7 0 3 2 5.4 5 6l-1.8.2h-1c.6 2.2 3 4 5.5 4-2 1.6-4.6 2.6-7.5 2.6h-1c2.4 1.5 5.5 2.5 9 2.5 11 0 17.2-9.3 17.2-17.3 1.2-1 2.2-2 3-3.2z"
+        />
+      </g>
+
+      <!-- facebook -->
+      <g class="facebook-icon-group">
+        <circle
+          class="facebook-outline"
+          fill="none"
+          stroke="#3b5998"
+          stroke-miterlimit="10"
+          cx="389.4"
+          cy="100.5"
+          r="35.2"
+        />
+        <path
+          fill="#3b5998"
+          d="M392 95.5v-3c0-1.3.2-2 2.2-2h2.7v-5h-4c-5 0-7 3.3-7 7v3h-4v5h4v15h6v-15h4l.2-5h-5z"
+        />
+        <path
+          class="facebook-detail"
+          fill="#3b5998"
+          d="M389.473 51.471c-.639 0-1.155.517-1.155 1.155v8.854a1.155 1.155 0 102.31 0v-8.854c0-.638-.517-1.155-1.155-1.155zM369.5 55.503c-.584.26-.846.942-.586 1.526l3.602 8.089a1.156 1.156 0 002.111-.94l-3.602-8.089a1.155 1.155 0 00-1.525-.586zm-16.606 11.808a1.155 1.155 0 00.085 1.633l6.58 5.924a1.154 1.154 0 101.547-1.717l-6.58-5.926a1.156 1.156 0 00-1.632.086zm-10.369 17.541c-.197.607.135 1.26.742 1.457l8.421 2.736a1.156 1.156 0 00.714-2.199l-8.421-2.736a1.155 1.155 0 00-1.456.742zm-2.337 20.242a1.154 1.154 0 001.271 1.028l8.806-.925a1.155 1.155 0 10-.243-2.298l-8.806.926a1.155 1.155 0 00-1.028 1.269zm6.098 19.442a1.156 1.156 0 001.579.423l7.668-4.428a1.155 1.155 0 10-1.156-2l-7.668 4.426a1.158 1.158 0 00-.423 1.579zm13.48 15.28c.516.375 1.24.262 1.614-.256l5.204-7.163a1.154 1.154 0 10-1.87-1.356l-5.205 7.162a1.155 1.155 0 00.257 1.613zm18.528 8.479a1.157 1.157 0 001.371-.891l1.841-8.662a1.155 1.155 0 10-2.261-.478l-1.842 8.66a1.157 1.157 0 00.891 1.371zm20.375.209a1.159 1.159 0 00.891-1.372l-1.842-8.661a1.155 1.155 0 10-2.26.482l1.84 8.66a1.157 1.157 0 001.371.891zm18.698-8.098c.516-.377.632-1.1.256-1.615l-5.205-7.162a1.155 1.155 0 10-1.868 1.359l5.203 7.162a1.154 1.154 0 001.614.256zm13.789-15.002a1.158 1.158 0 00-.424-1.58l-7.668-4.426a1.156 1.156 0 10-1.154 2.002l7.667 4.427c.554.319 1.26.13 1.579-.423zm6.494-19.314a1.158 1.158 0 00-1.029-1.27l-8.806-.926a1.158 1.158 0 00-1.27 1.03 1.157 1.157 0 001.03 1.269l8.804.926a1.154 1.154 0 001.271-1.029zm-1.922-20.285a1.157 1.157 0 00-1.456-.741l-8.422 2.735a1.158 1.158 0 00-.74 1.459c.196.604.849.938 1.457.738l8.42-2.734c.607-.198.939-.85.741-1.457zm-10.008-17.75a1.154 1.154 0 00-1.631-.084l-6.581 5.924a1.155 1.155 0 101.548 1.717l6.58-5.924a1.156 1.156 0 00.084-1.633zm-16.362-12.144a1.154 1.154 0 00-1.524.585l-3.603 8.09a1.155 1.155 0 102.112.937l3.602-8.086a1.154 1.154 0 00-.587-1.526z"
+        />
+      </g>
+    </svg>
+  </body>
+</html>
