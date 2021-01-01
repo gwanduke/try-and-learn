@@ -66,12 +66,107 @@ animation을 위한 target element를 특정하는 속성
 animation의 타이밍을 제어하기위한 속성들
 
 - dur
-- begin
+- begin, end
 - fill
 - min
 - max
 - restart
 - repeatCount
 - repeatDur
+
+애니메이션 값을 계속해서 정의하는 것
+
+- calcMode
+  - discrete: 보간없이 끊어져 보임
+  - linear
+  - paced
+  - spline
+- values: list of strings
+- 다음은 values가 특정된 경우 무시됨
+  - from, to: 애니메이션의 시작, 끝 값
+  - by: 상대 offset 값
+- keyTimes
+- keySplines
+
+애니메이션이 속성이 추가적인지 제어하는 속성 (상대적인지 절대적인지)
+
+- additive
+  - replace
+  - sum
+- accumulate (repeat 마다 누적)
+  - none
+  - sum
+
+### `<animateMotion />`에 의해 애니메이션 가능한 요소
+
+- Graphic Elements
+  - image
+  - path
+  - rect
+  - circle
+  - ellipse
+  - line
+  - polyline
+  - polygon
+- Containers
+  - svg
+  - g
+  - defs
+  - switch
+  - text
+  - mask
+  - a
+- Graphics Link Elements
+  - use
+- Other Elements
+  - foreignObject
+  - clipPath
+
+### 애니메이션 가능한 속성과 프로퍼티에 사용되는 Data types
+
+| -          | `<animate>` | `<animateTransform>` | `<set>` | `Additive` |
+| ---------- | ----------- | -------------------- | ------- | ---------- |
+| angle      | v           | ❌                   | v       | v          |
+| color      | v           | ❌                   | v       | v          |
+| frequency  | ❌          | ❌                   | ❌      | ❌         |
+| integer    | v           | ❌                   | v       | v          |
+| length     | v           | ❌                   | v       | v          |
+| number     | v           | ❌                   | v       | v          |
+| paint      | v           | ❌                   | v       | v          |
+| percentage | v           | ❌                   | v       | v          |
+| time       | ❌          | ❌                   | ❌      | ❌         |
+| URL        | v           | ❌                   | v       | ❌         |
+| other      | v           | ❌                   | v       | ❌         |
+
+보통 애니메이션은 다음과 같이 처리
+
+```svg
+<svg>
+  <rect>
+    <animate ... />
+  </rect>
+</svg>
+```
+
+- 9장에서) 컬러를 additive sum으로 지정해 애니메이션하면 이전 RGB값에 다음 RGB 컬러의 값이 더해지며 계산된다. (즉, 지정한 컬러에 상대적으로 동작함)
+
+### SVG의 interactivity 기능
+
+- .
+  - mousedown
+  - mouseup
+  - click
+- .
+  - mouseover
+  - mouseenter
+- .
+  - mouseout
+  - mouseleave
+- .
+  - mousemove
+
+```svg
+<animateTransform begin="mousedown" />
+```
 
 ## 섹션 4:Interactive JavaScript Animations
