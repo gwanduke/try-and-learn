@@ -170,3 +170,19 @@ animation의 타이밍을 제어하기위한 속성들
 ```
 
 ## 섹션 4:Interactive JavaScript Animations
+
+- addEventListener
+- setInterval
+- `getAttribute`
+- `setAttribute`
+
+등을 이용해서 svg 속성을 조정함으로서 애니메이팅...!
+
+### 예제
+
+- [12-circles.html](./section4/circles/circles.html)
+  ![Circles](./section4/circles/circles.gif)
+
+### 팁
+
+- `<g>` 태그의 transform을 조정해 애니메이팅 (그 값은 pattern matching으로 뽑아내면 편리함)
