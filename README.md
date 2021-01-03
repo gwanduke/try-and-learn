@@ -73,13 +73,17 @@ Fast Campus
 
 Udemy
 
-- 💵 ✅ [Build Responsive Real World Websites with HTML5 and CSS3](./material/udemy/build-responsive-real-world-websites)
-- 💵 [Interactive Web Animation 2020 [JavaScript, SVG, CSS & HTML]](./material/udemy/interactive-web-animation-2020)
-- 💵 ✅ [Learn SVG Animation - With HTML, CSS & Javascript](./material/udemy/learn-svg-animation)
-- 💵 [React - The Complete Guide (incl Hooks, React Router, Redux)](./material/udemy/react-the-complete-guide)
-- 💵 [The Complete JavaScript Course 2020](./material/udemy/the-complete-javascript-course-2020)
-- 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)
-- 💵 [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
+- HTML/CSS, Animation
+  - 💵 ✅ [Build Responsive Real World Websites with HTML5 and CSS3](./material/udemy/build-responsive-real-world-websites)
+  - 💵 [Creative CSS Animations Transitions And Transforms Course](./material/udemy/creative-css-animations-transitions-and-transforms-course)
+  - 💵 [Interactive Web Animation 2020 [JavaScript, SVG, CSS & HTML]](./material/udemy/interactive-web-animation-2020)
+  - 💵 ✅ [Learn SVG Animation - With HTML, CSS & Javascript](./material/udemy/learn-svg-animation)
+- JavaScript, ReactJS
+  - 💵 [React - The Complete Guide (incl Hooks, React Router, Redux)](./material/udemy/react-the-complete-guide)
+  - 💵 [The Complete JavaScript Course 2020](./material/udemy/the-complete-javascript-course-2020)
+- Tools
+  - 💵 [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
+  - 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)
 
 ## 독서/교양
 

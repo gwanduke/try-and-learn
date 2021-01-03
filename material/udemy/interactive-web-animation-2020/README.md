@@ -1,8 +1,17 @@
 # Interactive Web Animation 2020 [JavaScript, SVG, CSS & HTML]
 
-## 복습 및 정리
+## ❌ 복습 및 정리
+
+- 애니메이션은 이해하는게 중요한게 아니라, 여러 트릭을 경험해보고 직접 해보는게 중요하겠다.
+- 그 와중에 수학적인 개념도 등장하지만 조금만 신경쓰면 어렵지 않게 해낼 수 있었다.
+
+### TODO
+
+- [ ] 예제 한번씩 직접 해보기
 
 ## 섹션 1:History of Web Animations
+
+> 딱히 알 필요없다.
 
 - 1991년: HTML
 - 1995년: JavaScript
@@ -12,6 +21,8 @@
 - ...
 
 ## 섹션 2:CSS Animations
+
+- [ ] Cubic-bezier에 대해서 자세히 알아보기
 
 - `svg 태그`는 컨테이너 역할을 하는 듯하다.
 - animation
@@ -46,6 +57,8 @@
 | @keyframes 가 커져서 제어하기 힘든 상황이 자주 초래됨       |
 
 ## 섹션 3:SVG Animations
+
+- [ ] 예제 한번더 해보기
 
 SVG 컨텐츠를 animate하는 방법 (아래 방법들을 조합)
 
@@ -171,6 +184,8 @@ animation의 타이밍을 제어하기위한 속성들
 
 ## 섹션 4:Interactive JavaScript Animations
 
+- [ ] 예제 한번더 해보기
+
 - addEventListener
 - setInterval
 - `getAttribute`
@@ -182,7 +197,24 @@ animation의 타이밍을 제어하기위한 속성들
 
 - [12-circles.html](./section4/circles/circles.html)
   ![Circles](./section4/circles/circles.gif)
+- [3D positioning](./section4/3d-positioning)
+- [생성자를 이용한 애니메이션](./section4/the-functions-of-constructors)
+- [비디오에 Mask와 Clip path를 이용](./section4/video-time)
 
 ### 팁
 
 - `<g>` 태그의 transform을 조정해 애니메이팅 (그 값은 pattern matching으로 뽑아내면 편리함)
+
+### Web animation API
+
+[Can i use? - web animation API](https://caniuse.com/web-animation)는 브라우저 지원이 완벽하진 않으나 현대 브라우저에서는 대부분 지원되기 시작함
+
+이 API를 사용하면 성능적으로 훌륭한 애니메이션을 비교적 쉽게 만들 수 있음
+
+- 애니메이션을 중지/시작할 수 있음 (playback control)
+  - anim.pause()
+  - anim.play()
+  - anim.reverse()
+  - anim.cancel()
+- animation의 진행상태를 알 수 있음
+  - anim.playstate === idle | running | paused | finished
