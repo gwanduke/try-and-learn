@@ -54,7 +54,20 @@ img:hover {
 
 ## 섹션 4:css transforms creative examples
 
+> 다양한 예제를 실습해보았다. 평소에 활용하던 잘알던 프로퍼티지만 여러가지 트릭을 익힐 수 있었다.
+
+- [ ] [Creative Buttons](./creative-buttons/creative-buttons.html)
+- [ ] [Creative Menu](./creative-menu/creative-menu.html)
+
 ## 섹션 5:css animations and keyframes
+
+- animaton fill mode
+  - none: 첫 stage로 돌아옴
+  - forwards: animation의 마지막 상태로 유지
+  - backwards: duration이 있더라도 animation 시작시에 0%로 유지
+  - both: forwards + backwards
+- duration
+  - backwards가 아니라면, 이 기간 동안 애니메이션의 0% 상태가 적용되지 않음
 
 ## 섹션 6:css animation creative examples
 
