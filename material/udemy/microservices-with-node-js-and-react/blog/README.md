@@ -30,4 +30,35 @@
 
 지금부터 직접 만드는 Event Bus는 복잡도가 낮고 대중적인 솔루션이 갖춘 기능을 개발하지 않을 것임
 
-- 오직 들어온 요청을 등록된 서버들의 `POST /events`로 다시 전달하는 역할만함
+- 오직 들어온 요청을 등록된 서버들의 `POST /events`로 다시 전달하는 역할만함 (이벤트를 보낸 서비스를 포함해)
+
+## Add moderation service
+
+moderation은 코멘트를 approve, reject, pending할지 결정하는 서비스
+
+### Option 1 - Moderation communicates event creation to query service
+
+CommentCreated 이벤트를 `Moderation Service`에서 처리하고, 여기서만 CommentModerated 이벤트를 발생시킴
+
+- 예제 services
+  - Comments Service | (create `CommentCreated`)
+  - Moderation Service | (accept `CommentCreated`, create `CommentModerated`)
+  - Query Service | (accept `CommentModerated`)
+- 단점
+  - QueryService 까지 도달하는데 시간이 지연되어 응답시간이 지연됨
+  - 만약 Moderation Service에서 확인이 지연되어 이벤트를 발생시키지 않는 경우, QueryService에서 메시지를 확인할 수 없게됨
+
+### Option 2 - Moderation updates status at both comments and query services
+
+QueryService에서 `CommentCreated`를 먼저 받고 나중에 `CommentModerated`가 들어오면 status만 'approved', 'rejected' 등으로 변경하는 방식
+
+언뜻 보기에 이상적으로 보이지만, real world에서는 `CommentModerated` 뿐만 아니라 `CommentVoted`, `CommentPromoted` 등의 다양한 이벤트가 발생할 수 있다. 그럼 이에 대한 업데이트 로직을 `Query Service`에서 가지게되는데 이 서비스는 Presentation을 담당해 비지니스로직이 가능한 없는 것이 이상적이라 이 옵션도 완벽하진 않다.
+
+### Option 3 - Query Service only listens for 'update' events
+
+Comment Service에서 다양한 타입에 대한 처리를 하고, 최종적으로 `CommentUpdated` 이벤트만 발생시키는 방식
+
+Query Service는 이 `CommentUpdated`에 지정된 프로퍼티로 업데이트만 수행한다.
+
+즉, 비니지스 로직은 가능한 한곳에 집중한다.
+
