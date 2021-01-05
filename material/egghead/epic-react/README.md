@@ -7,6 +7,6 @@
 - [5. Advanced React Patterns](./05_advanced-react-patterns.md)
 - [6. React Performance](./06_react-performance.md)
 - [7. Testing React Apps](./07_testing-react-apps.md)
-- 8. React Suspense
-- [9. Build an Epic React App](./09_build-an-epic-react-app.md)
-- [10. Epic React Expert Interview](./10_epic-react-expert-interviews.md)
+- TODO: 8. React Suspense
+- TODO: [9. Build an Epic React App](./09_build-an-epic-react-app.md)
+- TODO: [10. Epic React Expert Interview](./10_epic-react-expert-interviews.md)

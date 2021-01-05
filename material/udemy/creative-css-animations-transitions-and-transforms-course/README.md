@@ -1,6 +1,8 @@
 # Creative CSS Animations Transitions And Transforms Course
 
-## 복습 및 정리
+## ❌ 복습 및 정리
+
+- [ ] gwanduke.com에 직접 구현해보고 포트폴리오 구성
 
 ## 섹션 1:css transitions basics
 
@@ -56,8 +58,8 @@ img:hover {
 
 > 다양한 예제를 실습해보았다. 평소에 활용하던 잘알던 프로퍼티지만 여러가지 트릭을 익힐 수 있었다.
 
-- [ ] [Creative Buttons](./creative-buttons/creative-buttons.html)
-- [ ] [Creative Menu](./creative-menu/creative-menu.html)
+- [ ] [Creative Buttons](./creative-buttons)
+- [ ] [Creative Menu](./creative-menu)
 
 ## 섹션 5:css animations and keyframes
 
@@ -71,4 +73,10 @@ img:hover {
 
 ## 섹션 6:css animation creative examples
 
+여러가지 애니메이션을 실습해보았다. 어렵다기 보다 여러가지 트릭을 알 필요가 있다.
+
+- [ ] [Animations](./animations)
+
 ## 섹션 7:Bonus Section
+
+> 내용없음
