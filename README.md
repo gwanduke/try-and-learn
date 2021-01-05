@@ -10,6 +10,11 @@
   - [📖 목차](#-목차)
   - [Try - 기록, 코드, 개념 정리](#try---기록-코드-개념-정리)
   - [시리즈 - 책, 강의, 연재, 세미나, 컨퍼런스](#시리즈---책-강의-연재-세미나-컨퍼런스)
+    - [인터넷](#인터넷)
+    - [종이책](#종이책)
+    - [egghead.io](#eggheadio)
+    - [Fast Campus](#fast-campus)
+    - [Udemy](#udemy)
   - [독서/교양](#독서교양)
 
 ## Try - 기록, 코드, 개념 정리
@@ -48,12 +53,12 @@
 >
 > (순서는 단순히 폴더 정렬 순)
 
-인터넷
+### 인터넷
 
 - 🌏 [모던 자바스크립트 튜토리얼](./material/internet/modern-javascript-tutorial)
 - 🌏 [Notes on TypeScript](./material/internet/notes-on-typescript)
 
-종이책
+### 종이책
 
 - 📕 [자바스크립트 패턴과 테스트](./material/books/javascript-pattern-and-test)
 - 📕 📝 [JavaScript Patterns](./material/books/javascript-patterns)
@@ -62,22 +67,22 @@
 - 📕 📝 [Node.js 교과서](./material/books/nodejs-textbook)
 - 📕 📝 [리액트를 다루는 기술 (개정판)](./material/books/the-art-of-dealing-with-react)
 
-egghead.io
+### egghead.io
 
 - 💵 [Epic React](./material/egghead/epic-react)
 - 💵 [Testing JavaScript](./material/egghead/testing-javascript)
 
-Fast Campus
+### Fast Campus
 
 - 💵 [The RED: React와 Redux로 구현하는 아키텍처와 리스크관리](./material/fastcampus/the-red-react-redux-risk-management.md)
 
-Udemy
+### Udemy
 
 - HTML/CSS, Animation
   - 💵 ✅ [Build Responsive Real World Websites with HTML5 and CSS3](./material/udemy/build-responsive-real-world-websites)
-  - 💵 [Creative CSS Animations Transitions And Transforms Course](./material/udemy/creative-css-animations-transitions-and-transforms-course)
-  - 💵 [Interactive Web Animation 2020 [JavaScript, SVG, CSS & HTML]](./material/udemy/interactive-web-animation-2020)
-  - 💵 ✅ [Learn SVG Animation - With HTML, CSS & Javascript](./material/udemy/learn-svg-animation)
+  - 💵 📝 [Creative CSS Animations Transitions And Transforms Course](./material/udemy/creative-css-animations-transitions-and-transforms-course)
+  - 💵 📝 [Interactive Web Animation 2020 [JavaScript, SVG, CSS & HTML]](./material/udemy/interactive-web-animation-2020)
+  - 💵 📝 [Learn SVG Animation - With HTML, CSS & Javascript](./material/udemy/learn-svg-animation)
 - JavaScript, ReactJS
   - 💵 [React - The Complete Guide (incl Hooks, React Router, Redux)](./material/udemy/react-the-complete-guide)
   - 💵 [The Complete JavaScript Course 2020](./material/udemy/the-complete-javascript-course-2020)

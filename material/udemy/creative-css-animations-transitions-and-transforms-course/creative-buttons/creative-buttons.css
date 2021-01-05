@@ -369,6 +369,88 @@ p {
 }
 
 /***************
+ * Effect 9
+ ***************/
+
+.effect9 button {
+  padding: 20px 40px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  color: #ed6353;
+  border: 2px solid #ed6353;
+  overflow: hidden;
+  display: inline-block;
+  position: relative;
+  background: none;
+  cursor: pointer;
+}
+.effect9 button:hover {
+  color: white;
+  transition: all 300ms;
+}
+.effect9 button:hover::before {
+  height: 200%;
+}
+.effect9 button::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 0;
+  border-bottom-left-radius: 50%;
+  border-bottom-right-radius: 50%;
+  background-color: #ed6353;
+  z-index: -1;
+  transition: all 300ms;
+}
+
+/***************
+ * Effect 10
+ ***************/
+
+.effect10 button {
+  padding: 20px 40px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  position: relative;
+  background-color: #f1c40f;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  color: white;
+}
+.effect10 button::before,
+.effect10 button::after {
+  position: absolute;
+  content: "BUTTON";
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  color: white;
+  transition: all 200ms;
+  transform-origin: top;
+  transform: rotateX(270deg);
+}
+.effect10 button::before {
+  background-color: #2ce771;
+}
+.effect10 button::after {
+  background-color: red;
+  transition-delay: 0.2s;
+}
+.effect10 button:hover::before,
+.effect10 button:hover::after {
+  transform: rotateX(0);
+}
+
+/***************
  * Effect 11
  ***************/
 
