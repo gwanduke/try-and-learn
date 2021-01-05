@@ -44,6 +44,8 @@
 
 ## 섹션 2:A Mini-Microservices App
 
+간단한 마이크로서비스 만들어보기 - [Microservice App - Blog](./blog);
+
 ## 섹션 3:Running Services with Docker
 
 ## 섹션 4:Orchestrating Collections of Services with Kubernetes

@@ -1,5 +1,7 @@
 # Microservice App - Blog
 
+Event Bus를 이용한 간단한 마이크로서비스 앱을 구성해보았다.
+
 ## 어떻게 하위 리소스를 가져올까?
 
 `GET /posts?comments=true`
@@ -54,7 +56,7 @@ QueryService에서 `CommentCreated`를 먼저 받고 나중에 `CommentModerated
 
 언뜻 보기에 이상적으로 보이지만, real world에서는 `CommentModerated` 뿐만 아니라 `CommentVoted`, `CommentPromoted` 등의 다양한 이벤트가 발생할 수 있다. 그럼 이에 대한 업데이트 로직을 `Query Service`에서 가지게되는데 이 서비스는 Presentation을 담당해 비지니스로직이 가능한 없는 것이 이상적이라 이 옵션도 완벽하진 않다.
 
-### Option 3 - Query Service only listens for 'update' events
+### 👍 Option 3 - Query Service only listens for 'update' events
 
 Comment Service에서 다양한 타입에 대한 처리를 하고, 최종적으로 `CommentUpdated` 이벤트만 발생시키는 방식
 
@@ -62,3 +64,27 @@ Query Service는 이 `CommentUpdated`에 지정된 프로퍼티로 업데이트�
 
 즉, 비니지스 로직은 가능한 한곳에 집중한다.
 
+## 처리되지 못한 메시지 처리하기 (장애등으로)
+
+### Option 1 - Sync Requests
+
+Query Service에서 Posts와 Comments에 모든 내용을 달라고해서 Sync를 맞추는 방법
+
+- 단점
+  - 모든 데이터를 제공하는 end point를 다른 서비스에서 제공하지 않은 경우 불가능
+
+### Option 2 - Direct DB Access
+
+다른 서비스의 데이터베이스에 직접 접근해 데이터를 동기화
+
+- 단점
+  - 각각 서비스의 DB타입이 다른경우 각기 다른 방법을 고려해야함
+
+### 👍 Option 3 - Store Events
+
+이벤트를 순차적으로 다 저장하는 방법.
+
+그러면 down time가졌던 Query Service에서 저장된 이벤트를 순차적으로 처리하면된다.
+
+- 장점
+  - 추가적인 sync 로직을 작성할 필요가 없다.
