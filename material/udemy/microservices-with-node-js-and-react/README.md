@@ -48,6 +48,41 @@
 
 ## 섹션 3:Running Services with Docker
 
+- docker
+  - docker는 컨테이너의 개념이 있다.
+  - 컨테이너는 **환경구성** + **앱 시작방법**(yarn start) 을 동시에 해결해준다.
+- k8s
+  - 다른 컨테이너 묶음을 실행하는 툴
+  - 컨테이너가 실행되고 **어떻게 서로 상호작용하는지** 설정할 수 있다.
+  - k8s cluster는 Master와 Node가 존재함
+    - Master: cluster안의 프로그램을 관리 (config file에 명시된 사항을 따라서)
+    - Node: 가상 머신
+  - k8s에서 요청을 알맞은 컨테이너로 포워딩할 수 있다.
+- Dockerfile
+
+  ```dockerfile
+  FROM node:alpine
+  WORKDIR /app
+
+  # 파일 복사
+  COPY package.json ./
+  RUN npm install
+
+  # 모든 소스코드 복사
+  COPY ./ ./
+
+  # 컨테이너 시작시 실행할 명령
+  CMD ["npm", "start"]
+  ```
+
+- docker 명령어
+  - `docker build -t gwanduke/posts .`: dockerfile에 기반해 이미지 build. gwanduke/posts로 tag
+  - `docker run [imageID or imageTag]`
+  - `docker run -it [imageID or imageTag] [cmd]`: container를 만들고 시작, 그리고 기본 커맨트를 오버라이드
+  - `docker ps`
+  - `docker exec -it [containerID] [cmd]`: 실행되는 컨테이너에 주어진 명령 실행
+  - `docker logs [containerID]`: 주어진 컨테이너의 로그 출력
+
 ## 섹션 4:Orchestrating Collections of Services with Kubernetes
 
 ## 섹션 5:Architecture of Multi-Service Apps
