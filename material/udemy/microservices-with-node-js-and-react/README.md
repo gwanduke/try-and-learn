@@ -339,6 +339,50 @@ spec:
 127.0.0.1 posts.com
 ```
 
+### 리액트 어플리케이션 환경 세팅
+
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+          image: gwanduke/client
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv
+spec:
+  selector:
+    app: client
+  type: ClusterIP
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+```
+
+```bash
+$ k apply -f k8s/client-depl.yaml
+# deployment.apps/client-depl created
+# service/client-srv created
+```
+
+- ingress-nginx는 HTTP 메서드로 라우팅 할 수는 없다. 그래서 path로만 라우팅이 가능함. 이를 고려해 설계해야된다.
+
 ## 섹션 5:Architecture of Multi-Service Apps
 
 ## 섹션 6:Leveraging a Cloud Environment for Development
