@@ -383,6 +383,76 @@ $ k apply -f k8s/client-depl.yaml
 
 - ingress-nginx는 HTTP 메서드로 라우팅 할 수는 없다. 그래서 path로만 라우팅이 가능함. 이를 고려해 설계해야된다.
 
+### Skaffold 툴로 명령 자동화하기
+
+https://skaffold.dev/
+
+```yml
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: gwanduke/client # 여기 명시된 내용에 따라 변경을 감지하고 재배포
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+    - image: gwanduke/comments
+      context: comments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: gwanduke/event-bus
+      context: event-bus
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: gwanduke/moderation
+      context: moderation
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: gwanduke/posts
+      context: posts
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: gwanduke/query
+      context: query
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+```
+
+```bash
+$ skaffold dev
+#
+```
+
 ## 섹션 5:Architecture of Multi-Service Apps
 
 ## 섹션 6:Leveraging a Cloud Environment for Development
