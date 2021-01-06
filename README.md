@@ -86,6 +86,7 @@
 - JavaScript, ReactJS
   - 💵 [React - The Complete Guide (incl Hooks, React Router, Redux)](./material/udemy/react-the-complete-guide)
   - 💵 [The Complete JavaScript Course 2020](./material/udemy/the-complete-javascript-course-2020)
+  - 💵 [Microservices with Node JS and React](./material/udemy/microservices-with-node-js-and-react)
 - Tools
   - 💵 [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
   - 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)
