@@ -47,3 +47,9 @@
 - POST /api/users/signin
 - POST /api/users/signout
 - GET /api/users/currentuser
+
+## Infra 준비
+
+외부에서 k8s cluster로 통신하려면 Node Port 또는 ingress 서비스가 필요하다. ingress를 이용하면 Nginx에 라우팅 룰을 정의하고 각 서비스로 라우팅할 수 있다.
+
+skaffold, ingress를 설정해주자
