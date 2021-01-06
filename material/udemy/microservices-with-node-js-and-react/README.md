@@ -89,6 +89,19 @@
 
 ## 섹션 5:Architecture of Multi-Service Apps
 
+Section 4에 오기까지... 이런 단점들이 있었다.
+
+- 중복 코드가 많다 => npm 모듈을 만들고 프로젝트간 공유
+- 서비스간 이벤트 흐름을 파악하기 힘들다 => event를 정의하는 공유 라이브러리 작성
+- 각 이벤트가 어떤 프로퍼티를 가지는지 기억하기 쉽지 않다 => TypeScript
+- 몇몇 이벤트 흐름을 테스트하기 어렵다. => 가능한 많이 테스트를 작성
+- 쿠버네틱스 같은걸 돌리면서 내 기기가 렉걸림... => k8s를 클라우드에서 돌리자
+- 이벤트의 순서가 보장되지 않는 케이스 등의 경우에 어떻게 처리할 것인가? => concurrency issue를 다루는 코드를 작성
+
+이제 티케팅앱을 만들면서 문제를 해결해볼 것이다.
+
+[Section 5](./docs/section5.md)
+
 ## 섹션 6:Leveraging a Cloud Environment for Development
 
 ## 섹션 7:Response Normalization Strategies
