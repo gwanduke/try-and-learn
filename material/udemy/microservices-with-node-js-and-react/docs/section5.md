@@ -52,4 +52,20 @@
 
 외부에서 k8s cluster로 통신하려면 Node Port 또는 ingress 서비스가 필요하다. ingress를 이용하면 Nginx에 라우팅 룰을 정의하고 각 서비스로 라우팅할 수 있다.
 
-skaffold, ingress를 설정해주자
+skaffold (변경사항 감지. Deployment 업데이트), ingress를 설정해주자
+
+## Validation && Error
+
+### Error Response
+
+**에러 응답**은 특정 validation 라이브러리를 사용하더라도, 모든 서비스에서 동일한 포맷으로 통일할 필요가 있다.
+
+에러는 validation 뿐만 아니라 다양한데 그런 상황까지 일관적으로 고려되어야함
+
+👍 어떻게? Error에 대한 sub class를 만들어 관리하면 편리하다.
+
+- ```plain
+  Error
+    |----- RequestValidationError
+    |----- DatabaseConnectionError
+  ```
