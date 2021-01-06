@@ -286,6 +286,59 @@ $ k apply -f .
 #
 ```
 
+### 클라이언트에서 고려해야할 것
+
+- ❌ Option 1
+  - 각 서비스의 NodePort를 만들고 각각 다른 서비스port로 요청하는 방법
+- ✅ Option 2
+  - Load Balancer 서비스를 만들고 거기로만 요청하는 방법
+  - LB는 각 `ClusterIP`로 포워딩
+
+#### Load Balancer & Ingress
+
+- [ ] ingress vs lb?
+
+- Load Balancer Service: 한 pod로 트래픽을 전달하는 것이 목표. (즉 외부 트래픽을 클러스터 내부로 전달)
+- Ingress: 클러스터 내에서 라우팅 룰을 가지고 트래픽을 다른 서비스로 분배하는 pod
+
+```plain
+            |------------------------------
+            |(Cloud Provider. aws/gc/azure)
+Outside -> L|B  -> |---------------------|
+            |      | ingress --> pod1    |
+            |      |         --> pod2    |
+            |      |---------------------|
+            |------------------------------
+```
+
+구현에 `ingress-nginx` 또는 `kubernetes-ingress`를 사용하면 편리함
+
+ingress 서비스 구성
+
+```yml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: posts.com # 한 클러스터 내에서 여러 도메인이 있을 수 있다.
+      http:
+        paths:
+          - path: /posts
+            backend:
+              serviceName: posts-clusterip-srv
+              servicePort: 4000
+```
+
+/etc/hosts에 다음 추가
+
+```plain
+127.0.0.1 posts.com
+```
+
 ## 섹션 5:Architecture of Multi-Service Apps
 
 ## 섹션 6:Leveraging a Cloud Environment for Development
