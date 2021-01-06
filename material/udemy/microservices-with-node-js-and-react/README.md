@@ -44,11 +44,63 @@
 
 ## 섹션 2:A Mini-Microservices App
 
+간단한 마이크로서비스 만들어보기 - [Microservice App - Blog](./blog);
+
 ## 섹션 3:Running Services with Docker
+
+- docker
+  - docker는 컨테이너의 개념이 있다.
+  - 컨테이너는 **환경구성** + **앱 시작방법**(yarn start) 을 동시에 해결해준다.
+- k8s
+  - 다른 컨테이너 묶음을 실행하는 툴
+  - 컨테이너가 실행되고 **어떻게 서로 상호작용하는지** 설정할 수 있다.
+  - k8s cluster는 Master와 Node가 존재함
+    - Master: cluster안의 프로그램을 관리 (config file에 명시된 사항을 따라서)
+    - Node: 가상 머신
+  - k8s에서 요청을 알맞은 컨테이너로 포워딩할 수 있다.
+- Dockerfile
+
+  ```dockerfile
+  FROM node:alpine
+  WORKDIR /app
+
+  # 파일 복사
+  COPY package.json ./
+  RUN npm install
+
+  # 모든 소스코드 복사
+  COPY ./ ./
+
+  # 컨테이너 시작시 실행할 명령
+  CMD ["npm", "start"]
+  ```
+
+- docker 명령어
+  - `docker build -t gwanduke/posts .`: dockerfile에 기반해 이미지 build. gwanduke/posts로 tag
+  - `docker run [imageID or imageTag]`
+  - `docker run -it [imageID or imageTag] [cmd]`: container를 만들고 시작, 그리고 기본 커맨트를 오버라이드
+  - `docker ps`
+  - `docker exec -it [containerID] [cmd]`: 실행되는 컨테이너에 주어진 명령 실행
+  - `docker logs [containerID]`: 주어진 컨테이너의 로그 출력
 
 ## 섹션 4:Orchestrating Collections of Services with Kubernetes
 
+[Section 4](./docs/section4.md)
+
 ## 섹션 5:Architecture of Multi-Service Apps
+
+Section 4에 오기까지... 이런 단점들이 있었다.
+
+- 중복 코드가 많다 => npm 모듈을 만들고 프로젝트간 공유
+- 서비스간 이벤트 흐름을 파악하기 힘들다 => event를 정의하는 공유 라이브러리 작성
+- 각 이벤트가 어떤 프로퍼티를 가지는지 기억하기 쉽지 않다 => TypeScript
+- 몇몇 이벤트 흐름을 테스트하기 어렵다. => 가능한 많이 테스트를 작성
+- 쿠버네틱스 같은걸 돌리면서 내 기기가 렉걸림... => k8s를 클라우드에서 돌리자
+- 이벤트의 순서가 보장되지 않는 케이스 등의 경우에 어떻게 처리할 것인가? => concurrency issue를 다루는 코드를 작성
+
+이제 티케팅앱을 만들면서 문제를 해결해볼 것이다.
+
+[Section 5](./docs/section5.md)
 
 ## 섹션 6:Leveraging a Cloud Environment for Development
 
