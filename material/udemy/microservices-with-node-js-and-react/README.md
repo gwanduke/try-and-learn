@@ -89,26 +89,155 @@
 
 ## 섹션 5:Architecture of Multi-Service Apps
 
-Section 4에 오기까지... 이런 단점들이 있었다.
-
-- 중복 코드가 많다 => npm 모듈을 만들고 프로젝트간 공유
-- 서비스간 이벤트 흐름을 파악하기 힘들다 => event를 정의하는 공유 라이브러리 작성
-- 각 이벤트가 어떤 프로퍼티를 가지는지 기억하기 쉽지 않다 => TypeScript
-- 몇몇 이벤트 흐름을 테스트하기 어렵다. => 가능한 많이 테스트를 작성
-- 쿠버네틱스 같은걸 돌리면서 내 기기가 렉걸림... => k8s를 클라우드에서 돌리자
-- 이벤트의 순서가 보장되지 않는 케이스 등의 경우에 어떻게 처리할 것인가? => concurrency issue를 다루는 코드를 작성
-
-이제 티케팅앱을 만들면서 문제를 해결해볼 것이다.
-
 [Section 5](./docs/section5.md)
 
 ## 섹션 6:Leveraging a Cloud Environment for Development
 
+TODO:
+
 ## 섹션 7:Response Normalization Strategies
+
+### Validation && Error Response
+
+**에러 응답**은 특정 validation 라이브러리를 사용하더라도, 모든 서비스에서 동일한 포맷으로 통일할 필요가 있다.
+
+에러는 validation 뿐만 아니라 다양한데 그런 상황까지 일관적으로 고려되어야함
+
+👍 어떻게? Error에 대한 sub class를 만들어 관리하면 편리하다.
+
+- ```plain
+  Error
+    |----- RequestValidationError
+    |----- DatabaseConnectionError
+  ```
 
 ## 섹션 8:Database Management and Modeling
 
+> pod는 항상 deployment를 통해 만든다. (직접 생성 X)
+
+```yml
+# infra/k8s/auth-mongo-depl.yml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-mongo
+  template:
+    metadata:
+      labels:
+        app: auth-mongo
+    spec:
+      containers:
+        - name: auth-mongo
+          image: mongo # from docker hub
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-mongo-srv
+spec:
+  selector:
+    app: auth-mongo # auth-mongo인 pod를 선택
+  ports:
+    - name: db # 로깅 목적의 이름
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
+```
+
+- mongoose가 타입지원이 좋지 않은데, 이런 경우 build 함수를 통해 해결 가능 (new User를 직접 호출 X)
+
+  ```js
+  const User = mongoose.model("User", userSchema);
+
+  const buildUser = (attrs: UserAttrs) => {
+    return new User(attrs);
+  };
+
+  buildUser({
+    email: "test@test.com",
+    password: "123",
+  });
+  ```
+
+- 하지만 아래 방법이 더 괜찮은 방법
+
+  ```js
+  interface UserAttrs {
+    email: string;
+    password: string;
+  }
+
+  interface UserModel extends mongoose.Model<UserDoc> {
+    build(attrs: UserAttrs): UserDoc;
+  }
+
+  interface UserDoc extends mongoose.Document {
+    email: string;
+    password: string;
+  }
+
+  const userSchema = new Schema({
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+  });
+  userSchema.statics.build = (attrs: UserAttrs) => {
+    return new User(attrs);
+  }
+
+  const User = mongoose.model<UserDoc, UserModel>("User", userSchema);
+
+  User.build(...) // !!
+  ```
+
 ## 섹션 9:Authentication Strategies and Options
+
+마이크로 서비스에서 인증은 여러 방법이 있긴 하지만 명확한(right) 솔루션이 없다. 각각의 방법들이 장단점이 있는데 이를 살펴보자.
+
+### Option 1
+
+각 서비스가 auth service에 의존적인 방법
+
+Request -> Order Service --(sync request)--> Auth Service
+
+예를 들어 `Order Service`가 인증이 필요하면, `Auth Service`에 'Sync Request'를 진행해 JWT/Cookie를 검사하고 인증되었는지 확인한다.
+
+- 단점
+  - Auth Service가 죽으면 전체 시스템 마비
+
+### Option 1.1
+
+각 서비스가 Auth Service를 게이트웨이로서 의존
+
+Request -> Auth Service -> Order Service
+
+### Option 2
+
+> 의존이 줄어드므로 지금 으로서는 좋은 선택
+
+각 서비스가 사용자를 인증하는 방법을 알고있다.
+
+Request -> Order Service
+
+- 단점
+  - 서비스마다 동일한 로직을 가져야함
+
+하지만 사용자가 밴되었다고 생각해보자. auth 외 다른 서비스에서는 이를 어떻게 알까? (JWT만 검증하니까)
+
+=> auth 서비스에서 발급시 15분(짧은시간) 정도의 시간만 유효한 토큰을 발행한다. (그 방법이 쿠키든, JWT이든은 상관없다). 그리고 토큰이 더이상 유효하지 않으면 Auth Service로 요청해 재발급/검증한다.
+
+그런데 이런 경우 실시간성을 보장할수가 없는데, 이는 AuthService에서 UserBanned 이벤트를 발생시키고, 각 서비스에서 토큰 유효시간만큼 이 이벤트를 저장하고 banned를 검증하는 로직을 넣으면 된다. 유효시간만큼만 데이터를 유지하는 것은 데이터를 적게 유지하기 위함이고, 유효시간 이후에는 어짜피 Auth Service에서 검증을 할 것이므로 더이상 필요치 않은 데이터이다.
 
 ## 섹션 10:Testing Isolated Microservices
 
