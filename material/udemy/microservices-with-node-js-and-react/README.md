@@ -304,6 +304,49 @@ declare global {
 
 ## 섹션 10:Testing Isolated Microservices
 
+### 고려해야할 테스트
+
+범위 (예시)
+
+- 고립된 한 조각 (미들웨어 하나...)
+- 같이 동작하는 코드 (여러 미들웨어를 거쳐 동작하는 리퀘스트 핸들러)
+- 서로 다른 컴포넌트가 함께 동작하는 것 (서비스로의 리퀘스트가 데이터베이스에 기록되는 것, 또는 이벤트 버스와의 연계)
+- 서로 다른 서비스간에 테스트 (payments 서비스에서의 변경사항이 orders 서비스에 영향을 미치는 것...)
+
+### 목표로할 테스트
+
+1. 기본 요청 핸들링 (요청 -> (db) -> 응답까지)
+2. 모델 테스트 (Unit test)
+3. 이벤트를 emit하고 receive하는 부분 (여러 서비스가 함께 동작함을 가정함)
+
+### 테스트 셋업
+
+- dev dependency로 적용한 파일들은 도커 세팅시 설치하지 않음 (Dockerfile -> npm install --only=prod)
+
+### 테스트 작성
+
+딱히 어려운건 없었다. 기능테스트라 평소에 하던대로 테스트하면 된다.
+
+- 테스트 환경이 https가 지원되지 않으므로 코드내에 해당 환경에 대한 예외를 처리해야할 수도 있다. (`process.env.NODE_ENV === 'test'`)
+- supertest를 이용할 때는 브라우저와 다르게 쿠키가 자동으로 요청에 포함되지 않음을 기억하자
+- global.signin 처럼 jest 글로벌로 헬퍼함수를 등록하면 편리한데, 타입이 먹히지 않을 것이다. 다음과 같이 해겨하자
+
+  ```ts
+  declare global {
+    namespace NodeJS {
+      interface Global {
+        signin(): Promise<string[]>;
+      }
+    }
+  }
+
+  // in setup.ts
+  function signin() {}
+
+  // in test
+  global.signin();
+  ```
+
 ## 섹션 11:Integrating a Server-Side-Rendered React App
 
 ## 섹션 12:Code Sharing and Reuse Between Services
