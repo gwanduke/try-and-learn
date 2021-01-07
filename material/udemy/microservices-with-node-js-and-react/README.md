@@ -239,6 +239,69 @@ Request -> Order Service
 
 그런데 이런 경우 실시간성을 보장할수가 없는데, 이는 AuthService에서 UserBanned 이벤트를 발생시키고, 각 서비스에서 토큰 유효시간만큼 이 이벤트를 저장하고 banned를 검증하는 로직을 넣으면 된다. 유효시간만큼만 데이터를 유지하는 것은 데이터를 적게 유지하기 위함이고, 유효시간 이후에는 어짜피 Auth Service에서 검증을 할 것이므로 더이상 필요치 않은 데이터이다.
 
+### 인증 요구사항
+
+1. 인증 확인시 사용자에 대한 정보를 알 수 있어야함
+2. 인증 확인시 사용자 권한(role, authorization)에 대한 정보를 알 수 있어야함 (쿠폰 발행이 가능한가?)
+3. 토큰은 일정 시간 후에 만료되어야함
+4. 다른 모든 서비스 (다른 언어)에서도 이해가능하고 인증가능해야하며, backing data store를 추가로 요구하지 않아야함
+
+==> JWT!
+
+### Signin key (secret)를 쿠버네티스에서 공유하는 법
+
+`Secret`을 만들고 여기에 통합 저장. 다른 서비스들이 실행될 때 주입
+
+- jwt-secret 이라는 이름의 Secret 생성. 값은 jwt=asdf
+
+  ```plain
+  kubectl create secret generic jwt-secret --from-literal=JWT_KEY=asdf
+  kubectl get secrets
+  ```
+
+depl yml 파일 다음과 같이 변경
+
+```yml
+spec:
+  containers:
+    - name: auth
+      image: gwanduke/auth
+      env:
+        - name: JWT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_KEY
+```
+
+서비스에 따라 MySQL(id)이냐 mongodb(\_id)냐에 따라서 응답형태가 달라질 수 있는데 이도 App단에서 응답 형태를 통일시켜주어야한다.
+
+또한 패스워드 등은 제외(필터링)시켜주어야한다.
+
+### JSON.stringify
+
+```js
+const person = {
+  name: "alex",
+  toJSON() {
+    return 1;
+  },
+};
+JSON.stringify(person); // 1
+```
+
+### Express 타입 정의
+
+```ts
+declare global {
+  namespace Express {
+    interface Reqeust {
+      currentUser? UserPayload;
+    }
+  }
+}
+```
+
 ## 섹션 10:Testing Isolated Microservices
 
 ## 섹션 11:Integrating a Server-Side-Rendered React App
