@@ -349,6 +349,21 @@ declare global {
 
 ## 섹션 11:Integrating a Server-Side-Rendered React App
 
+- k8s 개발 환경에서 next.js의 watch가 제대로 이루어지지 않을 수 있는데, next config내에 웹팩 poll 설정을 해서 300ms 정도마다 변경사항을 검사하도록 하면 해결될 수 있다.
+- 서버에서는 ingress nginx를 거쳐 127.0.0.1:80 식으로 host가 설정되어 다른 서비스가 아닌 client 컨테이너 내부로 라우팅되니, `axios.get('/api/...')`식으로 호출하면 안되고 모든 URL을 다 적어주어야함.
+  - 해결방법
+    - 서버에서만 HOST로 서비스 URL을 명시한다 (http://auth-service)
+      - 🤮 이 방법은 각 path마다 구체적인 서비스를 알아야하는 단점
+      - 🤮 k8s의 동일 네임스페이스 내에서만 이런식으로 서비스명으로 호출가능함 `kubectl get namespace`
+    - ✅ http://ingress-nginx.ingress-nginx.svc.cluster.local
+      - http://NAME_OF_SERVICE.NAMESPACE.svc.cluster.local
+      - `kubectl get services -n ingress-nginx`
+      - 상당히 긴데, "External Name Service"를 이용하면 http://ingress-nginx-srv 식으로 더 짧게 줄일 수 있다.
+      - 하지만 이 방법으로 routing rule이 제대로 적용 되지 않는데 ingress config에서 host와 다르기 때문 그래서 요청헤더로 Header host: ticking.dev로 따로 지정해 보내주어야한다.
+- 서버에서 요청시에는 브라우저에서 보낸 쿠키를 파싱해, 그 COOKIE를 직접 실어 보내야함
+- getInitialProps는 client,server 둘다 에서 수행됨 (WINDOW가 있는지로 판단 `typeof window === 'undefined'`)
+- App의 getinitialprops가 호출되면 pages/index의 getinitialprops가 호출되지 않는 현상이 있는데, ctx.Component의 getinitialprops를 직접 호출해주고 props로 pageProps를 전달해주어야함.
+
 ## 섹션 12:Code Sharing and Reuse Between Services
 
 ## 섹션 13:Create-Read-Update-Destroy Server Setup
