@@ -1,0 +1,7 @@
+{
+  "name": "@gwanduke-tickets/common",
+  "version": "1.0.1",
+  "main": "index.js",
+  "author": "gwanduke <gwanduke@gmail.com>",
+  "license": "MIT"
+}
