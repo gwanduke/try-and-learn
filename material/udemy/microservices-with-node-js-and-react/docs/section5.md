@@ -1,5 +1,16 @@
 # Section 5
 
+Section 4에 오기까지... 이런 단점들이 있었다.
+
+- 중복 코드가 많다 => npm 모듈을 만들고 프로젝트간 공유
+- 서비스간 이벤트 흐름을 파악하기 힘들다 => event를 정의하는 공유 라이브러리 작성
+- 각 이벤트가 어떤 프로퍼티를 가지는지 기억하기 쉽지 않다 => TypeScript
+- 몇몇 이벤트 흐름을 테스트하기 어렵다. => 가능한 많이 테스트를 작성
+- 쿠버네틱스 같은걸 돌리면서 내 기기가 렉걸림... => k8s를 클라우드에서 돌리자
+- 이벤트의 순서가 보장되지 않는 케이스 등의 경우에 어떻게 처리할 것인가? => concurrency issue를 다루는 코드를 작성
+
+이제 티케팅앱을 만들면서 문제를 해결해볼 것이다.
+
 ## App Overview
 
 - 사용자는이벤트에 대한 티켓 리스팅을 판매할 수 있다.
@@ -53,19 +64,3 @@
 외부에서 k8s cluster로 통신하려면 Node Port 또는 ingress 서비스가 필요하다. ingress를 이용하면 Nginx에 라우팅 룰을 정의하고 각 서비스로 라우팅할 수 있다.
 
 skaffold (변경사항 감지. Deployment 업데이트), ingress를 설정해주자
-
-## Validation && Error
-
-### Error Response
-
-**에러 응답**은 특정 validation 라이브러리를 사용하더라도, 모든 서비스에서 동일한 포맷으로 통일할 필요가 있다.
-
-에러는 validation 뿐만 아니라 다양한데 그런 상황까지 일관적으로 고려되어야함
-
-👍 어떻게? Error에 대한 sub class를 만들어 관리하면 편리하다.
-
-- ```plain
-  Error
-    |----- RequestValidationError
-    |----- DatabaseConnectionError
-  ```

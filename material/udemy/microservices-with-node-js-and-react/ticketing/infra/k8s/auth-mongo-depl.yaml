@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-mongo
+  template:
+    metadata:
+      labels:
+        app: auth-mongo
+    spec:
+      containers:
+        - name: auth-mongo
+          image: mongo # from docker hub
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-mongo-srv
+spec:
+  selector:
+    app: auth-mongo # auth-mongo인 pod를 선택
+  ports:
+    - name: db # 로깅 목적의 이름
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
