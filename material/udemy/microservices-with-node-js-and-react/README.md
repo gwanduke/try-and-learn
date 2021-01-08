@@ -378,25 +378,47 @@ declare global {
 
 ## 섹션 13:Create-Read-Update-Destroy Server Setup
 
+> TDD로 라우트를 만드는 과정, 크게 중요하지 않음
+
 ## 섹션 14:NATS Streaming Server - An Event Bus Implementation
+
+TODO:
 
 ## 섹션 15:Connecting to NATS in a Node JS World
 
+TODO:
+
 ## 섹션 16:Managing a NATS Client
+
+TODO:
 
 ## 섹션 17:Cross-Service Data Replication In Action
 
+TODO:
+
 ## 섹션 18:Understanding Event Flow
+
+TODO:
 
 ## 섹션 19:Listening for Events and Handling Concurrency Issues
 
+TODO:
+
 ## 섹션 20:Worker Services
+
+TODO:
 
 ## 섹션 21:Handling Payments
 
+TODO:
+
 ## 섹션 22:Back to the Client
 
+TODO:
+
 ## 섹션 23:CI/CD
+
+TODO:
 
 ## 섹션 24:[Appendix A] - Basics of Docker
 
