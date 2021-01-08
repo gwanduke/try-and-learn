@@ -366,27 +366,59 @@ declare global {
 
 ## 섹션 12:Code Sharing and Reuse Between Services
 
+서비스간에 공유해야할 로직 "에러", "미들웨어" 등이 있다.
+
+1. 옵션 1. Copy & Paste => 변경사항을 추적/관리하기 어렵다
+2. 옵션 2. Git Submodule - 버전 관리하기 다소 복잡하다
+3. 옵션 3. NPM 패키지 👍 (NPM에 푸시.풀 해야하는 문제는 있다)
+   - private registry에 배포
+   - typescript로 작성하는 경우
+     - tsconfig.json의 `declaration` 옵션 `true`
+     - tsconfig.json의 `outDir` 지정
+
 ## 섹션 13:Create-Read-Update-Destroy Server Setup
+
+> TDD로 라우트를 만드는 과정, 크게 중요하지 않음
 
 ## 섹션 14:NATS Streaming Server - An Event Bus Implementation
 
+TODO:
+
 ## 섹션 15:Connecting to NATS in a Node JS World
+
+TODO:
 
 ## 섹션 16:Managing a NATS Client
 
+TODO:
+
 ## 섹션 17:Cross-Service Data Replication In Action
+
+TODO:
 
 ## 섹션 18:Understanding Event Flow
 
+TODO:
+
 ## 섹션 19:Listening for Events and Handling Concurrency Issues
+
+TODO:
 
 ## 섹션 20:Worker Services
 
+TODO:
+
 ## 섹션 21:Handling Payments
+
+TODO:
 
 ## 섹션 22:Back to the Client
 
+TODO:
+
 ## 섹션 23:CI/CD
+
+TODO:
 
 ## 섹션 24:[Appendix A] - Basics of Docker
 
