@@ -7,6 +7,10 @@
 - [ ] https://medium.com/bb-tutorials-and-thoughts/how-to-implement-micro-frontend-architecture-with-react-5ab172a0fec7
 - [ ] https://floqast.com/engineering-blog/post/implementing-a-micro-frontend-architecture-with-react/
 
+## 다시보기
+
+- [ ] 12. Understanding Module Federation
+
 ## 섹션 1:The Basics of Microfrontends
 
 ### Microfrontend
@@ -58,6 +62,51 @@ $ yarn add webpack@5.3.2 webpack-cli@4.1.0 webpack-dev-server@3.11.0 html-webpac
 ```
 
 ## 섹션 2:The Basics of Module Federation
+
+결과적으로 MFE의 index.html 파일은 개발중에만 사용되고 프로덕션에서는 container의 index.html이 사용된다.
+
+### Webpack
+
+Container
+
+```js
+
+    new ModuleFederationPlugin({
+      name: "container",
+      remotes: {
+        products: "products@http://localhost:8081/remoteEntry.js",
+        // `products:` => import abc from 'products'로 사용가능하게 됨
+        // <PRODUCTS 웹팩 설정에 정의된 name>@<remoteEntry파일 URL>
+      },
+    }),
+```
+
+MFE
+
+```js
+    new ModuleFederationPlugin({
+      name: "products",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./ProductsIndex": "./src/index",
+      },
+    }),
+```
+
+### Entry
+
+Container (=== `Host`: `Remove`로 부터 코드를 요구)
+
+```js
+// index.js
+import("./bootstrap.js"); // import를 이용해 웹팩이 실행전에 필요한 코드를 파악할 수 있음
+```
+
+```js
+// bootstrap.js
+import "products/ProductsIndex";
+// products -> remoteEntry.js -> src/index.js의 관련 의존성 모두 다운로드
+```
 
 ## 섹션 3:Sharing Dependencies Between Apps
 
