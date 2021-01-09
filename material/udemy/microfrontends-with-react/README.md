@@ -77,6 +77,8 @@ Container
         products: "products@http://localhost:8081/remoteEntry.js",
         // `products:` => import abc from 'products'로 사용가능하게 됨
         // <PRODUCTS 웹팩 설정에 정의된 name>@<remoteEntry파일 URL>
+        // <PRODUCTS 웹팩 설정에 정의된 name>은 id와 동일해선 안된다.
+        // 왜냐면 빌드된 파일에서 var <PRODUCTS 웹팩 설정에 정의된 name> 으로 정의되기 때문이다.
       },
     }),
 ```
@@ -109,6 +111,30 @@ import "products/ProductsIndex";
 ```
 
 ## 섹션 3:Sharing Dependencies Between Apps
+
+웹팩에서 다음과 같이 설정하면 동일 모듈로 취급하고 한번만 가져온다. 이는 `package.json`에 기록된 정보를 바탕으로 하며 `~` `^`로 기록된 경우 major 버전에 따라 한번만 가져온다. (버전을 완전히 명시하는 경우 각각 가져온다.)
+
+- 예1) ^5.0.0, 5.1.0 => 5.1.0 한번
+- 예2) 5.0.0, 5.1.0 => 5.1.0, 5.0.0 두번
+
+```js
+    new ModuleFederationPlugin({
+      name: "products",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./ProductsIndex": "./src/index",
+      },
+      shared: ["faker"],
+    }),
+```
+
+```js
+// 한개의 버전을 사용하도록 강제할 수있다.
+// 호환되지 않는 경우 콘솔에 경고가 표시되니 고쳐주어야함
+        faker: {
+          singleton: true,
+        },
+```
 
 ## 섹션 4:Linking Multiple Apps Together
 
