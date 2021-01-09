@@ -218,38 +218,200 @@ const fetchPosts = () => async dispatch => {
 
 ## 섹션 19:Redux Store Design
 
+아래 `hasChanged`를 판단하는 이유로, redux 상태는 불변적으로 변경되어야함
+
+```js
+// https://github.com/reduxjs/redux/blob/master/src/combineReducers.ts#L192
+    let hasChanged = false // !
+    const nextState: StateFromReducersMapObject<typeof reducers> = {}
+    for (let i = 0; i < finalReducerKeys.length; i++) {
+      const key = finalReducerKeys[i]
+      const reducer = finalReducers[key]
+      const previousStateForKey = state[key]
+      const nextStateForKey = reducer(previousStateForKey, action)
+      if (typeof nextStateForKey === 'undefined') {
+        const errorMessage = getUndefinedStateErrorMessage(key, action)
+        throw new Error(errorMessage)
+      }
+      nextState[key] = nextStateForKey
+
+      // 동일한 객체인지 판별 (shallow compare)
+      hasChanged = hasChanged || nextStateForKey !== previousStateForKey
+    }
+    hasChanged =
+      hasChanged || finalReducerKeys.length !== Object.keys(state).length
+    return hasChanged ? nextState : state
+  }
+```
+
+### mapStateToProps
+
+ownProps
+
+```js
+// 이렇게 하면, 컴포넌트 내에서 단일 user를 취급하는 컴포넌트에서 user`s`에 접근하지 않아도 된다.
+const mapStateToProps = (state, ownProps) => {
+  return { user: state.users.find((user) => user.id === ownProps.userId) };
+};
+```
+
 ## 섹션 20:Navigation with React Router
+
+### 라우터 종류
+
+- BrowserRouter - /page
+- HashRouter - /#/page
+- MemoryRouter - URL이 트랙되지 않음
 
 ## 섹션 21:Handling Authentication with React
 
+> Skip
+
+구글로그인
+
+- OAuth for Servers
+  - token으로 유저로서 요청할 수 있음
+  - 대개 로그인 되지 않은 사용자에 대한 정보가 필요한 경우 사용
+  - 사용자에 대한 정보를 저장하고 있어야하므로 셋업이 어려움
+- OAuth for JS Browser Apps
+  - token으로 유저로서 요청할 수 있음
+  - 대개 로그인한 동안에 유저데이터에 엑세스하기 위해 사용
+  - SDK 이용해 간편함
+
 ## 섹션 22:Redux Dev Tools
+
+`localhost:3000?debug_session=<some_string>`으로 새로고침간에 리덕스 상태를 유지할 수 있음
 
 ## 섹션 23:Handling Forms with Redux Form
 
+> Skip
+
 ## 섹션 24:REST-Based React Apps
+
+> Skip
+
+### Browser History
+
+- Redux Action Creator에서 REST 요청 후, programatic하게 경로를 변경하려면 history가 필요한데 이를 매번 action creator에 주입받기엔 너무 이상하다. 그래서 Router를 만들 때 제공되는 history.createBrowserHisstory() 로 history를 직접 만들고, 이를 export해서 공통으로 사용하면 가능하다.
+
+### 수정시 ID 판단
+
+두가지 방법이 있겠다.
+
+1. 어떤 리소스가 수정중인지 ID를 스토어에 기록
+2. URL로 부터 판단
 
 ## 섹션 25:Using React Portals
 
+> Skip
+
+### Why?
+
+다음과 같은 경우에 Modal이 화면 최상단에 위치하지 못할 수 있다. (Stacking Context 고려)
+
+```plain
+      body
+        |
+    -----------------
+    |               |
+  positioned      sidebar (z-index: 0)
+  (z-index: 0, relative)
+    |
+  Modal (z-index: 10)
+```
+
 ## 섹션 26:Implementing Streaming Video
+
+TODO: RTMP 비디오 송출 (중요하지 않음)
 
 ## 섹션 27:The Context System with React
 
+> Skip
+
+- Context: 새로운 Provider를 만들 때 마다 새로운 pipe이다.
+
 ## 섹션 28:Replacing Redux with Context
+
+> Skip
 
 ## 섹션 29:Working with Older Versions of React
 
+> Skip
+
+```js
+// Function (React Class)
+const App = function () {
+  return <div>Hi!</div>
+}
+
+// Instance
+<App></App> // React.createElement(...)
+```
+
 ## 섹션 30:Ajax Requests with React
+
+> Skip completely
 
 ## 섹션 31:Modeling Application State
 
+> Skip completely
+
 ## 섹션 32:Managing App State with Redux
+
+> Skip completely
 
 ## 섹션 33:Intermediate Redux: Middleware
 
+> Skip completely
+
 ## 섹션 34:React Router + Redux Form v6
+
+> Skip completely
 
 ## 섹션 35:Bonus Topics
 
+> Skip
+
+### Reselect
+
+상태를 계산하는 라이브러리(Computed Value)
+
+예를 들어)
+
+- PostsReducer => `posts: [Post1, Post2, Post3]`
+- SelectedPostsReducer => `ids: [1,3]`
+
+=> 컴포넌트에서 포스트를 선택하는 경우, 컴포넌트가 데이터 구조에 대해서 알아야함. 그리고 재사용이 불가능함
+
+=> - Reslect Selector가 이 로직을 담당하고 처리 (Derived State 반환)
+
+```js
+const postsSelector = (state) => state.posts;
+const selectedPostsSelector = (state) => state.selectedPostIds;
+
+const getPosts = (posts, selectedPostIds) => {
+  const selectedPosts = _.filter(posts, (post) =>
+    _.contains(selectedPostIds, post.id)
+  );
+  return selectedPosts;
+};
+
+export default createSelector(
+  postsSelector,
+  selectedPostsSelector,
+
+  // 마지막이 select logic이고
+  // 앞서 계산된 결과가 인자로 전달됨 getPosts(a, b)
+  getPosts
+);
+
+// 위 함수를 getStateToProps 로 전달
+```
+
 ## 섹션 36:React Router + Redux Form v4
 
+> Skip completely
+
 ## 섹션 37:Extras
+
+> 내용없음
