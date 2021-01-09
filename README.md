@@ -49,7 +49,7 @@
 ## 시리즈 - 책, 강의, 연재, 세미나, 컨퍼런스
 
 > - 💵 내돈내산, 🌏 공개된 자료, 📕 종이책
-> - ✅ 후기 작성 or 복습 완료, 📝 거의 완료
+> - ✅ 후기 작성 or 복습 완료, 📝 거의 완료, 😎 진행중
 >
 > (순서는 단순히 폴더 정렬 순)
 
@@ -84,10 +84,11 @@
   - 💵 📝 [Interactive Web Animation 2020 [JavaScript, SVG, CSS & HTML]](./material/udemy/interactive-web-animation-2020)
   - 💵 📝 [Learn SVG Animation - With HTML, CSS & Javascript](./material/udemy/learn-svg-animation)
 - JavaScript, ReactJS
-  - 💵 [React - The Complete Guide (incl Hooks, React Router, Redux)](./material/udemy/react-the-complete-guide)
+  - 💵 [Microfrontends with React: A Complete Developer's Guide](./material/udemy/microfrontends-with-react)
+  - 💵 📝 [React - The Complete Guide (incl Hooks, React Router, Redux)](./material/udemy/react-the-complete-guide)
   - 💵 [The Complete JavaScript Course 2020](./material/udemy/the-complete-javascript-course-2020)
-  - 💵 [Microservices with Node JS and React](./material/udemy/microservices-with-node-js-and-react)
-  - 💵 [Modern React with Redux [2020 Update]](./material/udemy/modern-react-with-redux)
+  - 💵 😎 [Microservices with Node JS and React](./material/udemy/microservices-with-node-js-and-react)
+  - 💵 📝 [Modern React with Redux [2020 Update]](./material/udemy/modern-react-with-redux)
 - Tools
   - 💵 [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
   - 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)

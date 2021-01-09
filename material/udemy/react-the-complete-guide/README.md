@@ -323,6 +323,47 @@ function* watchAuth() {
 
 ## 섹션 28:Bonus: Replacing Redux with React Hooks
 
+TODO: 472 ~ 480 보기
+
+Redux에 비해 Context는 적은 업데이트 (theme, lang) 등에 적합한 편
+
+```js
+// custom store
+let globalState = [];
+let listeners = [];
+let actions = {};
+
+export const useStore = () => {
+  const setState = useState(globalState)[1];
+
+  const dispatch = (actionIdentifier) => {
+    const newState = actions[actionIdentifier](globalState);
+    globalState = { ...globalState, ...newState };
+
+    for (const listener of listeners) {
+      listener(globalState);
+    }
+  };
+
+  useEffect(() => {
+    listeners.push(setState);
+
+    return () => {
+      listeners = listeners.filter((li) => li !== setState);
+    };
+  }, [setState]);
+
+  return [globalState, dispatch];
+};
+
+export const initStore = (userActions, initialState) => {
+  if (initialState) {
+    globalState = { ...globalState, ...initialState };
+  }
+  actions = { ...actions, userActions };
+};
+```
+
 ## 섹션 29:Bonus: Building the Burger CSS
 
 - box-shadow 의 inset을 활용해 약간 어두운 색상을 지정하면 입체감, 음영을 살릴 수 있다.
