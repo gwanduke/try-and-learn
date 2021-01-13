@@ -15,7 +15,6 @@
     - [egghead.io](#eggheadio)
     - [Fast Campus](#fast-campus)
     - [Udemy](#udemy)
-  - [독서/교양](#독서교양)
 
 ## Try - 기록, 코드, 개념 정리
 
@@ -45,36 +44,38 @@
   - [data-channel](./try/web-rtc/data-channel)
   - [taking-still-photos](./try/web-rtc/taking-still-photos)
 - **[Webpack HMR](./try/webpack-hmr)**
+- Git
+  - [브랜치 전략](./try/git/strategy.md)
 
 ## 시리즈 - 책, 강의, 연재, 세미나, 컨퍼런스
 
-> - 💵 내돈내산, 🌏 공개된 자료, 📕 종이책
-> - ✅ 후기 작성 or 복습 완료, 📝 거의 완료, 😎 진행중
+> - 1. 💵 내돈내산, 🌏 공개된 자료, 📕 종이책
+> - 2. ✅ 후기 작성 or 복습 완료, 📝 거의 완료, 🔥 진행중, ✋ 중단
 >
 > (순서는 단순히 폴더 정렬 순)
 
 ### 인터넷
 
-- 🌏 [모던 자바스크립트 튜토리얼](./material/internet/modern-javascript-tutorial)
-- 🌏 [Notes on TypeScript](./material/internet/notes-on-typescript)
+- 🌏 ✋ [모던 자바스크립트 튜토리얼](./material/internet/modern-javascript-tutorial)
+- 🌏 ✋ [Notes on TypeScript](./material/internet/notes-on-typescript)
 
 ### 종이책
 
-- 📕 [자바스크립트 패턴과 테스트](./material/books/javascript-pattern-and-test)
+- 📕 ✋ [자바스크립트 패턴과 테스트](./material/books/javascript-pattern-and-test)
 - 📕 📝 [JavaScript Patterns](./material/books/javascript-patterns)
-- 📕 [Node.js 디자인 패턴](./material/books/nodejs-design-pattern)
-- 📕 [리팩토링 자바스크립트](./material/books/refactoring-javascript)
+- 📕 ✋ [Node.js 디자인 패턴](./material/books/nodejs-design-pattern)
+- 📕 ✋ [리팩토링 자바스크립트](./material/books/refactoring-javascript)
 - 📕 📝 [Node.js 교과서](./material/books/nodejs-textbook)
 - 📕 📝 [리액트를 다루는 기술 (개정판)](./material/books/the-art-of-dealing-with-react)
 
 ### egghead.io
 
-- 💵 [Epic React](./material/egghead/epic-react)
-- 💵 [Testing JavaScript](./material/egghead/testing-javascript)
+- 💵 🔥 [Epic React](./material/egghead/epic-react)
+- 💵 📝 [Testing JavaScript](./material/egghead/testing-javascript)
 
 ### Fast Campus
 
-- 💵 [The RED: React와 Redux로 구현하는 아키텍처와 리스크관리](./material/fastcampus/the-red-react-redux-risk-management.md)
+- 💵 📝 [The RED: React와 Redux로 구현하는 아키텍처와 리스크관리](./material/fastcampus/the-red-react-redux-risk-management.md)
 
 ### Udemy
 
@@ -84,15 +85,11 @@
   - 💵 📝 [Interactive Web Animation 2020 [JavaScript, SVG, CSS & HTML]](./material/udemy/interactive-web-animation-2020)
   - 💵 📝 [Learn SVG Animation - With HTML, CSS & Javascript](./material/udemy/learn-svg-animation)
 - JavaScript, ReactJS
-  - 💵 [Microfrontends with React: A Complete Developer's Guide](./material/udemy/microfrontends-with-react)
+  - 💵 🔥 [Microfrontends with React: A Complete Developer's Guide](./material/udemy/microfrontends-with-react)
   - 💵 📝 [React - The Complete Guide (incl Hooks, React Router, Redux)](./material/udemy/react-the-complete-guide)
-  - 💵 [The Complete JavaScript Course 2020](./material/udemy/the-complete-javascript-course-2020)
-  - 💵 😎 [Microservices with Node JS and React](./material/udemy/microservices-with-node-js-and-react)
+  - 💵 🔥 [The Complete JavaScript Course 2020](./material/udemy/the-complete-javascript-course-2020)
+  - 💵 ✋ [Microservices with Node JS and React](./material/udemy/microservices-with-node-js-and-react)
   - 💵 📝 [Modern React with Redux [2020 Update]](./material/udemy/modern-react-with-redux)
 - Tools
-  - 💵 [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
+  - 💵 ✋ [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
   - 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)
-
-## 독서/교양
-
-- [2020-12](./reading/2020-12.md)
