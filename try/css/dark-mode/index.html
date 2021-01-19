@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Dark Mode</title>
+    <style>
+      @media (prefers-color-scheme: no-preference) {
+        body {
+          background: yellow;
+          color: red;
+        }
+      }
+      @media (prefers-color-scheme: light) {
+        body {
+          background: white;
+          color: blue;
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: black;
+          color: white;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    안녕하세요!
+    <ul>
+      <li id="no-preference"></li>
+      <li id="light"></li>
+      <li id="dark"></li>
+    </ul>
+    <pre id="result"></pre>
+  </body>
+  <script>
+    // 동작하지 않음
+    if (window.matchMedia("(prefers-color-scheme: no-preference)").matches) {
+      document.getElementById("no-preference").textContent = "no-preference";
+    }
+
+    // 아래 둘은 동작함
+    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+      document.getElementById("light").textContent = "light";
+    }
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.getElementById("dark").textContent = "dark";
+    }
+  </script>
+</html>
