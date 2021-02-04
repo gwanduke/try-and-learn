@@ -1,0 +1,19 @@
+.TextInput {
+  position: relative;
+
+  &__input {
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    width: 100%;
+  }
+  &__del {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    align-items: center;
+  }
+}
