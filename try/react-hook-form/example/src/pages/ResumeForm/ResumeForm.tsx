@@ -13,6 +13,8 @@ import { FormTitle } from "../../components/FormTitle";
 import { FormRow } from "../../components/FormRow";
 import { Label } from "../../components/Label";
 import { TextInput } from "../../components/TextInput";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 enum Company {
   "태구은행" = "태구은행",
@@ -242,34 +244,65 @@ const ControlPanel = () => {
 };
 
 const formatRegNo = (regNo: string = "") => {
-  const delimiter = " - ";
-  const maxLen = 6 + 7 + delimiter.length;
+  const x = regNo.replace(/\D/g, "").match(/(\d{0,6})(\d{0,7})/)!;
 
-  if (regNo.indexOf(delimiter) > 0) {
-    const split = regNo.split(delimiter);
-    const first = split[0];
-    const second = split[1];
-
-    if (first.length === 6 && second.length === 0) {
-      return first;
-    }
-    return regNo.substr(0, maxLen);
+  if (x[2]) {
+    return x[1] + " - " + x[2];
+  } else {
+    return x[1];
   }
-
-  if (regNo.length === 6) {
-    return regNo + delimiter;
-  }
-
-  if (regNo.length > 6) {
-    return regNo.substr(0, 6) + delimiter + regNo.substr(6, maxLen);
-  }
-
-  return regNo.substr(0, maxLen);
 };
 
+const formatPhoneNumber = (phoneNumber: string = "") => {
+  let x = phoneNumber.replace(/\D/g, "");
+
+  if (x[0] && x[0][0] !== "0") {
+    const y = x.match(/(\d{0,4})(\d{0,4})/)!;
+    if (y[2]) {
+      return y[1] + " - " + y[2];
+    }
+
+    return y[1];
+  } else {
+    const y = x.match(/(\d{0,3})(\d{0,4})(\d{0,4})/)!;
+
+    if (y[3]) {
+      return y[1] + " - " + y[2] + " - " + y[3];
+    } else {
+      if (y[2]) {
+        return y[1] + " - " + y[2];
+      } else {
+        return y[1];
+      }
+    }
+  }
+};
+
+const schema = yup.object().shape<Record<keyof FormValues, any>>({
+  // address: yup.string().required(),
+  // addressDetail: yup.string().required(),
+  // name: yup.string().required(),
+  // phoneNumber: yup.string().required(),
+  // age: yup.string().required(),
+  // applyCompanies: yup.string().required(),
+  recommender: yup.array().of(
+    yup.object().shape({
+      name: yup.string().required(),
+      workingWith: yup.boolean(),
+      workingWithText: yup.string().when("workingWith", {
+        is: true,
+        then: yup.string().required(),
+        otherwise: yup.string(),
+      }),
+    })
+  ),
+} as any);
+
 const ResumeForm = () => {
-  const methods = useForm<FormValues>({});
-  const { handleSubmit, watch, register, control } = methods;
+  const methods = useForm<FormValues>({
+    resolver: yupResolver(schema),
+  });
+  const { handleSubmit, watch, register, setValue } = methods;
 
   const onSubmit = (data: Partial<FormValues>) => {
     console.log(data);
@@ -280,7 +313,7 @@ const ResumeForm = () => {
   return (
     <FormProvider {...methods}>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <FormTitle title="이력서" />
+        <FormTitle title="Form 기능 테스트" />
         <NameField />
         <RegNoField />
         <BirthdayField />
@@ -294,7 +327,16 @@ const ResumeForm = () => {
         />
         <FormRow
           label={<Label htmlFor="phoneNumber">전화번호</Label>}
-          field={<TextInput type="text" id="phoneNumber" name="phoneNumber" />}
+          field={
+            <TextInput
+              type="text"
+              id="phoneNumber"
+              name="phoneNumber"
+              onChange={(e) => {
+                setValue("phoneNumber", formatPhoneNumber(e.target.value));
+              }}
+            />
+          }
         />
         <FormRow
           label={<Label htmlFor="email">이메일</Label>}
@@ -347,6 +389,7 @@ const ResumeForm = () => {
         )}
         <FormRow label={<h2>추천인</h2>} field={<RecommenderFields />} />
         <ControlPanel />
+        <button type="submit">전송</button>
       </Form>
     </FormProvider>
   );
@@ -379,57 +422,76 @@ function RecommenderFields() {
       {console.log(fields)}
       {/* TODO: 빠른 삭제시 오류 있음 */}
       {fields.map((field, index) => (
-        <div key={field.id}>
-          {index}
-          <div>
-            <span>이름</span>
-            <input
-              type="text"
-              name={`recommender[${index}].name`}
-              ref={register}
-              defaultValue={field.name}
-            />
-          </div>
-          <div>
-            <span>함께 일했었나요?</span>
-            <input
-              type="checkbox"
-              name={`recommender[${index}].workingWith`}
-              ref={register}
-              defaultChecked={field.workingWith}
-            />
-          </div>
-          {value && value[index]?.workingWithText && (
-            <div>
-              <span>어디서 함께 일했나요?</span>
-              <input
-                type="text"
-                name={`recommender[${index}].workingWithText`}
-                ref={register}
-                defaultValue={field.workingWithText}
-              />
-            </div>
-          )}
-          <span onClick={() => remove(index)}>삭제</span>
-          <hr />
-        </div>
+        <RecommenderField
+          key={field.id}
+          field={field}
+          index={index}
+          onRemove={remove}
+        />
       ))}
     </div>
   );
 }
 
-// function RecommenderField({
-//   field,
-//   index,
-//   onRemove,
-// }: {
-//   field: Partial<ArrayField<Recommender, "id">>;
-//   index: number;
-//   onRemove: (index?: number | number[] | undefined) => void;
-// }) {
+function RecommenderField({
+  field,
+  index,
+  onRemove,
+}: {
+  field: Partial<ArrayField<Recommender, "id">>;
+  index: number;
+  onRemove: (index?: number | number[] | undefined) => void;
+}) {
+  const { register, control, setValue, getValues } = useFormContext();
+  const value = useWatch<Recommender[]>({
+    control,
+    name: `recommender`,
+  });
 
-//   return (
-//   );
-// }
+  return (
+    <div>
+      {index}
+      <div>
+        <span>이름</span>
+        <input
+          type="text"
+          name={`recommender[${index}].name`}
+          ref={register()}
+          defaultValue={field.name}
+        />
+        <button
+          onClick={() => {
+            console.log(getValues());
+            setValue(`recommender[${index}].name`, getValues("name"));
+          }}
+        >
+          이름 복사
+        </button>
+      </div>
+      <div>
+        <span>함께 일했었나요?</span>
+        <input
+          type="checkbox"
+          name={`recommender[${index}].workingWith`}
+          ref={register()}
+          defaultChecked={field.workingWith}
+        />
+      </div>
+      {value && value[index]?.workingWith && (
+        <div>
+          <span>어디서 함께 일했나요?</span>
+          <input
+            type="text"
+            name={`recommender[${index}].workingWithText`}
+            ref={register()}
+            defaultValue={field.workingWithText}
+          />
+        </div>
+      )}
+      <span onClick={() => onRemove(index)}>삭제</span>
+      <hr />
+    </div>
+  );
+}
 
 export { ResumeForm };
