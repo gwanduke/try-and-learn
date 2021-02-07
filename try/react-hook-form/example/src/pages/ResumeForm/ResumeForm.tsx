@@ -281,7 +281,7 @@ const formatPhoneNumber = (phoneNumber: string = "") => {
 const schema = yup.object().shape<Record<keyof FormValues, any>>({
   // address: yup.string().required(),
   // addressDetail: yup.string().required(),
-  // name: yup.string().required(),
+  name: yup.string().required(),
   // phoneNumber: yup.string().required(),
   // age: yup.string().required(),
   // applyCompanies: yup.string().required(),
@@ -301,19 +301,79 @@ const schema = yup.object().shape<Record<keyof FormValues, any>>({
 const ResumeForm = () => {
   const methods = useForm<FormValues>({
     resolver: yupResolver(schema),
+    shouldFocusError: false,
   });
-  const { handleSubmit, watch, register, setValue } = methods;
+  const {
+    handleSubmit,
+    watch,
+    register,
+    setValue,
+    trigger,
+    errors,
+    formState,
+    control,
+  } = methods;
 
   const onSubmit = (data: Partial<FormValues>) => {
     console.log(data);
+  };
+
+  // TODO: onError에서 포커스를 커스텀할 수 있다.
+  const onError = (err: any) => {
+    console.log(err);
+
+    const definedKeys = [
+      "recommender",
+      "recommender",
+      "name",
+      "regNo",
+      "birthday.year",
+      "birthday.month",
+      "birthday.day",
+      "age",
+      "address",
+      "addressDetail",
+      "phoneNumber",
+      "email",
+      "applyCompanies[]",
+      "applyType",
+      "applySector",
+    ];
+
+    const errKeys = Object.keys(err);
+    let errIndex = -1;
+    errKeys.forEach((errKey) => {
+      console.log(errKey);
+      if (errIndex === -1) {
+        errIndex = definedKeys.indexOf(errKey);
+      } else {
+        if (errIndex > definedKeys.indexOf(errKey)) {
+          errIndex = definedKeys.indexOf(errKey);
+        }
+      }
+    });
+    console.log(errIndex);
+    if (errIndex !== -1) {
+      console.log(definedKeys[errIndex], errIndex);
+
+      if (control && control.fieldsRef && control.fieldsRef.current) {
+        const el = control.fieldsRef.current[definedKeys[errIndex]]?.ref;
+        console.log(control.fieldsRef.current, definedKeys[errIndex], el);
+
+        if (el) {
+          el?.focus && el?.focus();
+        }
+      }
+    }
   };
 
   const applySector = watch("applySector");
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormTitle title="Form 기능 테스트" />
+        <FormRow label={<h2>추천인</h2>} field={<RecommenderFields />} />
         <NameField />
         <RegNoField />
         <BirthdayField />
@@ -387,7 +447,6 @@ const ResumeForm = () => {
             }
           />
         )}
-        <FormRow label={<h2>추천인</h2>} field={<RecommenderFields />} />
         <ControlPanel />
         <button type="submit">전송</button>
       </Form>
