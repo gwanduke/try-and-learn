@@ -59,11 +59,16 @@ interface FormValues {
 }
 
 const NameField = () => {
+  const { errors } = useFormContext();
+  console.log("NameField", errors);
   return (
-    <FormRow
-      label={<Label htmlFor="name">이름</Label>}
-      field={<TextInput type="text" id="name" name="name" />}
-    />
+    <div>
+      <FormRow
+        label={<Label htmlFor="name">이름</Label>}
+        field={<TextInput type="text" id="name" name="name" />}
+      />
+      {errors.name?.message}
+    </div>
   );
 };
 
@@ -311,11 +316,25 @@ const ResumeForm = () => {
     trigger,
     errors,
     formState,
+    setError,
     control,
   } = methods;
 
-  const onSubmit = (data: Partial<FormValues>) => {
-    console.log(data);
+  const onSubmit = async (data: Partial<FormValues>) => {
+    const res = await Promise.resolve({
+      error: true,
+      data: {
+        name: "이름은 필수야!",
+      },
+    });
+
+    Object.keys(res.data).forEach((key) => {
+      setError(key, {
+        message: res.data[key as "name"],
+      });
+    });
+
+    console.log(res);
   };
 
   // TODO: onError에서 포커스를 커스텀할 수 있다.
