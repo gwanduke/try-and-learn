@@ -37,6 +37,7 @@
   - [📝 React V-DOM에 대한 고찰](./try/reactjs/react-v-dom-study)
   - [📝 리액트 이벤트 시스템 - Synthetic Event](./try/reactjs/synthetic-event)
   - [react-hook-form](./try/react-hook-form)
+  - [react-query](./try/react-query)
   - [react-spring](./try/react-spring)
 - **Web**
   - [📝 브라우저는 어떻게 렌더링 되는가?](https://gwanduke.tistory.com/entry/%EB%B8%8C%EB%9D%BC%EC%9A%B0%EC%A0%80%EB%8A%94-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%A0%8C%EB%8D%94%EB%A7%81-%EB%90%98%EB%8A%94%EA%B0%80)
