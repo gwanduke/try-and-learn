@@ -24,6 +24,7 @@
 - **JavaScript Core**
   - [Generator](./try/javascript-core/generator)
   - [Iterator](./try/javascript-core/iterator)
+  - [File](./try/javascript-core/File)
 - **JavaScript Pattern**
   - [Data Binding](./try/javascript-pattern/vanilla-js-data-binding)
 - **JavaScript Test**
