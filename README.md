@@ -21,6 +21,7 @@
 > 📝 블로그에 포스팅된 글 / 직접 작성한 글
 
 - **[Basics](./try/basics)**
+- [Chrome Extension](./try/chrome-extension)
 - **JavaScript Core**
   - [Generator](./try/javascript-core/generator)
   - [Iterator](./try/javascript-core/iterator)
