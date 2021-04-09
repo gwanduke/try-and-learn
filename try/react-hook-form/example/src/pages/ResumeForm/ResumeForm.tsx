@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import {
   ArrayField,
   FormProvider,
+  useController,
   useFieldArray,
   useForm,
   useFormContext,
@@ -59,13 +60,25 @@ interface FormValues {
 }
 
 const NameField = () => {
-  const { errors } = useFormContext();
+  const { errors, control } = useFormContext();
+  const { field } = useController({ control, name: "name" });
   console.log("NameField", errors);
+
   return (
     <div>
       <FormRow
         label={<Label htmlFor="name">이름</Label>}
-        field={<TextInput type="text" id="name" name="name" />}
+        field={
+          <TextInput
+            type="text"
+            id="name"
+            name="name"
+            value={field.value}
+            onChange={(e) => {
+              field.onChange(e.target.value);
+            }}
+          />
+        }
       />
       {errors.name?.message}
     </div>
@@ -126,10 +139,20 @@ const BirthdayField = () => {
 };
 
 const AgeField = () => {
+  const { errors, control } = useFormContext();
+  const { field } = useController({ control, name: "age" });
   return (
     <FormRow
       label={<Label htmlFor="age">나이</Label>}
-      field={<TextInput type="text" id="age" name="age" />}
+      field={
+        <TextInput
+          type="text"
+          id="age"
+          name="age"
+          value={field.value}
+          onChange={(e) => field.onChange(e.target.value)}
+        />
+      }
     />
   );
 };
@@ -304,7 +327,7 @@ const schema = yup.object().shape<Record<keyof FormValues, any>>({
 } as any);
 
 const ResumeForm = () => {
-  const methods = useForm<FormValues>({
+  const hookFormMethods = useForm<FormValues>({
     resolver: yupResolver(schema),
     shouldFocusError: false,
   });
@@ -318,7 +341,7 @@ const ResumeForm = () => {
     formState,
     setError,
     control,
-  } = methods;
+  } = hookFormMethods;
 
   const onSubmit = async (data: Partial<FormValues>) => {
     const res = await Promise.resolve({
@@ -389,7 +412,8 @@ const ResumeForm = () => {
   const applySector = watch("applySector");
 
   return (
-    <FormProvider {...methods}>
+    <FormProvider {...hookFormMethods}>
+      {formState.isDirty ? "OO" : "XX"}
       <Form onSubmit={handleSubmit(onSubmit, onError)}>
         <FormTitle title="Form 기능 테스트" />
         <FormRow label={<h2>추천인</h2>} field={<RecommenderFields />} />

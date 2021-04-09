@@ -8,21 +8,19 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const TextInput = ({ onDelete, ...props }: Props) => {
-  const { setValue, register, control } = useFormContext();
   const value = useWatch({
-    control,
     name: props.name,
   });
 
   return (
     <div className="TextInput">
-      <input className="TextInput__input" ref={register} {...props} />
+      <input className="TextInput__input" {...props} />
       {value && (
         <span
           className="TextInput__del"
-          onClick={() => {
-            setValue(props.name, "");
-          }}
+          // onClick={() => {
+          //   setValue(props.name, "");
+          // }}
         >
           (Del)
         </span>
