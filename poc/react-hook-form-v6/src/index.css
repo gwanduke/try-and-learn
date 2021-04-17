@@ -1,0 +1,11 @@
+.App {
+  padding: 3px 10px;
+}
+
+div {
+  border: 1px dashed #ccc;
+}
+
+#root {
+  width: 400px;
+}
