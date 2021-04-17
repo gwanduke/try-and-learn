@@ -1,70 +1,90 @@
 import {
-  FieldValues,
+  ArrayField,
   FormProvider,
   useFieldArray,
   useForm,
   useFormContext,
+  useWatch,
 } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { Wrapper } from "../../components";
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { MainForm, User } from "./type";
+import { UserField } from "./UserField";
+import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
+import { Wrap, WrapItem } from "@chakra-ui/layout";
+import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
+import { useState } from "react";
 
-enum PaymentType {
-  NOT_SELECTED = "",
-  /** 한번 */
-  ONCE = "ONCE",
-  /** 정기 */
-  MANY = "MANY",
-}
-
-interface Subscription {
-  name: string;
-  paymentType: PaymentType;
-  paymentDayTerm: "" | "1주" | "1달" | "1년";
-}
-
-interface User {
-  name: string;
-  hasTel: boolean;
-  tel: string;
-  subscriptions: Subscription[];
-}
-
-interface MainForm {
-  users: User[];
-}
-export const NestedForm = () => {
-  const methods = useForm<MainForm>({
-    defaultValues: {
-      users: [
+const defaultFormValues: MainForm = {
+  users: [
+    {
+      name: "sfdsdfsf",
+      subscriptions: [
         {
-          name: "김관덕",
-          subscriptions: [
-            {
-              name: "넷플릭스",
-              paymentDayTerm: "1년",
-              paymentType: PaymentType.ONCE,
-            },
-          ],
+          name: "넷플릭스",
+          paymentType: "ONCE",
+          paymentDayTerm: "1년",
         },
       ],
     },
+    {
+      name: "sdfsdfsdfds",
+      subscriptions: [
+        {
+          name: "asdfsadf",
+          paymentType: "MANY",
+          paymentDayTerm: "1년",
+        },
+        {
+          name: "asdfasdf",
+          paymentType: "MANY",
+          paymentDayTerm: "1달",
+        },
+      ],
+    },
+    {
+      name: "",
+    },
+    {
+      name: "sdfdsfsdfsdfsdf",
+    },
+    {
+      name: "",
+    },
+    {
+      name: "추가",
+      subscriptions: [
+        {
+          name: "dsafsdf",
+          paymentType: "MANY",
+          paymentDayTerm: "1달",
+        },
+      ],
+    },
+    {
+      name: "sfsdfsdf",
+    },
+  ],
+};
+
+const defaultUserFormValues: User = {
+  name: "",
+  subscriptions: [],
+};
+
+export const NestedForm = () => {
+  const methods = useForm<MainForm>({
+    defaultValues: defaultFormValues,
   });
-  const { control, handleSubmit, getValues, watch } = methods;
-  const { fields, append } = useFieldArray<User>({
+  const { control, handleSubmit, getValues, formState } = methods;
+  const { fields, append, remove } = useFieldArray<User>({
     name: "users",
     control,
   });
+
+  const [tabIndex, setTabIndex] = useState(0);
+
   return (
     <>
       <DevTool control={control} />
@@ -76,217 +96,111 @@ export const NestedForm = () => {
           전달한 기본값이 있더라도, 각 인풋에 defaultValue가 전달되지 않으면
           값이 올바르게 표시되지 않는다.
         </p>
+        <p>
+          defaultValues를 지정한들, register 되어있지 않으면 폼값으로 가지지
+          않는다.
+        </p>
         <FormProvider {...methods}>
-          {fields.map((field, index) => (
-            <div key={field.id}>{field.name}</div>
-          ))}
-          <div
-            onClick={() => {
-              append({
-                name: "",
-                hasTel: false,
-                subscriptions: [],
-                tel: "",
-              });
+          <UserList
+            fields={fields}
+            onClick={(index: number) => {
+              setTabIndex(index);
             }}
-          >
-            추가
-          </div>
-          {fields.map((field, index) => (
-            <SubForm key={field.id} field={field} index={index} />
-          ))}
-          <div>
-            <button
-              onClick={handleSubmit(
+            onAdd={() => {
+              append(defaultUserFormValues);
+            }}
+            onDelete={(index) => {
+              remove(index);
+            }}
+          />
+          <Tabs index={tabIndex}>
+            <TabPanels>
+              {fields.map((field, index) => (
+                <TabPanel key={field.id}>
+                  <UserField field={field} index={index} />
+                </TabPanel>
+              ))}
+            </TabPanels>
+          </Tabs>
+          <Button
+            onClick={() => {
+              console.log("폼값", JSON.stringify(getValues(), null, 2));
+
+              handleSubmit(
                 () => {
                   console.log("---------성공-----------");
-                  console.log(JSON.stringify(getValues(), null, 2));
+                  console.log(formState);
                 },
                 (error) => {
                   console.log("---------에러-----------");
-                  console.log(JSON.stringify(getValues(), null, 2));
-                  console.log(error);
+
+                  const tabIndex = (error.users || []).findIndex(Boolean);
+                  if (tabIndex !== -1) {
+                    setTabIndex(tabIndex);
+                  }
                 }
-              )}
-            >
-              전송
-            </button>
-          </div>
+              )();
+            }}
+          >
+            전송
+          </Button>
         </FormProvider>
       </Wrapper>
     </>
   );
 };
 
-function SubForm({ field: f1, index }: { field: FieldValues; index: number }) {
-  const { control, register } = useFormContext();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { append, fields, remove } = useFieldArray<Subscription>({
-    control,
-    name: `users[${index}].subscriptions`,
-  });
-
-  console.log(index, f1.id);
-
-  return (
-    <div>
-      <input
-        ref={register()}
-        name={`users[${index}].name`}
-        type="text"
-        defaultValue={f1.name}
-      />
-      {fields.map((field, k) => (
-        // key를 꼭 명시해주어야한다.
-        <div key={field.id}>
-          {field.id}
-          {field.name} | {field.paymentType} | {field.paymentDayTerm}
-          <input
-            ref={register()}
-            type="hidden"
-            name={`users[${index}].subscriptions[${k}].name`}
-            defaultValue={field.name}
-          />
-          <input
-            ref={register()}
-            type="hidden"
-            name={`users[${index}].subscriptions[${k}].paymentType`} // subscription 으로 오타가 나지 않도록 주의하자!
-            defaultValue={field.paymentType}
-          />
-          <input
-            ref={register()} // register가 아니라 register()로 해주어야 삭제후에도 오류가 없다. map 중에 register가 호출되도록 처리해주어야한다.
-            type="hidden"
-            name={`users[${index}].subscriptions[${k}].paymentDayTerm`}
-            defaultValue={field.paymentDayTerm} // defaultValue를 꼭 명시해주어야한다.
-          />
-          <Button
-            colorScheme="red"
-            size="xs"
-            onClick={() => {
-              remove(k);
-            }}
-          >
-            삭제
-          </Button>
-        </div>
-      ))}
-
-      <Button onClick={onOpen}>내 구독 상품 정보 추가</Button>
-      <SubscriptionAddForm
-        isOpen={isOpen}
-        onClose={onClose}
-        onOk={(values) => {
-          append(values);
-        }}
-      />
-    </div>
-  );
-}
-
-function SubscriptionAddForm({
-  isOpen,
-  onClose,
-  onOk,
+function UserList({
+  fields,
+  onClick,
+  onAdd,
+  onDelete,
 }: {
-  isOpen: boolean;
-  onClose: () => void;
-  onOk: (result: Subscription) => void;
+  fields: Partial<ArrayField<User, "id">>[];
+  onClick: (index: number) => void;
+  onDelete: (index: number) => void;
+  onAdd: () => void;
 }) {
-  const { register, handleSubmit, errors } = useForm<Subscription>({
-    defaultValues: {
-      name: "",
-      paymentType: PaymentType.NOT_SELECTED,
-      paymentDayTerm: "",
-    },
-  });
+  const { control } = useFormContext<MainForm>();
+  const { users } = useWatch<MainForm>({ control });
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      closeOnOverlayClick={false}
-      closeOnEsc={false}
-    >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
-        <ModalCloseButton />
-        <ModalBody>
-          <div>
-            <label>
-              구독상품 명:{" "}
-              <input
-                ref={register({
-                  required: "상품명을 입력하세요~",
-                })}
-                name="name"
-                type="text"
-              />
-            </label>
-            {errors.name?.message}
-          </div>
-          <div>
-            결제방식:
-            <label>
-              <input
-                // NOTE: 모든 radio input에 동일하게 등록해주어야 합니다.
-                ref={register({
-                  required: "aa선택해주세요.",
-                })}
-                name="paymentType"
-                type="radio"
-                value={PaymentType.ONCE}
-              />
-              일시불
-            </label>
-            <label>
-              <input
-                ref={register({
-                  required: "bb선택해주세요.",
-                })}
-                name="paymentType"
-                type="radio"
-                value={PaymentType.MANY}
-              />
-              할부
-            </label>
-            {errors.paymentType?.message}
-          </div>
-          <div>
-            <label>
-              구독상품 명:
-              <select
-                ref={register({
-                  required: "구독상품을 선택해주세요.",
-                })}
-                name="paymentDayTerm"
-              >
-                <option value="">선택해주세요.</option>
-                <option value="1주">1주</option>
-                <option value="1달">1달</option>
-                <option value="1년">1년</option>
-              </select>
-            </label>
-            {errors.paymentDayTerm?.message}
-          </div>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button
-            colorScheme="blue"
-            mr={3}
-            onClick={handleSubmit(
-              (values) => {
-                onOk(values);
-                onClose();
-              },
-              () => {}
-            )}
+    <Wrap spacing="24px">
+      {fields.map((field, index) => (
+        <WrapItem key={field.id}>
+          <ButtonGroup
+            size="sm"
+            colorScheme="teal"
+            isAttached
+            variant="outline"
           >
-            추가
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+            <Button
+              onClick={() => {
+                onClick(index);
+              }}
+            >
+              {users?.[index]?.name || ""}
+            </Button>
+            <IconButton
+              aria-label="Remove"
+              icon={<MinusIcon />}
+              onClick={() => {
+                onDelete(index);
+              }}
+            />
+          </ButtonGroup>
+        </WrapItem>
+      ))}
+      <WrapItem>
+        <Button
+          colorScheme="teal"
+          variant="solid"
+          leftIcon={<AddIcon />}
+          onClick={onAdd}
+        >
+          추가
+        </Button>
+      </WrapItem>
+    </Wrap>
   );
 }
