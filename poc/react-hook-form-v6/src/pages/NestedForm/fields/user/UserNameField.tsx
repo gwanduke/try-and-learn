@@ -15,7 +15,7 @@ interface Props {
 }
 
 export const UserNameField = ({ userField, userIndex }: Props) => {
-  const { register, errors } = useFormContext<MainForm>();
+  const { register, errors, setValue } = useFormContext<MainForm>();
 
   return (
     <FormControl isInvalid={!!errors.users?.[userIndex]?.name?.message}>
@@ -30,6 +30,13 @@ export const UserNameField = ({ userField, userIndex }: Props) => {
         type="text"
         defaultValue={userField.name}
       />
+      <span
+        onClick={() => {
+          setValue(buildUserFieldName(userIndex, "name"), "");
+        }}
+      >
+        XXX
+      </span>
       <FormErrorMessage>
         {errors.users?.[userIndex]?.name?.message}
       </FormErrorMessage>

@@ -13,41 +13,7 @@ export const defaultFormValues: MainForm = {
       ],
     },
     {
-      name: "sdfsdfsdfds",
-      subscriptions: [
-        {
-          name: "asdfsadf",
-          paymentType: "MANY",
-          paymentDayTerm: "1년",
-        },
-        {
-          name: "asdfasdf",
-          paymentType: "MANY",
-          paymentDayTerm: "1달",
-        },
-      ],
-    },
-    {
       name: "",
-    },
-    {
-      name: "sdfdsfsdfsdfsdf",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "추가",
-      subscriptions: [
-        {
-          name: "dsafsdf",
-          paymentType: "MANY",
-          paymentDayTerm: "1달",
-        },
-      ],
-    },
-    {
-      name: "sfsdfsdf",
     },
   ],
 };

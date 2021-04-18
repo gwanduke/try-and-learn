@@ -1,24 +1,26 @@
 import { Button } from "@chakra-ui/button";
 import { Badge, Text } from "@chakra-ui/layout";
 import { Tag } from "@chakra-ui/tag";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useWatch } from "react-hook-form";
 import { buildSubscriptionFieldName } from "../helpers";
-import { Subscription, SubscriptionFieldArrayItem } from "../types";
+import { MainForm, Subscription, SubscriptionFieldArrayItem } from "../types";
 
 interface Props {
   field: SubscriptionFieldArrayItem;
   userIndex: number;
   subscriptionIndex: number;
   onDelete: () => void;
+  name: string;
 }
 
 export function SubscriptionField({
+  name,
   field,
   userIndex,
   subscriptionIndex,
   onDelete,
 }: Props) {
-  const { register } = useFormContext();
+  const { register, control } = useFormContext<MainForm>();
   const buildFieldName = (name: keyof Subscription) =>
     buildSubscriptionFieldName(userIndex, subscriptionIndex, name);
 
@@ -26,7 +28,7 @@ export function SubscriptionField({
     <div key={field.id}>
       <Tag size="sm">{field.id}</Tag>
       <Text fontSize="xl" fontWeight="bold">
-        {field.name}
+        {name}
         <Badge ml="1" fontSize="0.8em" colorScheme="green">
           {field.paymentType} | {field.paymentDayTerm}
         </Badge>
@@ -38,7 +40,7 @@ export function SubscriptionField({
         ref={register()}
         type="hidden"
         name={buildFieldName("name")}
-        defaultValue={field.name}
+        defaultValue={(() => field.name)()}
       />
       <input
         ref={register()}

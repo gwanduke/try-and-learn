@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/button";
 
 import { useDisclosure } from "@chakra-ui/hooks";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { NewSubscriptionModalForm } from "../NewSubscriptionModalForm";
+import { NewSubscriptionModalForm } from "../forms/NewSubscriptionModalForm";
 import { MainForm, Subscription, UserFieldArrayItem } from "../types";
 import { UserNameField } from "./user/UserNameField";
 import { buildUserFieldName } from "../helpers";
@@ -29,6 +29,7 @@ export function UserField({ field, index }: Props) {
       {fields.map((field, subIndex) => (
         // key를 꼭 명시해주어야한다.
         <SubscriptionField
+          name={field.name || ""}
           key={field.id}
           field={field}
           userIndex={index}

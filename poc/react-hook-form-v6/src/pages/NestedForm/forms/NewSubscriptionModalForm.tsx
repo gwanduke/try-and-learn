@@ -9,8 +9,8 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { PaymentType, Subscription } from "./types";
-import { defaultSubscriptionValues } from "./defaultValues";
+import { PaymentType, Subscription } from "../types";
+import { defaultSubscriptionValues } from "../defaultValues";
 
 interface Props {
   isOpen: boolean;

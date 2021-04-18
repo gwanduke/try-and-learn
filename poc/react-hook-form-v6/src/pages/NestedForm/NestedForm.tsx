@@ -1,4 +1,9 @@
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import {
+  FormProvider,
+  useFieldArray,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { Wrapper } from "../../components";
 import { MainForm, User } from "./types";
@@ -6,18 +11,26 @@ import { Button } from "@chakra-ui/button";
 import { TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { useState } from "react";
 import { defaultFormValues, defaultUserValues } from "./defaultValues";
-import { UserSelector } from "./UserSelector";
+import { UserSelector } from "./components/UserSelector";
 import { UserField } from "./fields/UserField";
 
 export const NestedForm = () => {
   const methods = useForm<MainForm>({
     defaultValues: defaultFormValues,
   });
-  const { control, handleSubmit, getValues, formState } = methods;
+  const {
+    control,
+    handleSubmit,
+    getValues,
+    formState,
+    setValue,
+    reset,
+  } = methods;
   const { fields, append, remove } = useFieldArray<User>({
     name: "users",
     control,
   });
+  const { users } = useWatch<MainForm>({ control });
 
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -38,6 +51,7 @@ export const NestedForm = () => {
         </p>
         <FormProvider {...methods}>
           <UserSelector
+            currentIndex={tabIndex}
             fields={fields}
             onClick={(index: number) => {
               setTabIndex(index);
@@ -47,6 +61,24 @@ export const NestedForm = () => {
             }}
             onDelete={(index) => {
               remove(index);
+            }}
+            onLoad={(index) => {
+              // console.log(buildUserFieldName(index, "name"));
+              // console.log(getValues().users[0].name);
+
+              // console.log(buildUserFieldName(index, "subscriptions"));
+              // console.log(getValues().users[0].subscriptions);
+
+              console.log(getValues());
+
+              reset(getValues());
+              // setValue("users[0].subscriptions", [
+              //   ...(getValues().users[0].subscriptions || []),
+              // ]);
+              // setValue("users[0].subscriptions[0]", {
+              //   name: "hi",
+              // });
+              // console.log(JSON.stringify(getValues(), null, 2));
             }}
           />
           <Tabs index={tabIndex}>
