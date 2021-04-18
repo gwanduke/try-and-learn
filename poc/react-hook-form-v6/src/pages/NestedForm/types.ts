@@ -1,3 +1,5 @@
+import { ArrayField } from "react-hook-form";
+
 export enum PaymentType {
   NOT_SELECTED = "",
   ONCE = "ONCE",
@@ -18,3 +20,8 @@ export interface User {
 export interface MainForm {
   users: User[];
 }
+
+export type UserFieldArrayItem = Partial<ArrayField<User, "id">>;
+export type SubscriptionFieldArrayItem = Partial<
+  ArrayField<Subscription, "id">
+>;

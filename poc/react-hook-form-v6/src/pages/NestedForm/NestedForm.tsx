@@ -1,77 +1,13 @@
-import {
-  ArrayField,
-  FormProvider,
-  useFieldArray,
-  useForm,
-  useFormContext,
-  useWatch,
-} from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { Wrapper } from "../../components";
-import { MainForm, User } from "./type";
-import { UserField } from "./UserField";
-import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
-import { Wrap, WrapItem } from "@chakra-ui/layout";
-import { AddIcon, MinusIcon } from "@chakra-ui/icons";
+import { MainForm, User } from "./types";
+import { Button } from "@chakra-ui/button";
 import { TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { useState } from "react";
-
-const defaultFormValues: MainForm = {
-  users: [
-    {
-      name: "sfdsdfsf",
-      subscriptions: [
-        {
-          name: "넷플릭스",
-          paymentType: "ONCE",
-          paymentDayTerm: "1년",
-        },
-      ],
-    },
-    {
-      name: "sdfsdfsdfds",
-      subscriptions: [
-        {
-          name: "asdfsadf",
-          paymentType: "MANY",
-          paymentDayTerm: "1년",
-        },
-        {
-          name: "asdfasdf",
-          paymentType: "MANY",
-          paymentDayTerm: "1달",
-        },
-      ],
-    },
-    {
-      name: "",
-    },
-    {
-      name: "sdfdsfsdfsdfsdf",
-    },
-    {
-      name: "",
-    },
-    {
-      name: "추가",
-      subscriptions: [
-        {
-          name: "dsafsdf",
-          paymentType: "MANY",
-          paymentDayTerm: "1달",
-        },
-      ],
-    },
-    {
-      name: "sfsdfsdf",
-    },
-  ],
-};
-
-const defaultUserFormValues: User = {
-  name: "",
-  subscriptions: [],
-};
+import { defaultFormValues, defaultUserValues } from "./defaultValues";
+import { UserSelector } from "./UserSelector";
+import { UserField } from "./fields/UserField";
 
 export const NestedForm = () => {
   const methods = useForm<MainForm>({
@@ -101,13 +37,13 @@ export const NestedForm = () => {
           않는다.
         </p>
         <FormProvider {...methods}>
-          <UserList
+          <UserSelector
             fields={fields}
             onClick={(index: number) => {
               setTabIndex(index);
             }}
             onAdd={() => {
-              append(defaultUserFormValues);
+              append(defaultUserValues);
             }}
             onDelete={(index) => {
               remove(index);
@@ -149,58 +85,3 @@ export const NestedForm = () => {
     </>
   );
 };
-
-function UserList({
-  fields,
-  onClick,
-  onAdd,
-  onDelete,
-}: {
-  fields: Partial<ArrayField<User, "id">>[];
-  onClick: (index: number) => void;
-  onDelete: (index: number) => void;
-  onAdd: () => void;
-}) {
-  const { control } = useFormContext<MainForm>();
-  const { users } = useWatch<MainForm>({ control });
-
-  return (
-    <Wrap spacing="24px">
-      {fields.map((field, index) => (
-        <WrapItem key={field.id}>
-          <ButtonGroup
-            size="sm"
-            colorScheme="teal"
-            isAttached
-            variant="outline"
-          >
-            <Button
-              onClick={() => {
-                onClick(index);
-              }}
-            >
-              {users?.[index]?.name || ""}
-            </Button>
-            <IconButton
-              aria-label="Remove"
-              icon={<MinusIcon />}
-              onClick={() => {
-                onDelete(index);
-              }}
-            />
-          </ButtonGroup>
-        </WrapItem>
-      ))}
-      <WrapItem>
-        <Button
-          colorScheme="teal"
-          variant="solid"
-          leftIcon={<AddIcon />}
-          onClick={onAdd}
-        >
-          추가
-        </Button>
-      </WrapItem>
-    </Wrap>
-  );
-}

@@ -9,23 +9,18 @@ import {
   ModalCloseButton,
   Button,
 } from "@chakra-ui/react";
-import { PaymentType, Subscription } from "./type";
+import { PaymentType, Subscription } from "./types";
+import { defaultSubscriptionValues } from "./defaultValues";
 
-export function NewSubscriptionFormModal({
-  isOpen,
-  onClose,
-  onOk,
-}: {
+interface Props {
   isOpen: boolean;
   onClose: () => void;
   onOk: (result: Subscription) => void;
-}) {
+}
+
+export function NewSubscriptionModalForm({ isOpen, onClose, onOk }: Props) {
   const { register, handleSubmit, errors } = useForm<Subscription>({
-    defaultValues: {
-      name: "",
-      paymentType: PaymentType.NOT_SELECTED,
-      paymentDayTerm: "",
-    },
+    defaultValues: defaultSubscriptionValues,
   });
 
   return (

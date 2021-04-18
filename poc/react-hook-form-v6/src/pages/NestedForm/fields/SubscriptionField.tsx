@@ -2,12 +2,25 @@ import { Button } from "@chakra-ui/button";
 import { Badge, Text } from "@chakra-ui/layout";
 import { Tag } from "@chakra-ui/tag";
 import { useFormContext } from "react-hook-form";
-import { Subscription } from "./type";
+import { buildSubscriptionFieldName } from "../helpers";
+import { Subscription, SubscriptionFieldArrayItem } from "../types";
 
-export function SubscriptionField({ field, index, namePrefix, onDelete }: any) {
+interface Props {
+  field: SubscriptionFieldArrayItem;
+  userIndex: number;
+  subscriptionIndex: number;
+  onDelete: () => void;
+}
+
+export function SubscriptionField({
+  field,
+  userIndex,
+  subscriptionIndex,
+  onDelete,
+}: Props) {
   const { register } = useFormContext();
   const buildFieldName = (name: keyof Subscription) =>
-    `${namePrefix}[${index}].${name}`;
+    buildSubscriptionFieldName(userIndex, subscriptionIndex, name);
 
   return (
     <div key={field.id}>
