@@ -20,6 +20,7 @@
 ## POC
 
 - [react-hook-form-v6](./poc/react-hook-form-v6): 훌륭하지만 doubled nested 필드를 처리하는데 문제가 있다. 예를 들어 setValue를 하면 값이 사라지거나 반영되지 않는 현상이 있다. defaultValues를 잘 관리해야만한다. 하지만 다소 Flat한 폼을 구현한다면 가볍고 심플한 react-hook-form을 추천하는 바이다.
+- [formik-v2](./poc/formik-v2)
 
 ## Try - 기록, 코드, 개념 정리
 

@@ -1,0 +1,12 @@
+.App {
+  padding: 3px 10px;
+  border: 1px dashed #ccc;
+}
+
+#root {
+  width: 500px;
+}
+
+p {
+  font-size: 14px;
+}
