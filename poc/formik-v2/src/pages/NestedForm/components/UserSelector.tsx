@@ -1,11 +1,10 @@
-import { ArrayField, useFormContext, useWatch } from "react-hook-form";
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
 import { Wrap, WrapItem } from "@chakra-ui/layout";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import { MainForm, User } from "../types";
+import { User } from "../types";
 
 interface Props {
-  fields: Partial<ArrayField<User, "id">>[];
+  users: User[];
   currentIndex: number;
   onClick: (index: number) => void;
   onDelete: (index: number) => void;
@@ -14,21 +13,18 @@ interface Props {
 }
 
 export function UserSelector({
-  fields,
+  users,
   currentIndex,
   onClick,
   onAdd,
   onDelete,
   onLoad,
 }: Props) {
-  const { control } = useFormContext<MainForm>();
-  const { users } = useWatch<MainForm>({ control });
-
   return (
     <div>
       <Wrap spacing="24px">
-        {fields.map((field, index) => (
-          <WrapItem key={field.id}>
+        {users.map((user, index) => (
+          <WrapItem>
             <ButtonGroup
               size="sm"
               colorScheme="teal"
@@ -41,7 +37,7 @@ export function UserSelector({
                   onClick(index);
                 }}
               >
-                {users?.[index]?.name || ""}
+                {user.name || ""}
               </Button>
               <IconButton
                 aria-label="Remove"

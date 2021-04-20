@@ -1,14 +1,13 @@
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { Wrapper } from "../../components";
+import { Input } from "@chakra-ui/input";
 
 export interface FormValues {
   A: string;
   B: string;
   C: string;
 }
-
-const validateRequired = () => {};
 
 export const ControllerForm = () => {
   const methods = useForm<FormValues>({
@@ -27,7 +26,7 @@ export const ControllerForm = () => {
         </p>
         <FormProvider {...methods}>
           <div>
-            <input
+            <Input
               ref={register({
                 validate: (value) => {
                   return value ? true : "에러입니다";
@@ -45,7 +44,7 @@ export const ControllerForm = () => {
                 required: true,
               }}
               render={({ name, onChange, value, ref }) => (
-                <input
+                <Input
                   ref={(innerRef) => {
                     ref.current = innerRef;
                   }}
@@ -60,7 +59,7 @@ export const ControllerForm = () => {
             />
           </div>
           <div>
-            <input ref={register({ required: true })} type="text" name="C" />
+            <Input ref={register({ required: true })} type="text" name="C" />
           </div>
 
           <div>
