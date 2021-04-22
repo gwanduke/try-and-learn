@@ -4,7 +4,7 @@ import {
   FormLabel,
 } from "@chakra-ui/form-control";
 import { Input } from "@chakra-ui/input";
-import { useFormikContext } from "formik";
+import { Field, useFormikContext } from "formik";
 import { buildUserFieldName } from "../../helpers";
 
 import { MainForm } from "../../types";
@@ -14,36 +14,34 @@ interface Props {
 }
 
 export const UserNameField = ({ userIndex }: Props) => {
-  const {
-    values,
-    errors,
-
-    setFieldValue,
-    handleChange,
-  } = useFormikContext<MainForm>();
-
-  const nameError = errors.users?.[userIndex];
-
   return (
-    <FormControl isInvalid={!!false}>
-      <FormLabel htmlFor="name">이름</FormLabel>{" "}
-      <Input
-        colorScheme="teal"
-        value={values.users[userIndex].name}
-        onChange={handleChange}
-        name={buildUserFieldName(userIndex, "name")}
-        id={buildUserFieldName(userIndex, "name")}
-        type="text"
-      />
-      <span
-        onClick={() => {
-          setFieldValue(buildUserFieldName(userIndex, "name"), "");
-        }}
-      >
-        XXX
-      </span>
-      {(nameError as any)?.name}
-      <FormErrorMessage></FormErrorMessage>
-    </FormControl>
+    <Field name={buildUserFieldName(userIndex, "name")}>
+      {({
+        field: { name, value, onChange },
+        form: { touched, errors },
+        meta: { setValue },
+      }: any) => (
+        <FormControl isInvalid={!!false}>
+          <FormLabel htmlFor="name">이름</FormLabel>{" "}
+          <Input
+            colorScheme="teal"
+            value={value}
+            onChange={onChange}
+            name={name}
+            id={name}
+            type="text"
+          />
+          {/* <span
+            onClick={() => {
+              setValue("");
+            }}
+          >
+            XXX
+          </span> */}
+          {/* {(nameError as any)?.name} */}
+          <FormErrorMessage></FormErrorMessage>
+        </FormControl>
+      )}
+    </Field>
   );
 };

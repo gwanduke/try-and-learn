@@ -1,10 +1,10 @@
 import { Button, ButtonGroup, IconButton } from "@chakra-ui/button";
 import { Wrap, WrapItem } from "@chakra-ui/layout";
 import { AddIcon, MinusIcon } from "@chakra-ui/icons";
-import { User } from "../types";
+import { MainForm, User } from "../types";
+import { useFormikContext } from "formik";
 
 interface Props {
-  users: User[];
   currentIndex: number;
   onClick: (index: number) => void;
   onDelete: (index: number) => void;
@@ -13,17 +13,17 @@ interface Props {
 }
 
 export function UserSelector({
-  users,
   currentIndex,
   onClick,
   onAdd,
   onDelete,
   onLoad,
 }: Props) {
+  const { values } = useFormikContext<MainForm>();
   return (
     <div>
       <Wrap spacing="24px">
-        {users.map((user, index) => (
+        {values.users.map((user, index) => (
           <WrapItem>
             <ButtonGroup
               size="sm"

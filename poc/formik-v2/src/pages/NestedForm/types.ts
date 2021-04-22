@@ -13,6 +13,7 @@ export interface Subscription {
 }
 
 export interface User {
+  age: number;
   name: string;
   subscriptions?: Subscription[];
 }

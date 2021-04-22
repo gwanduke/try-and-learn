@@ -6,6 +6,7 @@ import { NewSubscriptionModalForm } from "../forms/NewSubscriptionModalForm";
 import { MainForm } from "../types";
 import { SubscriptionField } from "./SubscriptionField";
 import { UserNameField } from "./user/UserNameField";
+import UserAgeField from "./user/UserAgeField";
 
 interface Props {
   index: number;
@@ -18,6 +19,7 @@ export function UserField({ index }: Props) {
   return (
     <div>
       <UserNameField userIndex={index} />
+      <UserAgeField userIndex={index} />
 
       <FieldArray name={`users[${index}].subscriptions`}>
         {({ push, remove }) => (

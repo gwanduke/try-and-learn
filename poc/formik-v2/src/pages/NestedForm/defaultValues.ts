@@ -3,6 +3,7 @@ import { MainForm, PaymentType, Subscription, User } from "./types";
 export const defaultFormValues: MainForm = {
   users: [
     {
+      age: 11,
       name: "sfdsdfsf",
       subscriptions: [
         {
@@ -13,12 +14,14 @@ export const defaultFormValues: MainForm = {
       ],
     },
     {
+      age: 12,
       name: "",
     },
   ],
 };
 
 export const defaultUserValues: User = {
+  age: 0,
   name: "",
   subscriptions: [],
 };
