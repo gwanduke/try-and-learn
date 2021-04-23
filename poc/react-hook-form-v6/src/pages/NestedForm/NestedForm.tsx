@@ -6,7 +6,7 @@ import {
 } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 import { Wrapper } from "../../components";
-import { MainForm, User } from "./types";
+import { MainForm, PaymentType, User } from "./types";
 import { Button } from "@chakra-ui/button";
 import { TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { useState } from "react";
@@ -51,7 +51,34 @@ export const NestedForm = () => {
         </p>
         <span
           onClick={() => {
-            setValue("users[0].subscriptions[0].name", "내 값");
+            setValue("users", [
+              {
+                name: "김관덕",
+                subscriptions: [
+                  {
+                    name: "내 값1",
+                    paymentType: PaymentType.MANY,
+                    paymentDayTerm: "1달",
+                  },
+                  {
+                    name: "내 값2",
+                    paymentType: PaymentType.ONCE,
+                    paymentDayTerm: "1달",
+                  },
+                  {
+                    name: "내 값3",
+                    paymentType: PaymentType.MANY,
+                    paymentDayTerm: "1달",
+                  },
+                ],
+              },
+              {
+                name: "김관덕2",
+              },
+              {
+                name: "김관덕3",
+              },
+            ]);
           }}
         >
           hihhihihi

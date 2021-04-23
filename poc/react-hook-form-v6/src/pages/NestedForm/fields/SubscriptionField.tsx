@@ -33,11 +33,11 @@ export function SubscriptionField({
   const {
     field: { onChange: onChangePaymentDayTerm, value: paymentDayTerm },
   } = useController({
-    name: buildFieldName("name"),
+    name: buildFieldName("paymentDayTerm"),
   });
 
   return (
-    <div>
+    <div key={field.id}>
       {buildFieldName("name")}
       <Tag size="sm">{field.id}</Tag>
       <Text fontSize="xl" fontWeight="bold">
