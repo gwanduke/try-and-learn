@@ -29,7 +29,6 @@ export function UserField({ field, index }: Props) {
       {fields.map((field, subIndex) => (
         // key를 꼭 명시해주어야한다.
         <SubscriptionField
-          name={field.name || ""}
           key={field.id}
           field={field}
           userIndex={index}

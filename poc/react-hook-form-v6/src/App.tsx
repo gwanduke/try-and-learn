@@ -4,11 +4,13 @@ import { ControllerForm } from "./pages/ControllerForm/ControllerForm";
 import { ControllerFormYup } from "./pages/ControllerFormYup/ControllerFormYup";
 import { ConditionalForm } from "./pages/ConditionalForm/ConditionalForm";
 import { NestedForm } from "./pages/NestedForm/NestedForm";
+import { IsolationForm } from "./pages/IsolationForm/IsolationForm";
 
 function App() {
   return (
     <div className="App">
       <h1>App</h1>
+      {/* <IsolationForm /> */}
       <NestedForm />
       {/* <ConditionalForm /> */}
       {/* <ControllerFormYup /> */}

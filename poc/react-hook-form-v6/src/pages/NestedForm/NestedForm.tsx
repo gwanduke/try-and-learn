@@ -49,6 +49,13 @@ export const NestedForm = () => {
           defaultValues를 지정한들, register 되어있지 않으면 폼값으로 가지지
           않는다.
         </p>
+        <span
+          onClick={() => {
+            setValue("users[0].subscriptions[0].name", "내 값");
+          }}
+        >
+          hihhihihi
+        </span>
         <FormProvider {...methods}>
           <UserSelector
             currentIndex={tabIndex}
