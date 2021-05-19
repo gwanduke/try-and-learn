@@ -98,3 +98,14 @@
 ---
 
 https://react-query.tanstack.com/guides/parallel-queries 부터 다시 보기
+
+## 참고자료
+
+> 아래 내용들은 모두 정독하였음
+
+- https://maxkim-j.github.io/posts/react-query-preview
+- https://blog.rhostem.com/posts/2021-02-01T00:00:00.000Z
+  - https://medium.com/@dtinth/immutable-js-persistent-data-structures-and-structural-sharing-6d163fbd73d2
+- https://merrily-code.tistory.com/76
+- https://dev.to/otamnitram/react-query-a-practical-example-167j
+- https://tkdodo.eu/blog/practical-react-query
