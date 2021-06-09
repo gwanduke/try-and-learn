@@ -19,3 +19,24 @@ export const schema = yup.object().shape({
     then: yup.string().required(),
   }),
 });
+
+export const schema2 = yup.object().shape({
+  name: yup.string().required(),
+  items: yup
+    .array()
+    .min(1)
+    .required()
+    .of(
+      yup.object().shape({
+        product: yup.string().when("count", {
+          is: 0,
+          then: yup.string().required(),
+        }),
+        count: yup.number().defined(),
+        aliasName: yup.string().when("name", {
+          is: "alias",
+          then: yup.string().required(),
+        }),
+      })
+    ),
+});
