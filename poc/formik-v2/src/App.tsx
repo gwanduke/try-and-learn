@@ -1,23 +1,23 @@
 // import { TabForm } from "./pages/TabForm/TabForm";
-// import { SubmitButtonForm } from "./pages/SubmitButtonForm/SubmitButtonForm";
+import { SubmitButtonForm } from "./pages/SubmitButtonForm/SubmitButtonForm";
 // import { ControllerForm } from "./pages/ControllerForm/ControllerForm";
 // import { ControllerFormYup } from "./pages/ControllerFormYup/ControllerFormYup";
 // import { ConditionalForm } from "./pages/ConditionalForm/ConditionalForm";
-import { IsolationForm } from "./pages/IsolationForm/IsolationForm";
+// import { IsolationForm } from "./pages/IsolationForm/IsolationForm";
 // import { NestedForm } from "./pages/NestedForm/NestedForm";
 
 function App() {
   return (
     <div className="App">
       <h1>App</h1>
-      <IsolationForm />
+      {/* <IsolationForm /> */}
       {/* <NestedForm /> */}
       {/* <ConditionalForm /> */}
       {/* <ControllerFormYup /> */}
       {/* <ControllerForm /> */}
       {/* <TabForm /> */}
       <br />
-      {/* <SubmitButtonForm /> */}
+      <SubmitButtonForm />
       <Footer />
     </div>
   );

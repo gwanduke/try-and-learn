@@ -5,18 +5,20 @@ import { ControllerFormYup } from "./pages/ControllerFormYup/ControllerFormYup";
 import { ConditionalForm } from "./pages/ConditionalForm/ConditionalForm";
 import { NestedForm } from "./pages/NestedForm/NestedForm";
 import { IsolationForm } from "./pages/IsolationForm/IsolationForm";
+import { UncontrolledFormat } from "./pages/UncontrolledFormat/UncontrolledFormat";
 
 function App() {
   return (
     <div className="App">
       <h1>App</h1>
       {/* <IsolationForm /> */}
-      <NestedForm />
+      {/* <NestedForm /> */}
       {/* <ConditionalForm /> */}
       {/* <ControllerFormYup /> */}
       {/* <ControllerForm /> */}
       {/* <SubmitButtonForm /> */}
       {/* <TabForm /> */}
+      <UncontrolledFormat />
       <br />
       <Footer />
     </div>
