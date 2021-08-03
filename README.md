@@ -16,6 +16,8 @@
     - [egghead.io](#eggheadio)
     - [Fast Campus](#fast-campus)
     - [Udemy](#udemy)
+    - [Study](#study)
+      - [8월](#8월)
 
 ## POC
 
@@ -37,6 +39,8 @@
   - [Data Binding](./try/javascript-pattern/vanilla-js-data-binding)
 - **JavaScript Test**
   - [📝 고찰 - 어떻게 테스트를 작성해야할까?](./try/javascript-test/consideration-how-to-write-test.md)
+- **Jotai**
+  - [try-jotai](./try/jotai)
 - **MobX**
   - [MobX.js.org](./try/mobx/mobx-js-org)
   - [Reinventing MobX](./try/mobx/reinventing-mobx) (MobX 만들기)
@@ -109,3 +113,9 @@
 - Tools
   - 💵 ✋ [Docker Mastery: with Kubernetes +Swarm](./material/udemy/docker-mastery-with-kubernetes-swarm.md)
   - 💵 ✅ [Webpack 5: The Complete Guide For Beginners](./material/udemy/webpack5-the-complete-guide-for-beginners)
+
+### Study
+
+#### 8월
+
+- 8월 3일 ~ [Jotai vs. Recoil](./readings/jotai-vs-recoil.md)
