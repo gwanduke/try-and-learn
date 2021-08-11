@@ -65,6 +65,7 @@
 - Git
   - [브랜치 전략](./try/git/strategy.md)
 - [Miragejs](./try/miragejs)
+- [recoil](./try/recoil)
 - [yup](./try/yup)
 
 ## 시리즈 - 책, 강의, 연재, 세미나, 컨퍼런스
