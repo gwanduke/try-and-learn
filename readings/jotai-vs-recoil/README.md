@@ -17,3 +17,8 @@
 - Atomic (Recoil, Jotai)
 
 Atomic한 방법이 Flux, Proxy한 방법 보다 리액트 상태 관리와 닮아있고, 리액트 트리에 저장된다. (그래서 비교적 React Context와 많이 비교당함)
+
+## References
+
+- https://github.com/pmndrs/jotai/issues/420
+- [이미지 캡쳐](.)
