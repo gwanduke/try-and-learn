@@ -22,3 +22,43 @@ Atomic한 방법이 Flux, Proxy한 방법 보다 리액트 상태 관리와 닮�
 
 - https://github.com/pmndrs/jotai/issues/420
 - [이미지 캡쳐](.)
+
+## Tips
+
+### [Manage Application State with Jotai Atoms](https://egghead.io/courses/manage-application-state-with-jotai-atoms-2c3a29f0)
+
+- To store a list of states and effectively preserve them, we can combine multiple atoms into one atom. This new atom would store a list of atom configs.
+- An atom config can be converted to a string to be used as a key prop when we map over a list of atoms.
+
+```js
+listAtoms.map((atom) => <div key={`${atom}`}>...</div>);
+```
+
+- The naming convention here, `selectedShapeAtomAtom`, can be translated to "atom that stores the selected ShapeAtom".
+- The `selectedAtomCreator` returns `true` if the provided `ShapeAtom` is the same as the selected `ShapeAtom` and `false` otherwise. The `useMemo` hook causes `selectedAtomCreator` to only be called when the `shapeAtom` has changed.
+
+```ts
+// selection.ts
+const selectedShapeAtomAtom = atom<ShapeAtom | null>(null);
+
+export const selectAtom = atom(null, (_, set, shapeAtom: ShapeAtom) => {
+  set(selectedShapeAtomAtom, shapeAtom);
+});
+
+export const selectedAtomCreator = (shapeAtom: ShapeAtom) => {
+  const selectedAtom = atom((get) => shapeAtom === get(selectedShapeAtomAtom));
+
+  return selectedAtom;
+};
+
+// App.tsx
+const App = () => {
+  const [shape] = useAtom(shapeAtom);
+  const [_, select] = useAtom(selectAtom);
+  const [selected] = useAtom(
+    useMemo(() => selectedAtomCreator(shapeAtom), [shapeAtom])
+  );
+};
+```
+
+- Provider를 제공하면, 동일한 atom을 사용하더라도 각자 독립된 공간에서 상태를 관리하게 해준다.
