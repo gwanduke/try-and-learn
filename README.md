@@ -45,6 +45,7 @@
   - [MobX.js.org](./try/mobx/mobx-js-org)
   - [Reinventing MobX](./try/mobx/reinventing-mobx) (MobX 만들기)
 - **[Mobx State Tree (MST)](./try/mobx-state-tree)**
+- [Nest.js](./try/nestjs)
 - **ReactJS**
   - [Build your own React](./try/reactjs/build-your-own-react) (React 만들기)
   - [📝 React V-DOM에 대한 고찰](./try/reactjs/react-v-dom-study)
