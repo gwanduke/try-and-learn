@@ -261,4 +261,78 @@ Enum은 타입레벨 추가가 아닙니다! [자세히](https://www.typescriptl
 - Optional Parameters : When writing a function type for a callback, never write an optional parameter unless you intend to call the function without passing that argument
 
 - Function Overloads
-  - TODO:
+
+  - 리턴타입이 동일해야하며, 구현 파라미터는 오버로드 타입 파라미터 정의와 호환되어야한다.
+
+    ```ts
+    // 다음은 두개의 오버로드 시그니쳐를 가짐
+
+    function makeDate(timestamp: number): Date; // 오버로드1
+    function makeDate(m: number, d: number, y: number): Date; // 오버로드2
+    //function makeDate(mOrTimestamp: number | boolean `불가`, d?: number, y?: number): Date {
+    function makeDate(mOrTimestamp: number, d?: number, y?: number): Date {
+      // 함수 구현 정의, 밖에서 (타입이) 보이지 않는다. 내부 구현을 위한 용도
+      if (d !== undefined && y !== undefined) {
+        return new Date(y, mOrTimestamp, d);
+      } else {
+        return new Date(mOrTimestamp);
+      }
+    }
+    const d1 = makeDate(12345678);
+    const d2 = makeDate(5, 5, 5);
+    const d3 = makeDate(1, 3); // Error!
+    ```
+
+  - Best Practice
+    - 가능한 경우 파라미터 오버로드 보다는 "유니언타입"을 이용해 함수를 정의하자
+
+- Declaring `this` in a Function
+
+  ```ts
+  interface DB {
+    filterUsers(filter: (this: User) => boolean): User[];
+  }
+
+  const db = getDB();
+  const admins = db.filterUsers(function (this: User) {
+    return this.admin;
+  });
+  ```
+
+- Other Types to Know About
+
+  - void - `return;` 이나 리턴이 없다면 해당 함수는 void 리턴으로 평가되며, JS에서는 암시적으로 undefined를 의미하지만 TS에서 void와 undefined는 그 의미가 다르다.
+  - object - primitive가 아닌 타입 `object is not Object. Always use object!`
+  - unkown - any와 닮아있지만, unkown 값으로 뭔가 하는 것은 더 안전하다고 여겨진다.
+
+    ```ts
+    function safeParse(s: string): unknown {
+      return JSON.parse(s);
+    }
+
+    // Need to be careful with 'obj'!
+    const obj = safeParse(someRandomString);
+    obj.something; // Error!
+    ```
+
+  - never - 함수가 예외를 던지거나, 프로그램 종료 등으로 값이 관찰되지 않음 (or narrowing 으로 인해 도달 불가)
+  - Function - JS 함수를 의미하며 any를 리턴하기 때문에 가능하면 피하자
+
+### Rest Parameters and Arguments
+
+- Rest Parameters `function fn(...m: number[])`
+- Rest Arguments
+
+  ```ts
+  // Inferred as 2-length tuple
+  const args = [8, 5] as const;
+  // OK
+  const angle = Math.atan2(...args);
+  ```
+
+- Parameter Destructuring
+- Assignability of Functions [자세히](https://github.com/Microsoft/TypeScript/wiki/FAQ#why-are-functions-returning-non-void-assignable-to-function-returning-void)
+  - void는 반환하지 않음이 아니라, 어떤 것도 반환할 수 있음을 나타낸다. (하지만 무시한다) (`type voidFunc = () => void;` 식으로 정의한 경우)
+  - 예외적으로 `function f2(): void` 처럼 반환타입으로 명시한 경우에는 반환을 하면 안된다.
+
+<!-- TODO: https://www.typescriptlang.org/docs/handbook/2/objects.html -->
