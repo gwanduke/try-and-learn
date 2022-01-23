@@ -1,0 +1,6 @@
+- [ ] 클린 아키텍쳐
+  - https://speakerdeck.com/soyoung210/clean-architecture-in-banksalad
+  - VIPER
+    - 서버가 전달해준 데이터가 Entity (서버의 Model + BL(비즈니스로직 가공처리)된 데이터) [참고](https://www.youtube.com/watch?v=jVyA5DV6r8w)
+- [ ] [팀장이 아니어도 괜찮아](http://channy.creation.net/blog/1399)
+- [ ] [Frontend, 신입보다는 잘 알고있을까?](https://jbee.io/essay/for_junior_frontend_developer/)
