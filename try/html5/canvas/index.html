@@ -1,0 +1,135 @@
+<!-- ref. https://youtu.be/JFQOgt5DMBY -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Try Canvas</title>
+    <style>
+      .canvas {
+        width: 300px;
+        height: 300px;
+        background-color: #ccc;
+      }
+
+      .canvas1 {
+      }
+      .canvas2 {
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="canvas canvas1" width="400" height="400"></canvas>
+    <canvas class="canvas canvas2" width="800" height="800"></canvas>
+    <canvas class="canvas canvas3" width="300" height="300"></canvas>
+
+    <!-- Tip! chrome에서는 소리가나는 영상은 자동재생 안됨 -->
+    <video class="video" src="./sample-video.mov" autoplay muted loop></video>
+    <canvas class="canvas canvas4" width="300" height="300"></canvas>
+
+    <canvas class="canvas canvas5" width="300" height="300"></canvas>
+
+    <script>
+      // ----- CANVAS 1 : Basic ----- //
+      const canvas1 = document.querySelector(".canvas1");
+      const context1 = canvas1.getContext("2d");
+      context1.arc(100, 100, 50, 0, Math.PI * 2, false);
+      context1.fillStyle = "red";
+      context1.fill();
+
+      // line
+      context1.beginPath();
+      context1.moveTo(100, 100);
+      context1.lineTo(300, 300);
+      context1.stroke();
+
+      // circle
+      context1.beginPath();
+      context1.arc(300, 300, 50, 0, 1 * Math.PI, false);
+      context1.fill();
+
+      // ----- CANVAS 2 : Animation ----- //
+      const canvas2 = document.querySelector(".canvas2");
+      const context2 = canvas2.getContext("2d");
+
+      let x = 30;
+      let loop = 0;
+      drawCircle();
+
+      function drawCircle() {
+        context2.clearRect(0, 0, canvas2.width, canvas2.height);
+        context2.beginPath();
+        context2.arc(x, 30, 20, 0, Math.PI * 2);
+        context2.fill();
+
+        if (x >= canvas2.width) {
+          x = 30;
+          loop++;
+        } else {
+          x = x + 10;
+        }
+
+        const id = requestAnimationFrame(drawCircle);
+
+        if (loop === 2) {
+          cancelAnimationFrame(id);
+        }
+      }
+
+      // ----- CANVAS 3 : Image ----- //
+      const canvas3 = document.querySelector(".canvas3");
+      const context3 = canvas3.getContext("2d");
+
+      const imageEl = document.createElement("img"); // or new Image();
+      imageEl.src = "./need-update.png";
+
+      imageEl.addEventListener("load", () => {
+        context3.drawImage(imageEl, 0, 0);
+
+        // crop
+        context3.drawImage(
+          // about source
+          imageEl,
+          13,
+          7,
+          50,
+          50,
+
+          // about destination
+          70, // x
+          70, // y
+          50, // width
+          50 // height
+        );
+      });
+
+      // ----- CANVAS 4 : Video ----- //
+      const canvas4 = document.querySelector(".canvas4");
+      const context4 = canvas4.getContext("2d");
+      const videoEl = document.querySelector("video");
+      videoEl.addEventListener("canplaythrough", renderVideo);
+
+      function renderVideo() {
+        context4.drawImage(videoEl, 0, 0, 300, 300);
+        const imageData = context4.getImageData(0, 0, 300, 300);
+        imageLen = imageData.data.length / 4; // 360000 (300 * 300 * 4(rgba)) [209, 234, 245, 255, ...]
+
+        // 픽셀의 rgba 를 조작해 전체 이미지의 색상을 조정
+        for (let i = 0; i < imageLen; i++) {
+          imageData.data[i * 4 + 0] = 100;
+        }
+
+        imageData.data[0] = 255;
+
+        context4.putImageData(imageData, 0, 0);
+
+        requestAnimationFrame(renderVideo);
+      }
+
+      // ----- CANVAS 5 : Transform ----- //
+      const canvas5 = document.querySelector(".canvas5");
+      const context5 = canvas5.getContext("2d");
+    </script>
+  </body>
+</html>
