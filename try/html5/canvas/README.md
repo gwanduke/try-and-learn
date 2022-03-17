@@ -6,6 +6,7 @@
 - 보통 직접 그리는 것은 복잡하기 때문에 이미지를 많이 활용한다.
 - setInterval 과 requestAnimationFrame (1/60초 당 한번 처리 목표), 백그라운드에서 stop 되는가?
 - `canvas.toDataURL`로 캔버스의 결과를 내려받을 수 있다.
+- transform은 기본적으로 캔버스 0,0 기준으로 이루어진다.
 
 ## References
 
