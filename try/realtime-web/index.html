@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      function makeWebSocketConnection() {
+        const webSocket = new WebSocket("ws://127.0.0.1:3000");
+        webSocket.onopen = () => {
+          console.log("----- 연결 완료 -----");
+        };
+
+        webSocket.onmessage = (event) => {
+          console.log("----- 서버로부터 받은 데이터 -----");
+          console.log("event:", event);
+
+          const li = document.createElement("li");
+          li.textContent = event.data;
+          document.getElementById("message-list").append(li);
+        };
+
+        webSocket.onclose = () => {
+          console.log("----- 연결 종료 -----");
+        };
+
+        webSocket.onerror = (event) => {
+          console.log("----- 연결 에러 -----");
+          console.log("event:", event);
+        };
+
+        return webSocket;
+      }
+
+      let webSocket = makeWebSocketConnection();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const textboxEl = document.getElementById("textbox");
+
+        const formEl = document.getElementById("form");
+        formEl.addEventListener("submit", (e) => {
+          e.preventDefault();
+          if (webSocket.readyState === webSocket.OPEN) {
+            webSocket.send(textboxEl.value);
+            textboxEl.value = "";
+          } else {
+            console.log("! - 연결오류");
+          }
+        });
+
+        const connectEl = document.getElementById("connect");
+        connectEl.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (webSocket.readyState === webSocket.OPEN) {
+            console.log("! - 이미 연결된 웹소켓");
+          } else {
+            webSocket = makeWebSocketConnection();
+          }
+        });
+
+        const disconnectEl = document.getElementById("disconnect");
+        disconnectEl.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (webSocket.readyState === webSocket.OPEN) {
+            webSocket.close();
+          } else {
+            console.log("! - 이미 끊어진 웹소켓");
+          }
+        });
+      });
+    </script>
+    <title>Realtime Web</title>
+  </head>
+  <body>
+    <h1>Realtime Web</h1>
+
+    <section>
+      <h2>WebSocket</h2>
+      <div>
+        <ul id="message-list">
+          <li></li>
+        </ul>
+        <form id="form">
+          <input id="textbox" type="text" />
+          <button>전송</button>
+        </form>
+        <button id="connect">소켓 연결</button>
+        <button id="disconnect">소켓 종료</button>
+      </div>
+    </section>
+  </body>
+</html>
