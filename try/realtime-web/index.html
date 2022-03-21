@@ -67,6 +67,40 @@
             console.log("! - 이미 끊어진 웹소켓");
           }
         });
+
+        // Long Polling
+        async function subscribe() {
+          let response = await fetch("/subscribe");
+
+          if (response.status == 502) {
+            // Status 502 is a connection timeout error,
+            // may happen when the connection was pending for too long,
+            // and the remote server or a proxy closed it
+            // let's reconnect
+            await subscribe();
+          } else if (response.status != 200) {
+            // An error - let's show it
+            showMessage(response.statusText);
+            // Reconnect in one second
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await subscribe();
+          } else {
+            // Get and show the message
+            let message = await response.text();
+            showMessage(message);
+            // Call subscribe() again to get the next message
+            await subscribe();
+          }
+        }
+
+        function showMessage(msg) {
+          const countDownEl = document.getElementById("count-down");
+          const li = document.createElement("li");
+          li.textContent = msg;
+          countDownEl.append(li);
+        }
+
+        subscribe();
       });
     </script>
     <title>Realtime Web</title>
@@ -86,6 +120,13 @@
         </form>
         <button id="connect">소켓 연결</button>
         <button id="disconnect">소켓 종료</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Long Polling</h2>
+      <div>
+        <ul id="count-down"></ul>
       </div>
     </section>
   </body>
