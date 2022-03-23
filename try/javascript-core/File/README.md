@@ -61,3 +61,30 @@ file.lastModified = Number(file.lastModifiedDate);
 ### File 구현
 
 ![File 구현](./file.png)
+
+## Blob
+
+```js
+function downloadFile(data, name = "mydata.txt") {
+  const data = `name,email,twitter
+duke,gwanduke@gmail.com,gwanduke
+`;
+
+  const blob = new Blob([data], { type: "octet-stream" });
+
+  const href = URL.createObjectURL(blob);
+  // 'blob:https://localhost/36085117-c878-4025-99d9-22ce7c6c5183' => data
+
+  const a = Object.assign(document.createElement("a"), {
+    href,
+    style: "display:none",
+    download: name,
+  });
+  document.body.appendChild(a);
+  a.click();
+
+  URL.revokeObjectURL(href);
+  // 'blob:https://localhost/36085117-c878-4025-99d9-22ce7c6c5183' => notfound
+  a.remove();
+}
+```
