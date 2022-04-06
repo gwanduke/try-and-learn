@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video Sample 1</title>
+  </head>
+  <body>
+    <figure id="videoContainer">
+      <!-- controls를 켜놓아 혹시나 js가 지원되지 않아도 컨트롤 사용이 가능케한다. -->
+      <!-- 전체 파일 다운로드보다 metadata 로드를 초기에 시도하도록 함 (video duration and format 등을 미리 알게함) -->
+      <video id="video" controls preload="metadata" poster="img/poster.jpg">
+        <source src="../../../videos/oceans.mp4" type="video/mp4" />
+
+        <a href="">Download MP4</a>
+      </video>
+      <figcaption>&copy; Blender Foundation</figcaption>
+    </figure>
+  </body>
+</html>
