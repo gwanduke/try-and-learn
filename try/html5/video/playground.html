@@ -1,0 +1,27 @@
+<div id="root">
+  <video
+    id="video"
+    src="../../../videos/oceans.mp4"
+    width="500"
+    controls
+  ></video>
+  <div id="controls">
+    <span id="rewind">⏪</span>
+    <span id="play">▶️</span>
+  </div>
+</div>
+
+<script>
+  play.addEventListener("click", () => {
+    video.play();
+  });
+
+  // ...
+</script>
+
+<style>
+  #play {
+    padding: 4px;
+    border: 2px solid #000;
+  }
+</style>

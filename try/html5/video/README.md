@@ -66,3 +66,94 @@
 
 - 브라우전 모든 비디오 포맷을 지원하지 않는다. 그래서 `<source>`로 명시한 것들중 이해가능한 첫번째 소스를 사용한다.
 -
+
+# Media buffering, seeking, 그리고 time ranges
+
+비디오나 오디오가 얼마나 다운로드 되었는지 또는 delay 없이 재생 가능한지를 알고 싶을 때 유용하다. (버퍼 상태바가 대표적인 예)
+
+## Buffered
+
+`buffered` 속성으로 미디어의 어떤 부분이 다운로드 되어졌는지 알 수 있는데, 이는 [TimeRange](https://developer.mozilla.org/en-US/docs/Web/API/TimeRanges) 객체를 반환한다. 대개 연속적이지만 사용자가 버퍼링중에 뛰어넘거나 하는 경우 중간이 비게될 수 있다.
+
+```js
+const video = document.getElementById("my-video");
+const bufferedTimeRanges = video.buffered;
+```
+
+## TimeRange Object
+
+시작과 끝 시간을 가지는 series of non-overlapping ranges of time.
+
+TimeRange 프로퍼티
+
+- `length`: 객체내의 time ranges의 수
+- `start(index)`: time range의 시작 시간 (초)
+- `end(index)`: time range의 끝 시간 (초)
+
+```text
+------------------------------------------------------
+|=============|                    |===========|     |
+------------------------------------------------------
+0             5                    15          19    21
+```
+
+```js
+myAudio.buffered.length; // returns 2
+myAudio.buffered.start(0); // returns 0
+myAudio.buffered.end(0); // returns 5
+myAudio.buffered.start(1); // returns 15
+myAudio.buffered.end(1); // returns 19
+```
+
+## Seekable
+
+media가 지연없이 재생이 가능한 TimeRange가 어디인지 반환한다. 이는 다운로드 여부와는 상관없다. 예를들어 Byte range 요청이 허용되는 서버라면 거의 즉시 다운로드되어 재생되기 떄문에 seekable로 처리된다.
+
+```js
+var seekableTimeRanges = myAudio.seekable;
+```
+
+## 버퍼링 피드백
+
+> 네이티브 컨트롤은 buffered를 참고해 버퍼링 상태를 표현한다.
+
+```js
+window.onload = function () {
+  var myAudio = document.getElementById("my-audio");
+
+  myAudio.addEventListener("progress", function () {
+    var duration = myAudio.duration;
+    if (duration > 0) {
+      for (var i = 0; i < myAudio.buffered.length; i++) {
+        if (
+          myAudio.buffered.start(myAudio.buffered.length - 1 - i) <
+          myAudio.currentTime
+        ) {
+          document.getElementById("buffered-amount").style.width =
+            (myAudio.buffered.end(myAudio.buffered.length - 1 - i) / duration) *
+              100 +
+            "%";
+          break;
+        }
+      }
+    }
+  });
+
+  myAudio.addEventListener("timeupdate", function () {
+    var duration = myAudio.duration;
+    if (duration > 0) {
+      document.getElementById("progress-amount").style.width =
+        (myAudio.currentTime / duration) * 100 + "%";
+    }
+  });
+};
+```
+
+## Played
+
+`played` 프로퍼티도 재생된 구간을 TimeRange로 반환하는데, 이는 특정 부분의 미디어가 얼마나 많이 들어졌는지, 보여졌는지 판단하는데 용이하다.
+
+# PlaybackRate
+
+- Most browsers stop playing audio outside playbackRate bounds of 0.5 and 4, leaving the video playing silently. For most applications, it's recommended that you limit the range to between 0.5 and 4.
+- Negative values will not cause the media to play in reverse
