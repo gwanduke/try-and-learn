@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebVTT</title>
+
+    <script src="./vtt.min.js"></script>
+
+    <style>
+      /* ::cue {
+        background: transparent;
+      }
+
+      ::cue(v[voice="갈매기"]) {
+        color: #fff;
+        background: #0095dd;
+      } */
+
+      #overlay div {
+        background-color: transparent !important;
+      }
+      #overlay div div {
+        background-color: transparent !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div style="position: relative">
+      <div id="overlay">--------</div>
+      <video
+        id="video"
+        src="../../../videos/oceans.mp4"
+        controls
+        autoplay
+        muted
+      ></video>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        var vtt = `WEBVTT - 설명 (선택사항)
+
+00:00:00.000 --> 00:00:02.000 line:10% position:50% align:start
+<v 갈매기>사냥 가즈아!</v>
+
+00:00:00.000 --> 00:00:03.000
+[갈매기가 바다로 뛰어든다]
+크으으 <00:00:02.000>우아아
+
+NOTE
+이 아래는 아직 번역이 제대로 안되었어요.
+
+이 구간에 대한 설명 (선택사항)
+00:00:04.000 --> 00:00:10.000
+첨벙 <b>매우</b> <u>많이</u> <i>아파</i>
+    `,
+          parser = new WebVTT.Parser(window, WebVTT.StringDecoder()),
+          cues = [],
+          regions = [];
+        parser.oncue = function (cue) {
+          cues.push(cue);
+        };
+        parser.onregion = function (region) {
+          regions.push(region);
+        };
+        parser.parse(vtt);
+        parser.flush();
+
+        var div = WebVTT.convertCueToDOMTree(window, cues[0].text);
+
+        video.addEventListener("timeupdate", () => {
+          var activeCues = cues.filter(function (cue) {
+            return (
+              cue.startTime <= video.currentTime &&
+              cue.endTime >= video.currentTime
+            );
+          });
+
+          WebVTT.processCues(
+            window,
+            activeCues,
+            document.getElementById("overlay")
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Souce Buffer</title>
+  </head>
+  <body>
+    <h1>Source Buffer</h1>
+    <hr />
+    <video id="video" muted controls>asdfjsa</video>
+    <hr />
+    <script>
+      var mediaSource = new MediaSource();
+
+      var assetURL = "../../../videos/mpd/oceans_dashinit.mp4";
+
+      console.log(mediaSource.readyState); // closed
+      video.src = URL.createObjectURL(mediaSource);
+      mediaSource.addEventListener("sourceopen", sourceOpen);
+
+      function sourceOpen(_) {
+        console.log(this.readyState); // open
+        var mediaSource = this;
+        var sourceBuffer = mediaSource.addSourceBuffer(
+          'video/mp4; codecs="avc1.42E01E, mp4a.40.2"'
+        );
+
+        fetch(assetURL)
+          .then((res) => res.arrayBuffer())
+          .then((buf) => {
+            console.log(buf);
+            console.log(sourceBuffer);
+            sourceBuffer.appendBuffer(buf);
+
+            fetch("../../../videos/mpd/oceans_dash1.m4s")
+              .then((res) => res.arrayBuffer())
+              .then((buf2) => {
+                sourceBuffer.appendBuffer(buf2);
+              });
+            fetch("../../../videos/mpd/oceans_dash3.m4s")
+              .then((res) => res.arrayBuffer())
+              .then((buf3) => {
+                sourceBuffer.appendBuffer(buf3);
+              });
+          });
+      }
+    </script>
+  </body>
+</html>

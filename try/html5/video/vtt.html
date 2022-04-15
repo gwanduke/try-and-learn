@@ -8,18 +8,27 @@
 
     <style>
       ::cue {
-        background: transparent;
-      }
-
-      ::cue(v[voice="갈매기"]) {
-        color: #fff;
-        background: #0095dd;
+        background: transparent !important;
+        outline: none !important;
       }
     </style>
   </head>
   <body>
-    <video src="./oceans.mp4" controls autoplay muted>
-      <track src="./oceans.vtt" kind="subtitles" default />
+    <video src="../../../videos/oceans.mp4" controls autoplay muted>
+      <track
+        src="./oceans.vtt"
+        kind="subtitles"
+        lang="ko"
+        label="한글"
+        default
+      />
+      <track
+        src="./oceans.vtt"
+        kind="subtitles"
+        lang="en"
+        label="영어"
+        default
+      />
     </video>
   </body>
 </html>

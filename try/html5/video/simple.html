@@ -5,13 +5,100 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Video Player</title>
-    <style>
-      video::-webkit-media-controls {
-        display: none !important;
-      }
-    </style>
   </head>
   <body>
-    <video src="../../../videos/oceans.mp4" width="500" controls />
+    <div id="container">
+      <video id="video" width="500" controls autoplay muted playsinline>
+        <source
+          src="../../../videos/oceans.mp4"
+          type="video/mp4"
+          codecs="vp19"
+        />
+      </video>
+      <button id="gofullscreen">Go Fullscreen</button>
+    </div>
+
+    <script>
+      gofullscreen.addEventListener("click", () => {
+        video.webkitEnterFullscreen();
+        requestFullscreenVideo();
+      });
+
+      if ("orientation" in screen) {
+        screen.orientation.addEventListener("change", function (e) {
+          e.stopPropagation();
+
+          // Let's request fullscreen if user switches device in landscape mode.
+          if (screen.orientation.type.startsWith("landscape")) {
+            requestFullscreenVideo();
+          } else if (document.fullscreenElement) {
+            document.exitFullscreen();
+          }
+        });
+      }
+
+      function requestFullscreenVideo() {
+        if (container.requestFullscreen) container.requestFullscreen();
+        else if (container.mozRequestFullScreen)
+          container.mozRequestFullScreen();
+        else if (container.webkitRequestFullScreen)
+          container.webkitRequestFullScreen();
+        else if (container.msRequestFullscreen) container.msRequestFullscreen();
+        // if (container.requestFullscreen) {
+        //   container.requestFullscreen().then(() => {
+        //     lockScreenInLandscape();
+        //   });
+        // } else {
+        //   container.webkitEnterFullscreen();
+        // }
+      }
+
+      function lockScreenInLandscape() {
+        if (!("orientation" in screen)) {
+          return;
+        }
+
+        if (
+          matchMedia("(orientation: portrait) and (max-device-width: 768px)")
+            .matches
+        ) {
+          console.log("adf");
+          listenToDeviceOrientationChanges();
+          console.log("adf2");
+          screen.orientation.lock("landscape");
+        }
+      }
+
+      function listenToDeviceOrientationChanges() {
+        if (!("DeviceOrientationEvent" in window)) {
+          return;
+        }
+        var previousDeviceOrientation, currentDeviceOrientation;
+        window.addEventListener(
+          "deviceorientation",
+          function onDeviceOrientationChange(event) {
+            console.log("orientation");
+            // event.beta represents a front to back motion of the device and
+            // event.gamma a left to right motion.
+            if (Math.abs(event.gamma) > 10 || Math.abs(event.beta) < 10) {
+              previousDeviceOrientation = currentDeviceOrientation;
+              currentDeviceOrientation = "landscape";
+              return;
+            }
+            if (Math.abs(event.gamma) < 10 || Math.abs(event.beta) > 10) {
+              previousDeviceOrientation = currentDeviceOrientation;
+              // When device is rotated back to portrait, let's unlock screen orientation.
+              if (previousDeviceOrientation == "landscape") {
+                screen.orientation.unlock();
+                window.removeEventListener(
+                  "deviceorientation",
+                  onDeviceOrientationChange
+                );
+              }
+            }
+          }
+        );
+      }
+    </script>
   </body>
 </html>

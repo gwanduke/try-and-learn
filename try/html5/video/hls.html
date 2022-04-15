@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HLS.js</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  </head>
+  <body>
+    <video id="video" autoplay muted controls></video>
+    <ul>
+      <li>
+        <button id="q1" class="q">0</button>
+      </li>
+      <li>
+        <button id="q1" class="q">1</button>
+      </li>
+      <li>
+        <button id="q2" class="q">2</button>
+      </li>
+      <li>
+        <button id="q3" class="q">3</button>
+      </li>
+    </ul>
+    <script>
+      var video = document.getElementById("video");
+      //   var videoSrc = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+      var videoSrc = "../../../videos/hls/playlist.m3u8";
+      if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+
+        hls.on(Hls.Events.MEDIA_ATTACHED, function () {
+          console.log("video and hls.js are now bound together !");
+        });
+
+        hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+          console.log(
+            "manifest loaded, found " + data.levels.length + " quality level",
+            data.levels
+          );
+        });
+
+        document.querySelectorAll(".q").forEach((el) => {
+          el.addEventListener("click", (e) => {
+            console.log(Number(e.target.innerText));
+            hls.currentLevel = Number(e.target.innerText);
+          });
+        });
+      } else if (video.canPlayType("application/vnd.apple.mpegurl")) {
+        video.src = videoSrc;
+      }
+    </script>
+  </body>
+</html>
