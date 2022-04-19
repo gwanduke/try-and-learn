@@ -2,10 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>MSE Demo</title>
+    <title>mediaSourceE Demo</title>
   </head>
   <body>
-    <h1>MSE Demo</h1>
+    <h1>mediaSourceE Demo</h1>
     <div>
       <video controls width="80%" autoplay muted></video>
     </div>
@@ -20,42 +20,31 @@
       var numberOfChunks = 5;
       var video = document.querySelector("video");
 
-      var ms = new MediaSource();
-      video.src = window.URL.createObjectURL(ms);
+      var mediaSource = new MediaSource();
+      video.src = window.URL.createObjectURL(mediaSource);
 
       // video 엘리먼트에 연결됨!  ready for data to be appended to the SourceBuffer objects in sourceBuffers.
-      ms.addEventListener("sourceopen", () => {
-        sourceBuffer = ms.addSourceBuffer('video/mp4; codecs="avc1.4d401f"'); //
-        sourceBuffer.addEventListener("updateend", nextSegment);
+      mediaSource.addEventListener("sourceopen", () => {
+        sourceBuffer = mediaSource.addSourceBuffer(
+          'video/mp4; codecs="avc1.4d401f"'
+        );
 
-        fetch(initUrl)
-          .then((res) => {
-            return res.arrayBuffer();
-          })
-          .then(appendToBuffer);
+        fetch("init.mp4")
+          .then((res) => res.arrayBuffer())
+          .then((chunk) => {
+            sourceBuffer.appendBuffer(new Uint8Array(chunk));
+
+            fetch("segment_0.m4s")
+              .then((res) => res.arrayBuffer())
+              .then((chunk) => {
+                sourceBuffer.appendBuffer(new Uint8Array(chunk));
+
+                // 다음 세그먼트 요청하여 버퍼로...
+              });
+          });
 
         video.play();
       });
-
-      function nextSegment() {
-        var url = templateUrl.replace("$Number$", index);
-        fetch(url)
-          .then((res) => {
-            return res.arrayBuffer();
-          })
-          .then(appendToBuffer);
-
-        index++;
-        if (index > numberOfChunks) {
-          sourceBuffer.removeEventListener("updateend", nextSegment);
-        }
-      }
-
-      function appendToBuffer(videoChunk) {
-        if (videoChunk) {
-          sourceBuffer.appendBuffer(new Uint8Array(videoChunk));
-        }
-      }
     </script>
   </body>
 </html>

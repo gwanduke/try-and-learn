@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+      }
+
+      canvas {
+        height: 20px;
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <video
+      id="videoEl"
+      controls=""
+      poster="http://media.w3.org/2010/05/bunny/poster.png"
+      src="../../../videos/frag_bunny.mp4"
+      width="300"
+    ></video>
+
+    <div>
+      <canvas id="canvas"></canvas>
+    </div>
+    <div>buffered.length: <span id="bufferedLen"></span></div>
+    <div>
+      buffered.times (s):
+      <ul id="bufferedList"></ul>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        var context = canvas.getContext("2d");
+
+        context.fillStyle = "lightgray";
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = "red";
+        context.strokeStyle = "white";
+
+        videoEl.addEventListener("timeupdate", function () {
+          context.fillStyle = "lightgray";
+          context.fillRect(0, 0, canvas.width, canvas.height);
+
+          context.fillStyle = "red";
+          context.strokeStyle = "white";
+          bufferedList.innerHTML = "";
+          var inc = canvas.width / videoEl.duration;
+          for (i = 0; i < videoEl.buffered.length; i++) {
+            var startX = videoEl.buffered.start(i) * inc;
+            var endX = videoEl.buffered.end(i) * inc;
+            var width = endX - startX;
+
+            // 버퍼링 UI 그리는 코드
+          }
+          bufferedLen.textContent = videoEl.buffered.length;
+        });
+      });
+    </script>
+  </body>
+</html>

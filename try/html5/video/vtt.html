@@ -11,24 +11,19 @@
         background: transparent !important;
         outline: none !important;
       }
+      ::cue::past {
+        color: yellow;
+      }
+
+      ::cue::future {
+        text-shadow: black 0 0 1px;
+      }
     </style>
   </head>
   <body>
-    <video src="../../../videos/oceans.mp4" controls autoplay muted>
-      <track
-        src="./oceans.vtt"
-        kind="subtitles"
-        lang="ko"
-        label="한글"
-        default
-      />
-      <track
-        src="./oceans.vtt"
-        kind="subtitles"
-        lang="en"
-        label="영어"
-        default
-      />
+    <video src="../../../videos/frag_bunny.mp4" controls autoplay muted>
+      <track src="./oceans.vtt" kind="subtitles" label="한글" default />
+      <track src="./oceans.vtt" kind="captions" label="영어" default />
     </video>
   </body>
 </html>
