@@ -12,13 +12,13 @@
         "outputPath": "dist/apps/remote",
         "index": "apps/remote/src/index.html",
         "baseHref": "/",
-        "main": "apps/remote/src/main.tsx",
+        "main": "apps/remote/src/index.ts",
         "polyfills": "apps/remote/src/polyfills.ts",
         "tsConfig": "apps/remote/tsconfig.app.json",
         "assets": ["apps/remote/src/favicon.ico", "apps/remote/src/assets"],
         "styles": ["apps/remote/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "apps/remote/webpack.config.js"
       },
       "configurations": {
         "development": {

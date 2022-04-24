@@ -12,13 +12,13 @@
         "outputPath": "dist/apps/shell",
         "index": "apps/shell/src/index.html",
         "baseHref": "/",
-        "main": "apps/shell/src/main.tsx",
+        "main": "apps/shell/src/index.ts",
         "polyfills": "apps/shell/src/polyfills.ts",
         "tsConfig": "apps/shell/tsconfig.app.json",
         "assets": ["apps/shell/src/favicon.ico", "apps/shell/src/assets"],
         "styles": ["apps/shell/src/styles.scss"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "apps/shell/webpack.config.js"
       },
       "configurations": {
         "development": {
@@ -48,7 +48,7 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "shell:build",
-        "hmr": true
+        "hmr": false
       },
       "configurations": {
         "development": {

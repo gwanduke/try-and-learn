@@ -1,14 +1,13 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
-import NxWelcome from './nx-welcome';
-
+import React, { Suspense } from 'react';
+const RemoteEntry = React.lazy(() => import('remote/RemoteEntry'));
 export function App() {
   return (
     <>
-      <NxWelcome title="shell" />
-      <div />
+      Shell App
+      <Suspense fallback={<div>Loading...</div>}>
+        <RemoteEntry></RemoteEntry>
+      </Suspense>
     </>
   );
 }
-
 export default App;
