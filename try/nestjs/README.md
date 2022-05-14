@@ -53,3 +53,67 @@ Nest (NestJS) is a framework for building efficient, scalable Node.js server-sid
 - 만들 때 interface or class 를 사용할 수 있지만 class가 추천되는 방법
 - Why? 데이터 유효성 체크에 효율적이며 더 안정적인 코드를 만들어줌 (타입으로도 사용됨)
   - (title, description을 여러군데서 사용하는데 이를 한군데서 관리 가능)
+
+### Pipe
+
+`@Injectable` 데코레이터로 주석이 달린 클래스. data transformation, data validation을 위해서 사용됨.
+
+(실제 컨트롤러 핸들러에 도착하기 전에 처리되는 미들웨어 같은 느낌인듯)
+
+#### Data Transformation
+
+- 문자 -> 정수
+- 정수 -> 문자
+
+등의 필요한 정보 변환
+
+#### Data Validation
+
+#### 사용 방법
+
+1. 핸들러레벨
+
+```ts
+@Post()
+@UsePipes(pipe)
+create() {
+  // ...
+}
+```
+
+2. 파라미터레벨
+
+```ts
+@Post()
+create(@Body('title', ParameterPipe) title) {
+  // ...
+}
+```
+
+3. 글로벌레벨
+
+```ts
+async function bootstrap() {
+  const app = await NestFactory.craete(AppModule);
+  app.useGlobalPipes(GlobalPipes); // 그롤벌 파이프
+  await app.listen(3000);
+}
+bootstrap();
+```
+
+#### Built-in pipe
+
+6가지 기본제공
+
+- ValidationPipe
+- ParseIntPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
+- DefaultValuePipe
+
+## 오랜만이다 ORM, TypeORM
+
+(Object Relational Mapping)
+
+- ORM은 Object 객체와 관계형 Database 사이에 매핑해주는 녀석

@@ -25,4 +25,19 @@ export class BoardsService {
 
     return board;
   }
+
+  getBoardById(id: string): Board {
+    return this.boards.find((board) => board.id === id);
+  }
+
+  deleteBoard(id: string): void {
+    const found = this.getBoardById(id);
+    this.boards = this.boards.filter((board) => board.id !== found.id);
+  }
+
+  updateBoardStatus(id: string, status: BoardStatus): Board {
+    const board = this.getBoardById(id);
+    board.status = status;
+    return board;
+  }
 }
