@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+
+    <script>
+      /**
+       * @type {HTMLCanvasElement}
+       */
+      const canvas = document.querySelector("canvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const ctx = canvas.getContext("2d");
+      ctx.fillRect(100, 100, 100, 100);
+
+      ctx.beginPath();
+      ctx.moveTo(50, 300);
+      ctx.lineTo(300, 100);
+      ctx.lineTo(400, 300);
+      ctx.strokeStyle = "#fa34a3";
+      ctx.stroke();
+
+      for (let i = 0; i < 400; i++) {
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        ctx.beginPath();
+        ctx.arc(x, y, 30, 0, Math.PI * 2, false);
+        ctx.stroke();
+      }
+    </script>
+  </body>
+</html>

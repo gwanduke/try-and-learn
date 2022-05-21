@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+
+    <script>
+      /**
+       * @type {HTMLCanvasElement}
+       */
+      const canvas = document.querySelector("canvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const ctx = canvas.getContext("2d");
+
+      function Circle(x, y, dx, dy, radius) {
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+        this.radius = radius;
+
+        this.draw = function () {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, radius, 0, Math.PI * 2, false);
+          ctx.stroke();
+        };
+
+        this.update = function () {
+          if (this.x > canvas.width - radius || this.x - radius < 0) {
+            this.dx = this.dx * -1;
+          }
+          if (this.y > canvas.height - radius || this.y - radius < 0) {
+            this.dy = this.dy * -1;
+          }
+          this.x += this.dx;
+          this.y += this.dy;
+          this.draw();
+        };
+      }
+
+      const circleArray = [];
+      const radius = 30;
+
+      for (let i = 0; i < 100; i++) {
+        circleArray.push(
+          new Circle(
+            Math.random() * (canvas.width - radius * 2) + radius,
+            Math.random() * canvas.height,
+            (Math.random() - 0.5) * 8,
+            (Math.random() - 0.5) * 8,
+            30
+          )
+        );
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(animate);
+        circleArray.forEach((circle) => {
+          circle.update();
+        });
+      }
+      animate();
+    </script>
+  </body>
+</html>
