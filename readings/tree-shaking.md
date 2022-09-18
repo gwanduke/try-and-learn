@@ -1,0 +1,2 @@
+- https://itsrennyman.medium.com/your-next-js-bundle-will-thank-you-89962402a5ec
+  - index.js에 re-export 한것들을 사용하면 tree shaking 안되는 현상?
