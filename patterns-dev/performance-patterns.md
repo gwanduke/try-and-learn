@@ -67,26 +67,81 @@
 
 ## Static Import
 
+(특별한 내용 없음)
+
+정적으로 import 되면 번들에 포함시킨다.
+
 ## Dynamic Import
+
+(특별한 내용 없음)
+
+앱의 어떤 영역을 lazy load 하면서 React.Suspense 같을 것들을 사용할 수 있다. 이는 FCP, LCP, TTI 단축에 효과적일 수 있다.
 
 ## Import On Visibility
 
+(특별한 내용 없음)
+
+IntersectionObserver, react-lazyload, react-loadable-visibility 등을 사용해 어떤 컴포넌트가 실제로 화면(뷰포트)에 보여질 때 로드하도록 처리할 수 있음
+
 ## Import On Interaction
+
+<!-- TODO -->
 
 ## Route Based Splitting
 
+(특별한 내용 없음)
+
+대부분의 사용자는 리디렉션 중에는 로딩이 있다는 것에 익숙하기 때문에 이 때가 컴포넌트를 지연로딩시키기에 최적의 타이밍
+
 ## Bundle Splitting
+
+- 코드를 작고 재사용 가능한 수준으로 쪼갠다
+- 번들을 작게 (쪼개) 유지하여 실행시간을 최소화하는 것이 좋다. (번들이 클수록 실행시간이 길다)
+- 번들에 그 시점에 사용자가 사용하는 것들만 포함되도록 쪼갠다.
 
 ## PRPL Pattern
 
+- **P**ush (or preload) the most important resources (첫 페이지에 중요한 리소스는 push 혹은 preload 한다)
+- **R**ender the initial route as soon as possible (첫 페이지를 빠르게 렌더한다)
+- **P**re-cache remaining routes (첫 페이지 외의 라우팅을 프리 캐시한다)
+- **L**azy-load other routes and non-critical assets (다른 중요하지 않는 리소스는 지연로딩한다)
+
+주요사항
+
+- 서버와의 라운드트립을 줄이고 로딩 타임을 감소시키기 위해. 클라이언트 측에 중요 리소스를 효율적으로 전달한다.
+- UX를 위해 초기 탐색 경로에 대한 페이지를 가능한 빨리 렌더링한다.
+- 백그라운드에서 에셋들을 캐시하여 서버로의 요청을 줄이고 오프라인 상태일때에 더 나은 경험을 제공한다.
+- 자주 요청되지 않는 에셋들을 지연로딩한다.
+
+<!-- TODO -->
+
 ## Tree Shaking
+
+dead code들을 최종 번들중에 제거하는 과정
+
+- 의존 관계를 Abstract Syntax Tree 로 표현하고 앱의 진입점부터 사용여부를 판단
+- 사이드이펙트가 있는 코드는 제거되지 않음 (firstName을 사용하는 곳이 없다면, 제거됨 - `let firstName = 'Jane'`, 제거안됨 - `let firstName = getName()`)
+- ES2015 `import`, `export`로 정의된 모듈만 tree-shaking 가능
+- Side Effects
+  - ES6 모듈을 import하는 경우 해당 모듈은 즉시 실행된다. 이 때 참조하는 코드가 export하는 것을 참조하지 않더라도 그 코드 내부에서 전역에 무언가 영향을 줄 수 있다 (예를 들면 폴리필 추가, 전역 스타일시트 추가 등..) 이를 side effect라 한다. 모듈이 export하는 것을 참조하지 않고 있더라도 위와 같은 특이 동작들로 인해 tree-shaking이 불가해지는 경우가 있다.
+  - 자세한건 [여기 webpack 문서](https://webpack.js.org/guides/tree-shaking/#clarifying-tree-shaking-and-sideeffects) 참고
 
 ## Preload
 
+<!-- TODO -->
+
 ## Prefetch
+
+<!-- TODO -->
 
 ## Optimize loading third-parties
 
+<!-- TODO -->
+
 ## List Virtualization
 
+<!-- TODO -->
+
 ## Compressing JavaScript
+
+<!-- TODO -->
